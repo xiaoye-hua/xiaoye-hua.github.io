@@ -1,9 +1,8 @@
-# HuxBlog Boilerplate
+## 小烨博客-xiaoye's blog
 
-##### This is the boilerplate of [Hux Blog](https://github.com/Huxpro/huxpro.github.io), all documents is over there!
 
-#### [View Boilerplate &rarr;](http://huangxuan.me/huxblog-boilerplate/)
 
-#### [View Live Hux Blog &rarr;](http://huangxuan.me)
+博客网址：[http://xiaoye-hua.github.io](http://xiaoye-hua.github.io)
 
-## If you like Hux Blog, Please star [huxpro.github.io repo](https://github.com/Huxpro/huxpro.github.io) instead of this! Thank you!
+
+源自[HuxBlog Boilerplate](https://github.com/Huxpro/huxblog-boilerplate), [原始效果](http://huangxuan.me/huxblog-boilerplate/)
