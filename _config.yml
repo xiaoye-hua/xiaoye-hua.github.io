@@ -68,7 +68,7 @@ kramdown:
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "日拱一卒, 功不唐捐"
+sidebar-about-description: "那黝黑的外表很符合我健康的肤色"
 sidebar-avatar: /img/xiaoye.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
