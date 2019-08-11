@@ -1,7 +1,7 @@
 # Site settings
 title: Confused Xiaoye
 SEOTitle: 困惑的小烨 | Confused Xiaoye
-header-img: img/home-bg.jpg
+header-img: img/home_20190812.jpg
 # email: huxpro@gmail.com
 description: "Not knowing something doesn’t mean you’re dumb— it just means you don’t know it."
 # keyword: ""
@@ -68,7 +68,7 @@ kramdown:
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "那黝黑的外表很符合我健康的肤色"
+# sidebar-about-description: "那黝黑的外表很符合我健康的肤色"
 sidebar-avatar: /img/xiaoye.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
