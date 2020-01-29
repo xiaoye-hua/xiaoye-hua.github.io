@@ -1,20 +1,21 @@
 ---
 layout: post
-title: "Ubuntu 18.04 安装配置shawdowsocks过程"
+title: "Ubuntu 18.04 shawdowsocks配置; clash配置"
 subtitle: 整体概念和疑问
 date: 2018-09-01
-published: False 
+published: False
 tags:
   - 工具
 ---
 
 
 
-## 前言
+# 前言
 之前用学校的vpn科学上网，然而我科技大国技术太高强，跪了。于是打算ubuntu机器上装shadowsocks。实话说搞了很久，google，baidu。
 
 有个疑惑吧（当然也有可能是我不太会搜集信息）：翻阅了不少博客，很少发现有整体性的介绍。比如说直接说你需要设置几个模块这种，没有整体印象，大多陷入细节。然而由于系统和版本的原因，很多细节又不能重现。
 
+# shadowsocks 配置
 
 ## 主要步骤
 首先是整体印象，我总结的安装配置的四个步骤是：
@@ -76,4 +77,22 @@ tags:
 + 总感觉在干一件事情的时候，必须需要有个整体的概念才行。感觉这样才不至于陷于细节不能自拔
 + 虽说是个工具，然而工具不好用，还是很尴尬的，验证影响心情和效率。
 
-## 未完待续
+
+
+
+# Linux clash 配置
+## 配置步骤:
+1. clash 配置
+  2. 下载clash并解压二进制文件(目前双击文件没有反馈,然而完成启动)
+  3. 运行一次clash后, 自动产生文件夹/home/userid/.config/clash; 更新config.yaml文件;
+  4. clash.razord.top 可查看clash配置
+2. linux 电脑配置
+  3. 打开网络->系统代理->手动, 根据config.yaml 修改http, socks代理ip和端口
+  4. 重启clash后可用
+
+
+## 目前使用方法:
+1. 每次开机后必需手动打开clash文件,如果不打开则国内网络也连不了
+
+## 参考文献
+[Clash For Linux 安装及使用](https://www.jianshu.com/p/2906066d2e0a)
