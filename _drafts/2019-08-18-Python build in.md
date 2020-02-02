@@ -1,4 +1,4 @@
----
+﻿---
 layout: post
 title: Python build in
 subtitle:
@@ -50,7 +50,3 @@ class	Trip(metaclass=ABCMeta):
 								self.day3()
 								self.returnHome()
 ```
-# 思考
-1. pgfParser 可以做成template design pattern
-2. game 要集成abstract class, 用kwargs
-3.
