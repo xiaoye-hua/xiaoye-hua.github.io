@@ -9,10 +9,8 @@ catalog: true
 tags:
   - deep learning
   - machine learning
-  - 学习笔记-couse note
+  - 学习笔记-course note
 ---
-
-random variables $X_1, X_2, X_3$ from
 
 如果说第一门课程介绍了神经网络的基本框架，这门课开始在框架之上进行＇修饰＇(自己借用的词)．主要涉及四部分知识：神经网络实际应用技巧，正则化，优化算法和超参数选择．
 
@@ -105,8 +103,8 @@ $$\sqrt{\frac{1}{n^{[l-1]}}}$$
 1. 计算dw时需要加一项
 1. 使用时需要关闭dropout
 
-Optimization Algorithms
---
+## Optimization Algorithms
+
 在本节中，首先引入了mini-batch梯度下降的概念，然后介绍指数加权平均的概念，之后介绍的动量梯度下降，RMSprop, Adam算法都有赖于这个概念．最后介绍了学习率递减和局部最优解的问题．
 
 ### Summay
