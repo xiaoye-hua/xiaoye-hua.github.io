@@ -4,11 +4,15 @@ title: Deep Learning Course Note (Part 2)
 subtitle:  Hyperparameter Tuning, Regularization and Optimization
 date: 2018-02-07
 published: True
+mathjax: True
+catalog: true
 tags:
   - deep learning
   - machine learning
   - 学习笔记-couse note
 ---
+
+random variables $X_1, X_2, X_3$ from
 
 如果说第一门课程介绍了神经网络的基本框架，这门课开始在框架之上进行＇修饰＇(自己借用的词)．主要涉及四部分知识：神经网络实际应用技巧，正则化，优化算法和超参数选择．
 
