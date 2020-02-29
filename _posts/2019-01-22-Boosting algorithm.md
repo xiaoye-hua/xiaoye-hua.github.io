@@ -2,7 +2,7 @@
 layout: post
 title: "Boosting algorithms"
 subtitle:
-date: 2020-01-22
+date: 2019-01-22
 published: True
 tags:
   - machine learning
