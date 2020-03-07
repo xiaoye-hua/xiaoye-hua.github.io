@@ -1,7 +1,19 @@
+---
+layout: post
+title: Machine Learning Algorithms Summary
+# subtitle:  Neutron Network and Deep Learning
+date: 2017-11-30
+published: True
+mathjax: True
+catalog: true
+tags:
+  - data structure & algorithms
+---
+## TOC
+1. Introduction
+{:toc}
+
 # Introduction
-
-gh  2017.11.30
-
 在此总结传统机器学习算法，主要有：
 
 一. 监督学习(Supervised Learning):
@@ -15,6 +27,8 @@ gh  2017.11.30
 
 二. 非监督学习(Unsupervised Learning):
 1. K-平均聚类(k-means-clustering)
+
+
 
 # 监督学习
 
@@ -42,7 +56,7 @@ gh  2017.11.30
 
   如下图：
 
-<img src='images/lr.png' width="400">
+<img src='/img/deep_learning_course/lr.png' width="400">
 
 ## 逻辑回归
 
@@ -151,7 +165,7 @@ gh  2017.11.30
 **Bayes Theorem**
 1. $$P(A/B)P(B) = P(B/A)P(A)$$
    $$P(A/B) = \frac{P(B/A)P(A)}{P(B)}$$
-   
+
 # Unsupervised Learning
 
 ## K-means
