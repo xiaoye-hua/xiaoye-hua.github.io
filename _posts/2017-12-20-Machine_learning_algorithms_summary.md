@@ -7,7 +7,7 @@ published: True
 mathjax: True
 catalog: true
 tags:
-  - data structure & algorithms
+  - machine learning
 ---
 ## TOC
 1. Introduction
@@ -124,6 +124,10 @@ tags:
 2. it reduces variance
 3. several decision trees are creating using sampling: every tree select subset of the datasets or subsets of all the features. Their results will be averaged as the final result.
 
+Difference between random forest classifer and random forest regressor in sklearn:
+1. split criterion for classifer: gini or infomation gain
+2. split criterion for regressor: MSE or MAE
+
 随机森林是多个决策树的合体(ensemble of decision tree), 即通过向决策树中引入方差使整体得到一个更好的结果。集成算法，随机选取不同特征和训练样本，生成大量决策树．准确性提高．
 
 主要有两种方法：
@@ -131,9 +135,26 @@ tags:
 - random features subset
 
 
-应用场景：
+应用场景：数据维度相对较低，对准确度有较高要求
+### Decision Tree
+There are three steps in this method
+1. Selection of split feature
+  2. classification criterion
+    3. infomation gain(entropy)
+    4. Gini coefficiency
+  3. regression criterion
+    4. MAE
+    5. MSE
+2. Creation of decision trees
+3. Tree prune
+  4. By minimize loss functions(cost function)
 
-    数据维度相对较低，对准确度有较高要求
+Three type of algorithms
+1. ID3
+2. C4.5
+2. CART(classification and regression tree)
+
+
 
 ## 支持向量机 (Support Vector Machine)
 
