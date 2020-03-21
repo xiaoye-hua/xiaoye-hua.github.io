@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Agile Development
-subtitle: How many time you did you fail your long-term plans for the next year?
+subtitle: How many time did you fail your long-term plans for the next year?
 date: 2020-03-15
 published: True
 mathjax: True
