@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deploying Sklearn Model with Pipeline and joblib
+title: Deploy Sklearn Model with Pipeline and joblib
 date: 2020-04-02
 published: True
 mathjax: True
@@ -51,6 +51,7 @@ new_pipeline = joblib.load(
 ### Error: module `__main__` has no attribute
 When deploying the model with joblib, I encountered this error:
 <img src='/img/programming/20200401_sklearn_bug.png' width='800' >
+
 Refer to [this stackoverflow answer](https://stackoverflow.com/questions/49621169/joblib-load-main-attributeerror). It's because of the way I saved the model: Pickle does not dump the actual code classes and functions, only their names. It includes the name of the module each one was defined. If dumpping a class defined in a module you're running as a script, it will dump the name __main__ as the module name. In this case, function process_text will be saved as __main__.process_text.
 
 I solved this errors with the following steps:
