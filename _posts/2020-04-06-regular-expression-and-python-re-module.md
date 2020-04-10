@@ -15,7 +15,7 @@ tags:
 {:toc}
 
 # Introduction
-As a machine learning engineer, sometime I need to retrieve infomation from string or text file. Besides the basic functions of Python build-in string, regular expression is an important tool.
+As a machine learning engineer, sometime I need to retrieve information from string or text file. Besides the basic functions of Python build-in string, regular expression is an important tool.
 
 I will summarize some basic knowledge of regular expression and Python re module in this post. We can get more informations from the references listed in the last section.
 
@@ -68,7 +68,7 @@ m.group(2)
 ```
 
 Backreference:
-```
+```python
 p = re.compile(r'\b(\w+)\s+\1\b')
 p.search('Paris in the the spring').group()
 # "the the"
