@@ -1,0 +1,3 @@
+I"?<h1 id="process-vs-thread">Process VS Thread</h1>
+<p>A process is an instance of program (e.g. Jupyter notebook, Python interpreter). Processes spawn threads (sub-processes) to handle subtasks like reading keystrokes, loading HTML pages, saving files. Threads live inside processes and share the same memory space.</p>
+:ET

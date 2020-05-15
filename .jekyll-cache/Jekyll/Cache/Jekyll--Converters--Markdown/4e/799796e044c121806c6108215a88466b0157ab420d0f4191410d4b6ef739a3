@@ -1,0 +1,130 @@
+I"(<<h1>Table of Contents<span class="tocSkip"></span></h1>
+<div class="toc"><ul class="toc-item"><li><span><a href="#定义树节点" data-toc-modified-id="定义树节点-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>定义树节点</a></span></li><li><span><a href="#由前序，中序到后序" data-toc-modified-id="由前序，中序到后序-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>由前序，中序到后序</a></span></li><li><span><a href="#由后序，中序到前序" data-toc-modified-id="由后序，中序到前序-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>由后序，中序到前序</a></span></li></ul></div>
+
+<h1 id="定义树节点">定义树节点</h1>
+
+<p><strong>一定要注意递归的思想</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#定义node
+</span><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">None</span>
+</code></pre></div></div>
+
+<h1 id="由前序中序到后序">由前序，中序到后序</h1>
+
+<p>前：GDAFEMHZ</p>
+
+<p>中：ADEFGHMZ</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">preorder</span> <span class="o">=</span> <span class="s">'GDAFEMHZ'</span>
+<span class="n">inorder</span> <span class="o">=</span> <span class="s">'ADEFGHMZ'</span>
+<span class="n">preorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">preorder</span><span class="p">]</span>
+<span class="n">inorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inorder</span><span class="p">]</span>
+
+<span class="c1"># create_tree 和print_post 函数都不需要额外的记忆量
+</span>
+<span class="k">def</span> <span class="nf">create_tree</span><span class="p">(</span><span class="n">preorder</span><span class="p">,</span> <span class="n">inorder</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preorder</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">preorder</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">inorder</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">preorder</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">create_tree</span><span class="p">(</span><span class="n">preorder</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">inorder</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">create_tree</span><span class="p">(</span><span class="n">preorder</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:],</span> <span class="n">inorder</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="n">root</span>
+
+
+
+<span class="k">def</span> <span class="nf">print_post</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">print_post</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">print_post</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="p">[</span><span class="n">root</span><span class="p">.</span><span class="n">value</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## 测试print_post函数
+</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>
+<span class="n">a</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">b</span>
+<span class="n">a</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">c</span>
+<span class="n">b</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">d</span>
+<span class="n">b</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">e</span>
+<span class="n">c</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">f</span>
+<span class="n">c</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">g</span>
+<span class="n">print_post</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[4, 5, 2, 6, 7, 3, 1]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 测试
+</span><span class="n">root</span> <span class="o">=</span>  <span class="n">create_tree</span><span class="p">(</span><span class="n">preorder</span><span class="p">,</span> <span class="n">inorder</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">print_post</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Post order is : '</span><span class="p">,</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Post order is :  AEFDHZMG
+</code></pre></div></div>
+
+<h1 id="由后序中序到前序">由后序，中序到前序</h1>
+
+<p>后：AEFDHZMG</p>
+
+<p>中：ADEFGHMZ</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">postorder</span> <span class="o">=</span> <span class="s">'AEFDHZMG'</span>
+<span class="n">inorder</span> <span class="o">=</span> <span class="s">'ADEFGHMZ'</span>
+<span class="n">postorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">postorder</span><span class="p">]</span>
+<span class="n">inorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inorder</span><span class="p">]</span>
+
+<span class="c1"># create_tree 和print_post 函数都不需要额外的记忆量
+</span>
+<span class="k">def</span> <span class="nf">create_tree</span><span class="p">(</span><span class="n">postorder</span><span class="p">,</span> <span class="n">inorder</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">postorder</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">postorder</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">inorder</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">postorder</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">create_tree</span><span class="p">(</span><span class="n">postorder</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">idx</span><span class="p">],</span> <span class="n">inorder</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">create_tree</span><span class="p">(</span><span class="n">postorder</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">inorder</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="n">root</span>
+
+
+
+<span class="k">def</span> <span class="nf">print_pre</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">.</span><span class="n">value</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">print_pre</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">print_pre</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## 测试print_pre函数
+</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>
+<span class="n">a</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">b</span>
+<span class="n">a</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">c</span>
+<span class="n">b</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">d</span>
+<span class="n">b</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">e</span>
+<span class="n">c</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">f</span>
+<span class="n">c</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">g</span>
+<span class="n">print_pre</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, 2, 4, 5, 3, 6, 7]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 测试
+</span><span class="n">root</span> <span class="o">=</span>  <span class="n">create_tree</span><span class="p">(</span><span class="n">postorder</span><span class="p">,</span> <span class="n">inorder</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">print_pre</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Pre order is : '</span><span class="p">,</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pre order is :  GDAFEMHZ
+</code></pre></div></div>
+:ET

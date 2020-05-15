@@ -1,0 +1,49 @@
+I"	<h1 id="introduction">Introduction</h1>
+<p>Lately, I’m working on a project related to poker AI, which is related to game theory. To learn more about game theory, I choose the <a href="https://www.coursera.org/learn/game-theory-1">Game Theory from Stanford University and the University of British Columbia in Cousera</a>.(I still don’t know how to display the math charactors correctly)</p>
+
+<h1 id="basic-concepts-of-week-1">Basic Concepts of Week 1</h1>
+<h3 id="define-game">Define Game</h3>
+<p><strong>Three key ingredients:</strong></p>
+<ol>
+  <li>Player</li>
+  <li>Actions</li>
+  <li>Payoffs/utility</li>
+</ol>
+
+<p><strong>Two forms:</strong></p>
+<ol>
+  <li>Normal form</li>
+  <li>Extensive form: beside player, action, payoff(utility), there are timeing, information(state?)</li>
+</ol>
+
+<p><strong>Categoty:</strong></p>
+<ol>
+  <li>Game of pure competition</li>
+  <li>game of cooperation</li>
+</ol>
+
+<h3 id="best-response-and-nash-equilibrium">Best response and Nash equilibrium</h3>
+<p>For ith player, his action profile is $A_i$, then the left players’s action profiles in the game are:$a_(i-1) = (a_i, …a_(i-1), a_(i+1)…a_n)$</p>
+
+<p><strong>Best response:</strong></p>
+
+<p>$a<em>_i \in BR(a_(-i)) iff \foralla_i \in A_i, u_i(a</em><em>i, a*</em>(-i)) \geq u_i(a_i, a_(-i)))$</p>
+
+<p><strong>Nash Equilibrium</strong></p>
+
+<p>$a = (a_1, a_2,….a_i,….a_n) is a (pure strategy) Nash equilibrium iff \forall i, a_i \in BR(a_(-i))$</p>
+
+<h3 id="dominant-strategies-and-nash-equilibrium">Dominant strategies and Nash equilibrium</h3>
+<p>Let s_i and s_i^{\prime} be two strategies for player i and S_{-i} be the set of all possible strategies for the other players</p>
+
+<p><strong>Domination</strong></p>
+
+<p>$s_i <strong>strictly dominates</strong> s_i^{\prime} if \forall s_{-i} \in S_{-1}, u_i(s_i, s_{-i}) &gt; u_i(s_i^{\prime}, s_{-i})$</p>
+
+<p>$s_i <strong>weekly dominates</strong> s_i^{\prime} if \forall s_{-i} \in S_{-1}, u_i(s_i, s_{-i}) \geq u_i(s_i^{\prime}, s_{-i</p>
+
+<p><strong>Pareto Optimality</strong>
+As for game outcome, sometimes one outcome O is at least as good for every agent as another O’, and there is some agent who strictly prefers O to O’. We say O Pareto-deminates O’.</p>
+
+<p>$An outcome O* is Pareto-optimal if there is no other outcome that Pareto-optimal it$</p>
+:ET

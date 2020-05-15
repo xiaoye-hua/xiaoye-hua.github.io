@@ -1,0 +1,109 @@
+I"F'<h1>Table of Contents<span class="tocSkip"></span></h1>
+<div class="toc"><ul class="toc-item"><li><span><a href="#图" data-toc-modified-id="图-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>图</a></span></li><li><span><a href="#算法" data-toc-modified-id="算法-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>算法</a></span></li><li><span><a href="#实现" data-toc-modified-id="实现-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>实现</a></span></li></ul></div>
+
+<h1 id="图">图</h1>
+
+<p>以下面有向图为例, 以字典来表示这个图, 如下:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="s">'1'</span><span class="p">,</span> <span class="s">'2'</span><span class="p">,</span> <span class="s">'3'</span><span class="p">,</span> <span class="s">'4'</span><span class="p">,</span> <span class="s">'5'</span><span class="p">,</span> <span class="s">'6'</span>
+<span class="n">g</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">b</span><span class="p">:[</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">c</span><span class="p">:[],</span> <span class="n">d</span><span class="p">:[</span><span class="n">e</span><span class="p">],</span> <span class="n">e</span><span class="p">:[</span><span class="n">b</span><span class="p">,</span> <span class="n">f</span><span class="p">],</span> <span class="n">f</span><span class="p">:[</span><span class="n">c</span><span class="p">]}</span>
+</code></pre></div></div>
+
+<p><img src="/img/deep_learning_course/BFS_DFS.png" width="800" /></p>
+
+<h1 id="算法">算法</h1>
+
+<p><strong>Go and check leetcode problem num 102</strong></p>
+
+<p>BFS用队列实现, DFS用栈实现. 由于栈和递归特殊的关系, DFS也可以用递归实现, 当然一般用递归实现.</p>
+
+<p><strong>BFS</strong>
+通俗讲为从初始顶点开始, 先访问所有距离为1的顶点, 然后再访问所有距离为2的顶点(先被访问顶点的临节点要比后被访问节点临节点先访问)….</p>
+
+<p>结果为: 1, 2, 4, 3, 5, 6</p>
+
+<p><strong>DFS</strong>
+通俗讲为从初始顶点开始, 把一个分支访问完之后再访问下个分支…</p>
+
+<p>结果为: 1, 2, 3, 4, 5, 6</p>
+
+<h1 id="实现">实现</h1>
+
+<p><strong>BFS</strong></p>
+
+<p>用queue实现</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">BFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">begin_point</span><span class="p">):</span>
+    <span class="n">visted</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">begin_point</span><span class="p">]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span> <span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">pop</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">visted</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">visted</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">next_point</span> <span class="ow">in</span> <span class="n">g</span><span class="p">[</span><span class="n">pop</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">next_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visted</span><span class="p">:</span>
+                <span class="n">queue</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_point</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">visted</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '4', '3', '5', '6']
+</code></pre></div></div>
+
+<p><strong>DFS</strong></p>
+
+<p>用栈实现</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">DFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">begin_point</span><span class="p">):</span>
+    <span class="n">visted</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">begin_point</span><span class="p">]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pop</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">visted</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">visted</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span>
+
+<span class="c1">#         lst = g[pop]
+#         print('lst', lst)
+#         print(type(lst))
+#         print('lst reverse', lst.reverse())
+#         r = lst.reverse()
+</span>        <span class="k">for</span> <span class="n">next_point</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">pop</span><span class="p">])):</span>
+            <span class="k">if</span> <span class="n">next_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visted</span><span class="p">:</span>
+                <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_point</span><span class="p">)</span>
+
+<span class="c1">#         print('stack', stack)
+#         print('visted', visted)
+</span>    <span class="k">print</span><span class="p">(</span><span class="n">visted</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '3', '4', '5', '6']
+</code></pre></div></div>
+
+<p>用递归实现</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">DFS_r</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">begin_point</span><span class="p">):</span>
+    <span class="n">visited</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">begin_point</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+        <span class="k">return</span>
+    <span class="k">for</span> <span class="n">next_point</span> <span class="ow">in</span> <span class="n">g</span><span class="p">[</span><span class="n">begin_point</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">next_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">DFS_r</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">next_point</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DFS_r</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">visited</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '3', '4', '5', '6']
+</code></pre></div></div>
+:ET

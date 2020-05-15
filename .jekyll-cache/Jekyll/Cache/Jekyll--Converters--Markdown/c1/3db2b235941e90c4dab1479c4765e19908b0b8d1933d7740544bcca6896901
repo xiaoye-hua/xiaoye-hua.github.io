@@ -1,0 +1,409 @@
+I"u�<h1 id="introduction">Introduction</h1>
+
+<p>本节总结如下排序方法：</p>
+<ol>
+  <li>Bubble sort 冒泡排序</li>
+  <li>Selection sort 选择排序</li>
+  <li>Insertion sort 插入排序</li>
+  <li>Shell sort 希尔排序</li>
+  <li>Merge sort 归并排序</li>
+  <li>Quick sort 快速排序</li>
+  <li>heap sort 堆排序</li>
+</ol>
+
+<h2 id="summary">Summary</h2>
+
+<p>以上这6种排序方法都为<strong>比较排序</strong>, 总体总结这几种排序:</p>
+<ol>
+  <li>冒泡排序的过程中会不断的交换元素, 然而选择排序可以说是冒泡排序的改进版, 它相当于选择了前面数列中的最大值, 省却了在过程中更换位置的操作;</li>
+  <li>插入排序相当于把过程反过来, 假设之前的列表已经排好序, 然后把新元素插入其中, 而希尔排序是插入排序的改进版, 它通过先把列表分成几个小列表, 在小列表内部进行插入排序, 最后对大列表进行插入排序, 以此达到较快的排序;</li>
+  <li>归并排序和快速排序用到分治法的思想, 如下图(来源:<a href="https://www.goodreads.com/book/show/9537756-python-algorithms">Python algorithms</a>)为分治法的一个节点展示, 快速排序在前一半(dividing)实现, 而归并排序在后一半(combining)实现.
+<img src="/img/deep_learning_course/sort_algorithm.png" width="600" /></li>
+  <li>堆排序通过使用完全二叉树来实现排序</li>
+</ol>
+
+<p>之后还将介绍到<strong>非比较排序</strong>,主要有计数排序,基数排序,桶排序等</p>
+
+<p>排序算法性能如下:</p>
+
+<p><img src="/img/deep_learning_course/sort_compare.png" width="600" /></p>
+
+<h1 id="bubble-sort">Bubble Sort</h1>
+
+<p>复杂度为$O(n^2)$</p>
+
+<p>算法：</p>
+
+<ul>
+  <li>１．比较相邻的元素，若第一大于第二，就交换他们</li>
+  <li>２．对每一对相邻元素进行相同操作，使最大元素到最后．</li>
+  <li>３．除却后部排好序的元素，然后再次进行１，２步操作</li>
+</ul>
+
+<p>两个两个比较，从头到尾，手中总是拿着到目前为止最大的那个，第一轮过去让最大的元素沉到列表的最后面。依次进行。示意图如下：</p>
+
+<p><img src="/img/deep_learning_course/sorting_bubble.png" width="600" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bubbleSort</span><span class="p">(</span><span class="n">alist</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">passnum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">passnum</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+
+<span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">bubbleSort</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[17, 20, 26, 31, 44, 54, 55, 77, 93]
+</code></pre></div></div>
+
+<h1 id="selection-sort">Selection sort</h1>
+
+<p>复杂度就比较来言，和冒泡排序一样为$O(n^2)$,然而<strong>交换的次数大大减少</strong>，所以运行速度更快。</p>
+
+<p>在剩下的表中，遍历发现最大的元素，然后把它放在末端。</p>
+
+<p><img src="/img/deep_learning_course/sorting_selection.png" width="600" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">selectionSort</span><span class="p">(</span><span class="n">alist</span><span class="p">):</span>
+   <span class="k">for</span> <span class="n">fillslot</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+       <span class="n">positionOfMax</span><span class="o">=</span><span class="mi">0</span>
+       <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">fillslot</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+           <span class="k">if</span> <span class="n">alist</span><span class="p">[</span><span class="n">location</span><span class="p">]</span><span class="o">&gt;</span><span class="n">alist</span><span class="p">[</span><span class="n">positionOfMax</span><span class="p">]:</span>
+               <span class="n">positionOfMax</span> <span class="o">=</span> <span class="n">location</span>
+
+       <span class="n">temp</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">fillslot</span><span class="p">]</span>
+       <span class="n">alist</span><span class="p">[</span><span class="n">fillslot</span><span class="p">]</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">positionOfMax</span><span class="p">]</span>
+       <span class="n">alist</span><span class="p">[</span><span class="n">positionOfMax</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+
+<span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">selectionSort</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[17, 20, 26, 31, 44, 54, 55, 77, 93]
+</code></pre></div></div>
+
+<h1 id="insertion-sort">Insertion sort</h1>
+
+<p>插入排序(insertion sorting)：<strong>假设前面的元素已经排好序</strong>，将这个元素插入前面的元素，为提高速度，可采用二分查找来插入．</p>
+
+<p>复杂度的问题：</p>
+
+<p>算法最坏复杂度为$O(n^2)$,最好为$O(n)$</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># normal insertion sort algorithm
+</span><span class="k">def</span> <span class="nf">insertion_sort</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)):</span>
+        <span class="n">current_value</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">idx</span>
+        <span class="k">while</span> <span class="n">position</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">current_value</span><span class="p">:</span>
+            <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">position</span> <span class="o">-=</span><span class="mi">1</span>
+        <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_value</span>
+<span class="c1"># insertion sort with binary search
+</span><span class="k">def</span> <span class="nf">insertion_sort_binary_search</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)):</span>
+        <span class="n">current_value</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">idx</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">higher</span> <span class="o">=</span> <span class="n">position</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">higher</span> <span class="o">&gt;=</span> <span class="n">lower</span><span class="p">:</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">higher</span> <span class="o">+</span> <span class="n">lower</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">lst</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">current_value</span><span class="p">:</span>
+                <span class="n">higher</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lower</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="c1">#             print lower
+#             print higher
+</span>        <span class="k">while</span> <span class="n">position</span> <span class="o">&gt;</span> <span class="n">lower</span><span class="p">:</span>
+            <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">position</span> <span class="o">-=</span><span class="mi">1</span>
+        <span class="n">lst</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_value</span>
+<span class="c1">#         print lst
+</span></code></pre></div></div>
+
+<p><strong>Shell sort</strong></p>
+
+<p>相当于对列表进行了前处理，使得总的复杂度降低。</p>
+
+<p>前处理：列表被分割成几个小的列表，每个列表内部进行插入排序</p>
+
+<p><img src="/img/deep_learning_course/sorting_shell.png" width="600" /></p>
+
+<p><strong>选用不同的gap进行处理，最后一个的gap为1,得到最后的结果。如下示例代码：</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">shellSort</span><span class="p">(</span><span class="n">alist</span><span class="p">):</span>
+    <span class="n">sublistcount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+    <span class="k">while</span> <span class="n">sublistcount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+      <span class="k">for</span> <span class="n">startposition</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sublistcount</span><span class="p">):</span>
+        <span class="n">gapInsertionSort</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">startposition</span><span class="p">,</span><span class="n">sublistcount</span><span class="p">)</span>
+
+      <span class="k">print</span><span class="p">(</span><span class="s">"After increments of size"</span><span class="p">,</span><span class="n">sublistcount</span><span class="p">,</span>
+                                   <span class="s">"The list is"</span><span class="p">,</span><span class="n">alist</span><span class="p">)</span>
+
+      <span class="n">sublistcount</span> <span class="o">=</span> <span class="n">sublistcount</span> <span class="o">//</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">gapInsertionSort</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">gap</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">gap</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">alist</span><span class="p">),</span><span class="n">gap</span><span class="p">):</span>
+
+        <span class="n">currentvalue</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="k">while</span> <span class="n">position</span><span class="o">&gt;=</span><span class="n">gap</span> <span class="ow">and</span> <span class="n">alist</span><span class="p">[</span><span class="n">position</span><span class="o">-</span><span class="n">gap</span><span class="p">]</span><span class="o">&gt;</span><span class="n">currentvalue</span><span class="p">:</span>
+            <span class="n">alist</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="o">=</span><span class="n">alist</span><span class="p">[</span><span class="n">position</span><span class="o">-</span><span class="n">gap</span><span class="p">]</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">position</span><span class="o">-</span><span class="n">gap</span>
+
+        <span class="n">alist</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="o">=</span><span class="n">currentvalue</span>
+
+<span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">shellSort</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('After increments of size', 4, 'The list is', [20, 26, 44, 17, 54, 31, 93, 55, 77])
+('After increments of size', 2, 'The list is', [20, 17, 44, 26, 54, 31, 77, 55, 93])
+('After increments of size', 1, 'The list is', [17, 20, 26, 31, 44, 54, 55, 77, 93])
+[17, 20, 26, 31, 44, 54, 55, 77, 93]
+</code></pre></div></div>
+
+<h1 id="merge-sort">Merge sort</h1>
+
+<p>合并排序(merge sort):　二路排序，将原始数据分为两部分，分别进行排序，然后将各自集合并． 典型分治法测略．</p>
+
+<ul>
+  <li>Split</li>
+  <li>Merge</li>
+</ul>
+
+<p>时间复杂度：</p>
+
+<p>Split 二分log(n)； Merge 每个元素都会被放入排序好的list中,每个需要ｎ步．</p>
+
+<p>所以总的复杂度为$O(nlogn)$   <strong>归并排序复杂度推倒还不大清楚</strong></p>
+
+<p><img src="/img/deep_learning_course/merg_sort.png" width="600" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">'Spliting: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+
+    <span class="c1">#spliting lst
+</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">left_half</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[:</span><span class="n">mid</span><span class="p">]</span>
+        <span class="n">right_half</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">mid</span><span class="p">:]</span>
+        <span class="n">merge_sort</span><span class="p">(</span><span class="n">left_half</span><span class="p">)</span>
+        <span class="n">merge_sort</span><span class="p">(</span><span class="n">right_half</span><span class="p">)</span>
+
+        <span class="c1"># index of left_half, right_half &amp; lst
+</span>        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># while until one of the list has been iterated
+</span>        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left_half</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right_half</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">left_half</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">right_half</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">lst</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_half</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lst</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_half</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># To iterate the rest one
+</span>        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left_half</span><span class="p">):</span>
+            <span class="n">lst</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_half</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right_half</span><span class="p">):</span>
+            <span class="n">lst</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_half</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">print</span> <span class="s">'Merging: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<h1 id="quick-sort">Quick sort</h1>
+
+<ol>
+  <li>选择最后一个元素作为基准</li>
+  <li>之前所有元素和基准元素比较，分为两部分</li>
+  <li>对每部分进行１，２操作</li>
+</ol>
+
+<p>复杂度：O(nlogn)</p>
+
+<p><strong>以下有两种方法实现快速排序</strong></p>
+
+<ol>
+  <li>index i&amp;j 从左端开始</li>
+  <li>index leftMark, rightMark 从两端同时开始</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 第一种方法
+</span><span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">firstIndex</span><span class="p">,</span> <span class="n">lastIndex</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">firstIndex</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">firstIndex</span><span class="p">,</span> <span class="n">lastIndex</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">arr</span><span class="p">[</span><span class="n">lastIndex</span><span class="p">]:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+<span class="c1">#             print 'j is ' + str(j)
+#             print arr
+</span>    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">lastIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">lastIndex</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+
+<span class="k">def</span> <span class="nf">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">firstIndex</span><span class="p">,</span> <span class="n">lastIndex</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">firstIndex</span> <span class="o">&lt;</span> <span class="n">lastIndex</span><span class="p">:</span>
+        <span class="n">divIndex</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">firstIndex</span><span class="p">,</span> <span class="n">lastIndex</span><span class="p">)</span>
+        <span class="n">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">firstIndex</span><span class="p">,</span> <span class="n">divIndex</span><span class="p">)</span>
+        <span class="n">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">divIndex</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">lastIndex</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span>
+</code></pre></div></div>
+
+<p><strong>第二种方法：</strong></p>
+
+<p><img src="/img/deep_learning_course/sorting_quick.png" width="600" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 第二种方法
+</span><span class="k">def</span> <span class="nf">quickSort</span><span class="p">(</span><span class="n">alist</span><span class="p">):</span>
+   <span class="n">quickSortHelper</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">quickSortHelper</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">first</span><span class="p">,</span><span class="n">last</span><span class="p">):</span>
+   <span class="k">if</span> <span class="n">first</span><span class="o">&lt;</span><span class="n">last</span><span class="p">:</span>
+
+       <span class="n">splitpoint</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">first</span><span class="p">,</span><span class="n">last</span><span class="p">)</span>
+
+       <span class="n">quickSortHelper</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">first</span><span class="p">,</span><span class="n">splitpoint</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+       <span class="n">quickSortHelper</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">splitpoint</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">last</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">first</span><span class="p">,</span><span class="n">last</span><span class="p">):</span>
+   <span class="n">pivotvalue</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">first</span><span class="p">]</span>
+
+   <span class="n">leftmark</span> <span class="o">=</span> <span class="n">first</span><span class="o">+</span><span class="mi">1</span>
+   <span class="n">rightmark</span> <span class="o">=</span> <span class="n">last</span>
+
+   <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
+   <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+
+       <span class="k">while</span> <span class="n">leftmark</span> <span class="o">&lt;=</span> <span class="n">rightmark</span> <span class="ow">and</span> <span class="n">alist</span><span class="p">[</span><span class="n">leftmark</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">pivotvalue</span><span class="p">:</span>
+           <span class="n">leftmark</span> <span class="o">=</span> <span class="n">leftmark</span> <span class="o">+</span> <span class="mi">1</span>
+
+       <span class="k">while</span> <span class="n">alist</span><span class="p">[</span><span class="n">rightmark</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">pivotvalue</span> <span class="ow">and</span> <span class="n">rightmark</span> <span class="o">&gt;=</span> <span class="n">leftmark</span><span class="p">:</span>
+           <span class="n">rightmark</span> <span class="o">=</span> <span class="n">rightmark</span> <span class="o">-</span><span class="mi">1</span>
+
+       <span class="k">if</span> <span class="n">rightmark</span> <span class="o">&lt;</span> <span class="n">leftmark</span><span class="p">:</span>
+           <span class="n">done</span> <span class="o">=</span> <span class="bp">True</span>
+       <span class="k">else</span><span class="p">:</span>
+           <span class="n">temp</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">leftmark</span><span class="p">]</span>
+           <span class="n">alist</span><span class="p">[</span><span class="n">leftmark</span><span class="p">]</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">rightmark</span><span class="p">]</span>
+           <span class="n">alist</span><span class="p">[</span><span class="n">rightmark</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+
+   <span class="n">temp</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">first</span><span class="p">]</span>
+   <span class="n">alist</span><span class="p">[</span><span class="n">first</span><span class="p">]</span> <span class="o">=</span> <span class="n">alist</span><span class="p">[</span><span class="n">rightmark</span><span class="p">]</span>
+   <span class="n">alist</span><span class="p">[</span><span class="n">rightmark</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+
+
+   <span class="k">return</span> <span class="n">rightmark</span>
+
+<span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">quickSort</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[17, 20, 26, 31, 44, 54, 55, 77, 93]
+</code></pre></div></div>
+
+<h1 id="heap-sort">Heap Sort</h1>
+
+<p>堆排序时利用堆这种数据结构(这里运用大根堆), 通过无序区的大根堆寻找最大元素, 并把最大元素移到有序区来实现排序.</p>
+
+<p>要了解这个排序方法,需要了解堆的数据结构,堆是一种完全二叉树结构,通常是通过一维数组来表现,它分为大根堆和小根堆,大根堆的子节点小于父节点.</p>
+
+<p>堆排序过程:</p>
+<ol>
+  <li>由输入的原始数组构建大根堆,作为初始无序区</li>
+  <li>将堆顶元素和堆尾元素调换位置,堆顶元素进入有序区,无序区元素少一个</li>
+  <li>对无序区重新调整,建立新的大根堆</li>
+  <li>步骤2,3,直至堆的尺寸为1</li>
+</ol>
+
+<p>参考<a href="https://www.cnblogs.com/eniac12/p/5329396.html#s5">网上图片</a>如下:
+<img src="/img/deep_learning_course/heap_sort.gif" width="400" /></p>
+
+<p>以下通过三个函数构建堆排序:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">ajustHeap</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+    <span class="c1"># 将处于low位置的元素调整下去(如果需要)
+</span>    <span class="c1"># high指的是堆的大小
+#     print('L before', L)
+</span>    <span class="n">tmp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">low</span><span class="p">]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">low</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span>
+    <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">high</span> <span class="ow">and</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">:</span>
+            <span class="c1"># j, j+1 为i的字节点, 此举在将j指向比较大的字节点
+</span>            <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="c1">#如若字节点大于父节点, 则将字节点上移
+</span>            <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="c1"># i指向tmp暂时的位置, j指向暂时位置的字节点
+</span>            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="c1">#发现tmp的位置
+</span>    <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+<span class="c1">#     print('low', low)
+#     print('L after', L)
+#     print('===================')
+</span>
+<span class="k">def</span> <span class="nf">build_maxheap</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Len</span><span class="p">):</span>
+    <span class="c1"># 用于构造初始的大根堆
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Len</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">ajustHeap</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">Len</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">L</span>
+
+
+<span class="k">def</span> <span class="nf">heap_sort</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+    <span class="n">L</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># 序号从1开始,所以插入一个0
+</span>    <span class="n">Len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">build_maxheap</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Len</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Len</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># 交换堆顶元素和最后一个元素
+</span>        <span class="n">ajustHeap</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 重新调整堆, 将最大值移至堆顶
+</span>    <span class="k">return</span> <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">49</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">97</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span><span class="mi">47</span><span class="p">]</span>
+<span class="n">heap_sort</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[13, 38, 47, 49, 65, 67, 76, 97]
+</code></pre></div></div>
+
+<h1 id="排序算法稳定性的问题">排序算法稳定性的问题</h1>
+
+<p><strong>排序算法稳定性的定义：</strong></p>
+
+<p>若在原序列中ri &gt; rj, 且ri在rj前面，在排序结束之后，ri和rj的相对次序仍未改变，则改算法稳定</p>
+
+<p>具体细节解释见<a href="https://baike.baidu.com/item/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%A8%B3%E5%AE%9A%E6%80%A7/9763250?fr=aladdin">链接</a></p>
+
+<p>总结来说，稳定的算法：冒泡，插入，归并。不稳定的为：选择，快速，希尔，堆排序</p>
+:ET

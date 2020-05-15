@@ -1,0 +1,136 @@
+I"�<h2 id="参考文献">参考文献</h2>
+<p><a href="http://www.runoob.com/linux/linux-shell.html">中文资料</a></p>
+<h2 id="性能测试">性能测试</h2>
+<h3 id="usrbintime">/usr/bin/time</h3>
+<ol>
+  <li>记录程序运行时间和内存 <a href="https://gist.github.com/tkuchiki/4b77005cc64426b28c3d">链接</a>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/time -v --output=../time.log  python test.py  &gt; test.log 
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>输出程序最大占用内存：</p>
+
+    <p>/usr/bin/time -f “%M” –output=../time.log python test.py &gt; test.log</p>
+  </li>
+</ol>
+
+<h2 id="vim">vim</h2>
+<h3 id="doc-linux引起的格式问题">DOC, LINUX引起的格式问题</h3>
+<p><a href="https://www.zhihu.com/question/22130727">链接</a></p>
+
+<p>可以用vi打开，执行 :%s/^M//g　来去掉^M(^M是ctrl+v,ctrl+m)</p>
+
+<h2 id="文本文件">文本文件</h2>
+<h3 id="grep">grep</h3>
+<h4 id="显示行数">显示行数</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> tail -n 10000 move.log | grep -b "content"
+</code></pre></div></div>
+
+<p>####</p>
+
+<h2 id="文件目录">文件目录</h2>
+
+<h3 id="创建文件夹">创建文件夹</h3>
+<p>-p  如果不存在则建文件夹</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p 
+</code></pre></div></div>
+<h3 id="--">~  /</h3>
+<p>cd ~     回到 user/
+cd /     回到 /</p>
+<h3 id="查看目录下文件大小">查看目录下文件大小</h3>
+<p><code class="highlighter-rouge">du -h --max-depth=1</code></p>
+<h3 id="ll">ll</h3>
+<p>ll =  ls -l   (ubuntu 中没有)</p>
+
+<h3 id="find">find</h3>
+<ol>
+  <li>
+    <p>查找目录和子目录下文件</p>
+
+    <p>find . -name ‘name.py’</p>
+  </li>
+  <li>查找所有子目录中文件并删除
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.o"</span>  | xargs <span class="nb">rm</span> <span class="nt">-f</span>
+</code></pre></div>    </div>
+  </li>
+  <li>查找目录下所有文件是否包含字符串
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . | xargs grep -ri '字符串'
+</code></pre></div>    </div>
+    <p>-r : recursive
+-i : ignore case</p>
+  </li>
+</ol>
+
+<h3 id="文件下文件多少">文件下文件多少</h3>
+<p>所有文件多少</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l | wc -l
+</code></pre></div></div>
+
+<p>文件夹数目</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l | grep "^d" |wc -l
+</code></pre></div></div>
+
+<p>文件的数目</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -lR| grep "^-" | wc -l ### zip 命令
+
+zip -r target.zip target_directory/
+</code></pre></div></div>
+
+<h3 id="targz-文件解压">tar.gz 文件解压</h3>
+<p><a href="https://blog.csdn.net/maray/article/details/4312768">博客链接</a></p>
+<h3 id="文件夹下文件大小">文件夹下文件大小</h3>
+
+<h4 id="du命令-当前目录下大小并排序">du命令 当前目录下大小，并排序</h4>
+<p>du -h –max-depth=1</p>
+<h3 id="脚本中source命令的运行">脚本中source命令的运行</h3>
+<p>用source运行脚本，不能用bash<a href="https://blog.csdn.net/jiajianjunneusoft/article/details/7168405">链接</a></p>
+
+<h3 id="nohup">nohup</h3>
+<ol>
+  <li>nohup 几条连续命令</li>
+</ol>
+
+<p>nohup sh -c ‘./cmd2 &gt;result2 &amp;&amp; ./cmd1 &gt;result1’ &amp;<a href="https://unix.stackexchange.com/questions/67221/running-multiple-nohup-commands-in-background">链接</a></p>
+
+<h3 id="连续执行多条命令">连续执行多条命令</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; 即使前面错了，还可以继续执行 &amp;&amp; 前面出错，则停止执行
+</code></pre></div></div>
+
+<h3 id="服务器和端口">服务器和端口</h3>
+<ol>
+  <li>命令行连接服务器：  ssh 用户名@ip地址
+ ssh root@192.168.66.100</li>
+  <li>向服务器传输文件  scp -r 本地文件夹 用户名@ip地址：远程地址</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>查看占用的端口，并关闭   netstat -anp</td>
+          <td>grep 端口号</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<h2 id="windows-cmd-命令">Windows cmd 命令</h2>
+<p><a href="https://www.digitalcitizen.life/command-prompt-how-use-basic-commands">参考链接</a></p>
+<h3 id="改到d盘">改到D盘</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d:
+</code></pre></div></div>
+
+<h2 id="window-putty-连接服务器">window putty 连接服务器</h2>
+<ol>
+  <li>Putty 连接自动记录密码
+    <ol>
+      <li>右键PuTTY.exe发送一个快捷方式到桌面。重命名一下到底是干什么用的以免你弄混了。</li>
+      <li>右键属性。“目标”那里可以输入你的命令，比如”C:\Program Files\PuTTY\putty.exe” 用户名@服务器地址（不需要端口） -pw 密码可以确认了。</li>
+      <li>双击快捷方式可连接。</li>
+    </ol>
+  </li>
+</ol>
+:ET

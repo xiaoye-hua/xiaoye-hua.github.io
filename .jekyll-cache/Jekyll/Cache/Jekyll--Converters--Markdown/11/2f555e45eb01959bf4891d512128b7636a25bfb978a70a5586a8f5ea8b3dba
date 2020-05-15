@@ -1,0 +1,59 @@
+I"+<h1 id="toc">TOC</h1>
+<ol id="markdown-toc">
+  <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
+  <li><a href="#agile-development" id="markdown-toc-agile-development">Agile Development</a></li>
+  <li><a href="#scrum--extrem-programming-xp" id="markdown-toc-scrum--extrem-programming-xp">Scrum &amp; Extrem Programming (XP)</a></li>
+  <li><a href="#ref" id="markdown-toc-ref">Ref</a></li>
+</ol>
+
+<h1 id="agile-development">Agile Development</h1>
+
+<ol>
+  <li>Iterative development is the core of agile development.
+    <ol>
+      <li>develop by iterations, that is, shorter periods of time where the whole process happens(planning, development, tests, release, client feedback)</li>
+    </ol>
+  </li>
+  <li>Use incremental development to set goals for every iteration.</li>
+  <li>Advantage of agile development:
+    <ol>
+      <li>Release quickly</li>
+      <li>Reduce risk to fail (fail quickly, iterate quickly)</li>
+    </ol>
+  </li>
+  <li>Steps of every iteration
+    <ol>
+      <li>Requirments analysis</li>
+      <li>Design</li>
+      <li>Coding</li>
+      <li>Testing</li>
+      <li>Deployment/evaluation</li>
+    </ol>
+  </li>
+</ol>
+
+<h1 id="scrum--extrem-programming-xp">Scrum &amp; Extrem Programming (XP)</h1>
+<p>Unlike Waterfall model, Scrum and XP are based on agile methodoligy.</p>
+
+<p><img src="/img/programming/scrum.jpg" width="800" />
+The Scrum aitifacts are:</p>
+<ol>
+  <li>Product backlog: client wisht list</li>
+  <li>Spring backlog: Sprint planning list</li>
+  <li>Product incrementa: item completed during a sprint</li>
+</ol>
+
+<p>Three Roles in Scrum</p>
+<ol>
+  <li>Product owner: define and prioritize the items in product backlog</li>
+  <li>Scrum master</li>
+  <li>Scrum team</li>
+</ol>
+
+<h1 id="ref">Ref</h1>
+<ol>
+  <li><a href="https://www.ruanyifeng.com/blog/2019/03/agile-development.html">敏捷开发入门教程</a></li>
+  <li><a href="https://www.cnblogs.com/taven/archive/2010/10/17/1853386.html">敏捷开发之Scrum</a></li>
+  <li><a href="https://medium.com/jorgeacetozi/agile-and-scrum-overview-fb68fc04aff8">Agile and Scrum Overview</a></li>
+</ol>
+:ET

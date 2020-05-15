@@ -1,0 +1,56 @@
+I"M<h2 id="toc">TOC</h2>
+<ol id="markdown-toc">
+  <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#training-and-deployment-with-pipeline-and-joblib-in-sklearn" id="markdown-toc-training-and-deployment-with-pipeline-and-joblib-in-sklearn">Training and Deployment with Pipeline and joblib in sklearn</a></li>
+  <li><a href="#error--solution" id="markdown-toc-error--solution">Error &amp; Solution</a>    <ol>
+      <li><a href="#error-module-__main__-has-no-attribute" id="markdown-toc-error-module-__main__-has-no-attribute">Error: module <code class="highlighter-rouge">__main__</code> has no attribute</a></li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+<p>This post illustrates how to train and deploy sklearn model with sklearn Pipeline and joblib</p>
+<h2 id="training-and-deployment-with-pipeline-and-joblib-in-sklearn">Training and Deployment with Pipeline and joblib in sklearn</h2>
+<p>Training model with pipeline:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+
+<span class="k">def</span> <span class="nf">process_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">clean_words</span> <span class="o">=</span> <span class="n">jieba</span><span class="p">.</span><span class="n">lcut</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">clean_words</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">'bow'</span><span class="p">,</span><span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">process_text</span><span class="p">)),</span> <span class="c1"># converts strings to integer counts
+</span>    <span class="p">(</span><span class="s">'tfidf'</span><span class="p">,</span><span class="n">TfidfTransformer</span><span class="p">()),</span> <span class="c1"># converts integer counts to weighted TF-IDF scores
+</span>    <span class="p">(</span><span class="s">'classifier'</span><span class="p">,</span><span class="n">MultinomialNB</span><span class="p">())</span> <span class="c1"># train on TF-IDF vectors with Naive Bayes classifier
+</span><span class="p">])</span>
+<span class="n">pipeline</span><span class="p">.</span><span class="n">fit</span><span class="p">(...)</span>
+<span class="n">pipeline</span><span class="p">.</span><span class="n">predict</span><span class="p">(...)</span>
+</code></pre></div></div>
+
+<p>Saving and Loading model with joblib:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">joblib</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">model_file</span><span class="p">))</span>
+
+<span class="n">new_pipeline</span> <span class="o">=</span> <span class="n">joblib</span><span class="p">.</span><span class="n">load</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">file_name</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="error--solution">Error &amp; Solution</h2>
+<h3 id="error-module-__main__-has-no-attribute">Error: module <code class="highlighter-rouge">__main__</code> has no attribute</h3>
+<p>When deploying the model with joblib, I encountered this error:
+<img src="/img/programming/20200401_sklearn_bug.png" width="800" /></p>
+
+<p>Refer to <a href="https://stackoverflow.com/questions/49621169/joblib-load-main-attributeerror">this stackoverflow answer</a>. It’s because of the way I saved the model: Pickle does not dump the actual code classes and functions, only their names. It includes the name of the module each one was defined. If dumpping a class defined in a module you’re running as a script, it will dump the name <strong>main</strong> as the module name. In this case, function process_text will be saved as <strong>main</strong>.process_text.</p>
+
+<p>I solved this errors with the following steps:</p>
+<ol>
+  <li>put process_text, pipeline in a script named model.py</li>
+  <li>import process_text, pipeline to another script, training the model there</li>
+</ol>
+:ET

@@ -1,0 +1,261 @@
+I" Z<h2 id="toc">TOC</h2>
+<ol id="markdown-toc">
+  <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#the-three-laws-of-recursion" id="markdown-toc-the-three-laws-of-recursion">The three laws of recursion</a></li>
+  <li><a href="#understand-recursion" id="markdown-toc-understand-recursion">Understand recursion</a>    <ol>
+      <li><a href="#example-of-recursion" id="markdown-toc-example-of-recursion">Example of recursion:</a>        <ol>
+          <li><a href="#coverting-an-integer-to-a-string-in-any-base" id="markdown-toc-coverting-an-integer-to-a-string-in-any-base"><strong>Coverting an integer to a string in any base</strong></a></li>
+          <li><a href="#how-python-implement-recursion-stack-frame" id="markdown-toc-how-python-implement-recursion-stack-frame">How python implement recursion: <em>stack frame</em></a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#visualizing-recursion" id="markdown-toc-visualizing-recursion">Visualizing Recursion</a>    <ol>
+      <li><a href="#tree-example" id="markdown-toc-tree-example">Tree Example</a></li>
+      <li><a href="#sierpinski-triangle" id="markdown-toc-sierpinski-triangle">Sierpinski Triangle</a></li>
+    </ol>
+  </li>
+  <li><a href="#complex-recursion-problem" id="markdown-toc-complex-recursion-problem">Complex Recursion Problem</a>    <ol>
+      <li><a href="#tower-of-hanoi" id="markdown-toc-tower-of-hanoi">Tower of Hanoi</a></li>
+      <li><a href="#dynamic-programming" id="markdown-toc-dynamic-programming">Dynamic Programming</a></li>
+    </ol>
+  </li>
+  <li><a href="#summry" id="markdown-toc-summry">Summry</a></li>
+</ol>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>递归思想是很重要的思想, 之前作为小白的我理解起来感觉很吃力. 之后参考了几本书和leetcode上的题目, 终于有所收获.</p>
+
+<p>递归思想需要和<a href="http://blog.csdn.net/guohua1992/article/details/79389348">动态规划</a>对比着看. 动态规划相当于把递归过程转化成里循环过程. 同时递归思想和分治法又密不可分.</p>
+
+<p>在<a href="https://www.goodreads.com/book/show/9537756-python-algorithms">Python Algorithm</a>一书中有很精彩的解释, 这本书中一个很重要思想就是把一个问题看成一个<strong>归纳问题</strong>:</p>
+<ol>
+  <li>假设T(n)成立, 我如何推到T(n-1)(弱假设)或者T(n/2)(强假设) $\longrightarrow$ 递归</li>
+  <li>假设T(n-1)或T(n/2)成立, 如何推到T(n)  $\longrightarrow$ 循环构成的动态规划</li>
+</ol>
+
+<h1 id="the-three-laws-of-recursion">The three laws of recursion</h1>
+
+<ul>
+  <li>A recursive algorithm must have a <strong>base case</strong></li>
+  <li>A recursive algorithm must <strong>change its state and more toward the base case</strong></li>
+  <li>A recursive algorithm must <strong>call itself, recursively</strong></li>
+</ul>
+
+<h1 id="understand-recursion">Understand recursion</h1>
+
+<h2 id="example-of-recursion">Example of recursion:</h2>
+
+<h3 id="coverting-an-integer-to-a-string-in-any-base"><strong>Coverting an integer to a string in any base</strong></h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">toStr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">base</span><span class="p">):</span>
+   <span class="n">convertString</span> <span class="o">=</span> <span class="s">"0123456789ABCDEF"</span>
+   <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">base</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">convertString</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">toStr</span><span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="n">base</span><span class="p">,</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="n">convertString</span><span class="p">[</span><span class="n">n</span><span class="o">%</span><span class="n">base</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">toStr</span><span class="p">(</span><span class="mi">1453</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Workflow of the function above:</p>
+
+<p>&lt;img src=’/img/deep_learning_course/recursion_workflow.png’, style=’90%’&gt;</p>
+
+<h3 id="how-python-implement-recursion-stack-frame">How python implement recursion: <em>stack frame</em></h3>
+
+<p>When a function is called in Python:</p>
+
+<ul>
+  <li>a stack frame is allocated to handle the local variables of the functions</li>
+  <li>when the function returns, the return value is left on top of the stack for the calling function to access</li>
+</ul>
+
+<p><img src="/img/deep_learning_course/recursion_python.png" width="400" /></p>
+
+<p>这就解释了在很多问题中可以通过栈的数据结构来将递归问题转化为循环, 比如<a href="">树的遍历</a></p>
+
+<h1 id="visualizing-recursion">Visualizing Recursion</h1>
+
+<p>若下面代码无法执行，参照链接<a href="http://interactivepython.org/runestone/static/pythonds/Recursion/pythondsintro-VisualizingRecursion.html">tree example</a>和<a href="http://interactivepython.org/runestone/static/pythonds/Recursion/pythondsSierpinskiTriangle.html">Sierpinski triangle</a></p>
+
+<h2 id="tree-example">Tree Example</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">turtle</span>
+
+<span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="n">branchLen</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">branchLen</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">forward</span><span class="p">(</span><span class="n">branchLen</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">right</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">tree</span><span class="p">(</span><span class="n">branchLen</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">left</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+        <span class="n">tree</span><span class="p">(</span><span class="n">branchLen</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">right</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">backward</span><span class="p">(</span><span class="n">branchLen</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Turtle</span><span class="p">()</span>
+    <span class="n">myWin</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Screen</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">up</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">backward</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">down</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">color</span><span class="p">(</span><span class="s">"green"</span><span class="p">)</span>
+    <span class="n">tree</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">myWin</span><span class="p">.</span><span class="n">exitonclick</span><span class="p">()</span>
+
+<span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="sierpinski-triangle">Sierpinski Triangle</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">turtle</span>
+
+<span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="n">branchLen</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">branchLen</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">forward</span><span class="p">(</span><span class="n">branchLen</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">right</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">tree</span><span class="p">(</span><span class="n">branchLen</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">left</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+        <span class="n">tree</span><span class="p">(</span><span class="n">branchLen</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">right</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">t</span><span class="p">.</span><span class="n">backward</span><span class="p">(</span><span class="n">branchLen</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Turtle</span><span class="p">()</span>
+    <span class="n">myWin</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Screen</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">up</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">backward</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">down</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">.</span><span class="n">color</span><span class="p">(</span><span class="s">"green"</span><span class="p">)</span>
+    <span class="n">tree</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">myWin</span><span class="p">.</span><span class="n">exitonclick</span><span class="p">()</span>
+
+<span class="n">main</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<h1 id="complex-recursion-problem">Complex Recursion Problem</h1>
+
+<h2 id="tower-of-hanoi">Tower of Hanoi</h2>
+
+<p>Problem: Transfer all 64 disks from one of the three poles to another, with two important constraints:</p>
+
+<ul>
+  <li>only move one disk at a time</li>
+  <li>never place a larger disk on top of a smaller one</li>
+</ul>
+
+<p>&lt;img src =’/img/deep_learning_course/recursion_hanoi.png’, style=’100%’&gt;</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">moveTower</span><span class="p">(</span><span class="n">height</span><span class="p">,</span><span class="n">fromPole</span><span class="p">,</span> <span class="n">toPole</span><span class="p">,</span> <span class="n">withPole</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">height</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">moveTower</span><span class="p">(</span><span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">fromPole</span><span class="p">,</span><span class="n">withPole</span><span class="p">,</span><span class="n">toPole</span><span class="p">)</span>
+        <span class="n">moveDisk</span><span class="p">(</span><span class="n">fromPole</span><span class="p">,</span><span class="n">toPole</span><span class="p">)</span>
+        <span class="n">moveTower</span><span class="p">(</span><span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">withPole</span><span class="p">,</span><span class="n">toPole</span><span class="p">,</span><span class="n">fromPole</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">moveDisk</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">tp</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"moving disk from"</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="s">"to"</span><span class="p">,</span><span class="n">tp</span><span class="p">)</span>
+
+<span class="n">moveTower</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s">"A"</span><span class="p">,</span><span class="s">"B"</span><span class="p">,</span><span class="s">"C"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('moving disk from', 'A', 'to', 'B')
+('moving disk from', 'A', 'to', 'C')
+('moving disk from', 'B', 'to', 'C')
+('moving disk from', 'A', 'to', 'B')
+('moving disk from', 'C', 'to', 'A')
+('moving disk from', 'C', 'to', 'B')
+('moving disk from', 'A', 'to', 'B')
+</code></pre></div></div>
+
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+
+<p>动态编程（Dynamic Programming)</p>
+
+<p>one strategy for some optimization problems(e.g optimize some value)</p>
+
+<p>动态编程与分治法类似，其基本四项也是将求解问题分解为若干子问题，先求解子问题然后从这些子问题的解得到原问题的解。与分治法不同的是，适合于用动态规划求解的问题，<em>经分解得到子问题往往不是互相独立的</em>。若用分治法来解这类问题，则分解得到的子问题数目太多，有些子问题被重复计算了很多次。如果我们能够保存已解决的子问题的答案，而在需要时再找出已求得的答案，这样就可以避免大量的重复计算，节省时间。我们可以用一个表来记录所有已解的子问题的答案。不管该子问题以后是否被用到，只要它被计算过，就将其结果填入表中</p>
+
+<p>Problem: making changes using the fewest coins</p>
+
+<p>Solution(as shown in the figure below):</p>
+
+<ul>
+  <li>we start with one cent, the solution is one</li>
+  <li>第二行，对于２，最少硬币数为２</li>
+  <li>第五行，对于５，最少硬币数为５</li>
+  <li>依次类推得到表</li>
+</ul>
+
+<p>举例说，对于11,假设硬币面值为［１，５，１０］，有三种：</p>
+
+<ul>
+  <li>11-1 = 10(1)(10对应的是１，总共２)</li>
+  <li>11-5 = 6(2)(６对应２，总共３)</li>
+  <li>11-10=1(1)(１对应１，总共２)</li>
+</ul>
+
+<p><img src="/img/deep_learning_course/recursion_dp.png" style="100%" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">dpMakeChange</span><span class="p">(</span><span class="n">coinValueList</span><span class="p">,</span><span class="n">change</span><span class="p">,</span><span class="n">minCoins</span><span class="p">,</span><span class="n">coinsUsed</span><span class="p">):</span>
+   <span class="k">for</span> <span class="n">cents</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">change</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+      <span class="n">coinCount</span> <span class="o">=</span> <span class="n">cents</span>
+      <span class="n">newCoin</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coinValueList</span> <span class="k">if</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">cents</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">minCoins</span><span class="p">[</span><span class="n">cents</span><span class="o">-</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">coinCount</span><span class="p">:</span>
+               <span class="n">coinCount</span> <span class="o">=</span> <span class="n">minCoins</span><span class="p">[</span><span class="n">cents</span><span class="o">-</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+               <span class="n">newCoin</span> <span class="o">=</span> <span class="n">j</span>
+      <span class="n">minCoins</span><span class="p">[</span><span class="n">cents</span><span class="p">]</span> <span class="o">=</span> <span class="n">coinCount</span>
+      <span class="n">coinsUsed</span><span class="p">[</span><span class="n">cents</span><span class="p">]</span> <span class="o">=</span> <span class="n">newCoin</span>
+   <span class="k">return</span> <span class="n">minCoins</span><span class="p">[</span><span class="n">change</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">printCoins</span><span class="p">(</span><span class="n">coinsUsed</span><span class="p">,</span><span class="n">change</span><span class="p">):</span>
+   <span class="n">coin</span> <span class="o">=</span> <span class="n">change</span>
+   <span class="k">while</span> <span class="n">coin</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">thisCoin</span> <span class="o">=</span> <span class="n">coinsUsed</span><span class="p">[</span><span class="n">coin</span><span class="p">]</span>
+      <span class="k">print</span><span class="p">(</span><span class="n">thisCoin</span><span class="p">)</span>
+      <span class="n">coin</span> <span class="o">=</span> <span class="n">coin</span> <span class="o">-</span> <span class="n">thisCoin</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">amnt</span> <span class="o">=</span> <span class="mi">63</span>
+    <span class="n">clist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
+    <span class="n">coinsUsed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">amnt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">coinCount</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">amnt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"Making change for"</span><span class="p">,</span><span class="n">amnt</span><span class="p">,</span><span class="s">"requires"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dpMakeChange</span><span class="p">(</span><span class="n">clist</span><span class="p">,</span><span class="n">amnt</span><span class="p">,</span><span class="n">coinCount</span><span class="p">,</span><span class="n">coinsUsed</span><span class="p">),</span><span class="s">"coins"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"They are:"</span><span class="p">)</span>
+    <span class="n">printCoins</span><span class="p">(</span><span class="n">coinsUsed</span><span class="p">,</span><span class="n">amnt</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"The used list is as follows:"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">coinsUsed</span><span class="p">)</span>
+
+<span class="n">main</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('Making change for', 63, 'requires')
+(3, 'coins')
+They are:
+21
+21
+21
+The used list is as follows:
+[1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 10, 1, 1, 1, 1, 5, 1, 1, 1, 1, 10, 21, 1, 1, 1, 25, 1, 1, 1, 1, 5, 10, 1, 1, 1, 10, 1, 1, 1, 1, 5, 10, 21, 1, 1, 10, 21, 1, 1, 1, 25, 1, 10, 1, 1, 5, 10, 1, 1, 1, 10, 1, 10, 21]
+</code></pre></div></div>
+
+<p>总结：</p>
+
+<p>感觉这个例子中dynamic programming的思想其实也类似与recursion的思想，在递归中，会引用已有的一段类似重复的代码，而在dynamic programming中，用表代替了那段代码</p>
+
+<h1 id="summry">Summry</h1>
+
+<ul>
+  <li>Recursion can take the place of iteration in some cases.</li>
+  <li>Recursion is not always the answer. Sometimes a recursive solution may be more computationally expensive than an alternative algorithm</li>
+</ul>
+:ET

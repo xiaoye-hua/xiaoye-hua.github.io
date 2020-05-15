@@ -1,0 +1,256 @@
+I"�2<h1 id="toc">TOC</h1>
+<ol id="markdown-toc">
+  <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#regular-expression-basics" id="markdown-toc-regular-expression-basics">Regular Expression Basics</a>    <ol>
+      <li><a href="#metacharacters" id="markdown-toc-metacharacters">Metacharacters</a></li>
+      <li><a href="#group-and-backreference" id="markdown-toc-group-and-backreference">Group and Backreference</a></li>
+      <li><a href="#lookahead-assertion" id="markdown-toc-lookahead-assertion">Lookahead Assertion</a></li>
+    </ol>
+  </li>
+  <li><a href="#python-re-module" id="markdown-toc-python-re-module">Python re Module</a>    <ol>
+      <li><a href="#basic-methods" id="markdown-toc-basic-methods">Basic Methods</a>        <ol>
+          <li><a href="#matching-string" id="markdown-toc-matching-string">Matching String</a></li>
+          <li><a href="#modifying-string" id="markdown-toc-modifying-string">Modifying String</a></li>
+        </ol>
+      </li>
+      <li><a href="#common-problems" id="markdown-toc-common-problems">Common Problems</a>        <ol>
+          <li><a href="#raw-string-notation" id="markdown-toc-raw-string-notation">Raw String Notation</a></li>
+          <li><a href="#greedy-vs-non-greedy-fasion" id="markdown-toc-greedy-vs-non-greedy-fasion">Greedy VS Non-greedy Fasion</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#ref" id="markdown-toc-ref">Ref</a></li>
+</ol>
+
+<h1 id="introduction">Introduction</h1>
+<p>As a machine learning engineer, sometime I need to retrieve information from string or text file. Besides the basic functions of Python build-in string, regular expression is an important tool.</p>
+
+<p>I will summarize some basic knowledge of regular expression and Python re module in this post. We can get more informations from the references listed in the last section.</p>
+
+<h1 id="regular-expression-basics">Regular Expression Basics</h1>
+
+<h2 id="metacharacters">Metacharacters</h2>
+
+<p>Basics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Metacharacters</th>
+      <th style="text-align: center">Matching</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">.</td>
+      <td style="text-align: center">All charactor except a newline</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">^</td>
+      <td style="text-align: center">Start of the string</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$</td>
+      <td style="text-align: center">End of the string</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\w</td>
+      <td style="text-align: center">Unicode word characters including English, Chinese numbers and underscore etc.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\s</td>
+      <td style="text-align: center">Unicode whitespace characters including “ \t\n\t\f\v”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\d</td>
+      <td style="text-align: center">Numbers</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\b</td>
+      <td style="text-align: center">Word boundary</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\W</td>
+      <td style="text-align: center">Any character which is not a word character</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\S</td>
+      <td style="text-align: center">Any characters which is not whitespace, equivalent of [^ \t\n\t\f\v]</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\D</td>
+      <td style="text-align: center">not numbers</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\B</td>
+      <td style="text-align: center">not word bounday</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">[^x]</td>
+      <td style="text-align: center">any word which is not ‘x’</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Repeating things:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Metacharacters</th>
+      <th style="text-align: center">Matching</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">*</td>
+      <td style="text-align: center">Repeat zero or more times</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">+</td>
+      <td style="text-align: center">Repeat once or more times</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">?</td>
+      <td style="text-align: center">Appear zero or once</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">{n}</td>
+      <td style="text-align: center">Appear n times</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">{n, }</td>
+      <td style="text-align: center">Appear n or more times</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">{m,n}</td>
+      <td style="text-align: center">Appear m to n times</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="group-and-backreference">Group and Backreference</h2>
+
+<p>Group:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'(a(b)c)d'</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">'abcd'</span><span class="p">)</span>
+<span class="n">m</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># "abcd"
+</span><span class="n">m</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># "abc"
+</span><span class="n">m</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># "b"
+</span></code></pre></div></div>
+
+<p>Backreference:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">r'\b(\w+)\s+\1\b'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'Paris in the the spring'</span><span class="p">).</span><span class="n">group</span><span class="p">()</span>
+<span class="c1"># "the the"
+</span></code></pre></div></div>
+
+<h2 id="lookahead-assertion">Lookahead Assertion</h2>
+
+<p>Refer to Ref[2].</p>
+
+<h1 id="python-re-module">Python re Module</h1>
+
+<h2 id="basic-methods">Basic Methods</h2>
+
+<h3 id="matching-string">Matching String</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Method</th>
+      <th style="text-align: center">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">match()</td>
+      <td style="text-align: center">Determine if RE matches <strong>at the begining of</strong> the string</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">search()</td>
+      <td style="text-align: center">Scan through a string, looking for <strong>any location</strong> where the RE match</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">findall()</td>
+      <td style="text-align: center">Find all substrings that matches, return as list</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">finditer()</td>
+      <td style="text-align: center">Find all substrings that matches, return as iterator</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="modifying-string">Modifying String</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Method</th>
+      <th style="text-align: center">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">split()</td>
+      <td style="text-align: center">Split the string into a list, splitting it whereever the Re matches</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">sub()</td>
+      <td style="text-align: center">Find all substring where Re matches, and replace them with a different string</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">subn()</td>
+      <td style="text-align: center">Does the same thing as sub(), but returns the new string and the number of replacement</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="common-problems">Common Problems</h2>
+
+<h3 id="raw-string-notation">Raw String Notation</h3>
+<p>For example, you want to match the string <code class="highlighter-rouge">"\section"</code>, since <code class="highlighter-rouge">\</code> is a metacharactor in regular expression, you should put backslash before <code class="highlighter-rouge">\</code> which resulting in <code class="highlighter-rouge">"\\section"</code>.</p>
+
+<p><strong>However, to express this in Python string literal, both backslash need to be escaped which will resulting in <code class="highlighter-rouge">"\\\\section"</code>.</strong> This will definitly leads to duplications of backslash and makes the result string hard to understand</p>
+
+<p>To solve the problem, regular string notation is introduced in Python. Below is the mapping from Python regular string to raw string notation string:</p>
+<ol>
+  <li><code class="highlighter-rouge">"ab*"</code> $\rightarrow$ <code class="highlighter-rouge">r"ab*"</code></li>
+  <li><code class="highlighter-rouge">"\\\\section"</code> $\rightarrow$ <code class="highlighter-rouge">r"\\section"</code></li>
+  <li><code class="highlighter-rouge">"\\w+\\s+\\1"</code> $\rightarrow$ <code class="highlighter-rouge">r"\w+\s+\1"</code></li>
+</ol>
+
+<h3 id="greedy-vs-non-greedy-fasion">Greedy VS Non-greedy Fasion</h3>
+<p>Non-greedy qualifiers such as <code class="highlighter-rouge">*?</code>, <code class="highlighter-rouge">+?</code>, <code class="highlighter-rouge">??</code>, <code class="highlighter-rouge">{m, n}?</code> will match text as little as possible.</p>
+
+<p>Code examples are as follows:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">begin</span> <span class="o">=</span> <span class="s">"&lt;"</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s">"&gt;"</span>
+<span class="n">string</span> <span class="o">=</span> <span class="s">"&lt;hah&gt;&lt;ffd&gt;"</span>
+
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">begin</span><span class="o">+</span><span class="s">'(.*?)'</span><span class="o">+</span><span class="n">end</span><span class="p">,</span><span class="n">re</span><span class="p">.</span><span class="n">S</span><span class="p">)</span>
+<span class="n">non_greedy_result</span> <span class="o">=</span> <span class="n">pat</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">begin</span><span class="o">+</span><span class="s">'(.*)'</span><span class="o">+</span><span class="n">end</span><span class="p">,</span><span class="n">re</span><span class="p">.</span><span class="n">S</span><span class="p">)</span>
+<span class="n">greedy_result</span> <span class="o">=</span> <span class="n">pat</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">f"Non-greedy result: </span><span class="si">{</span><span class="n">non_greedy_result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">f"Greedy result: </span><span class="si">{</span><span class="n">greedy_result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1">## Output:
+# Non-greedy result: ['hah', 'ffd']
+# Greedy result: ['hah&gt;&lt;ffd']
+</span></code></pre></div></div>
+
+<h1 id="ref">Ref</h1>
+<ol>
+  <li><a href="https://docs.python.org/3/library/re.html">Python re Official Documentation</a></li>
+  <li><a href="https://docs.python.org/3/howto/regex.html#common-problems">Regular Expression HOWTO (re tutorial in python.org)</a></li>
+  <li><a href="https://regex101.com/">Regex101, online regular expression tester (used as tester and cheatsheet)</a></li>
+  <li><a href="https://deerchao.cn/tutorials/regex/regex.htm#lookaround">正则表达式30分钟入门教程</a></li>
+</ol>
+:ET

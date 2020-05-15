@@ -1,0 +1,201 @@
+I"�"<p>笔者在2017年10,11月期间学习了Cousera上吴恩达老师的深度学习课程系列的前四个课程，并拿到证书．趁假期回头分析总结下，希望能有更深的理解．</p>
+
+<p>这门课主要介绍了神经网络的基础知识．首先大致介绍了神经网络的种类的应用场景，神经网络技术为何会兴起，然后课程一步步从线性回归，逻辑回归，进而过渡到浅层神经网络，深层神经网络．这个过程中介绍了损失函数，梯度下降，反向传播，激活函数等概念．</p>
+
+<ol id="markdown-toc">
+  <li><a href="#神经网络种类和应用前景" id="markdown-toc-神经网络种类和应用前景">神经网络种类和应用前景</a></li>
+  <li><a href="#为何深度学习会兴起" id="markdown-toc-为何深度学习会兴起">为何深度学习会兴起</a></li>
+  <li><a href="#从线性回归到逻辑回归" id="markdown-toc-从线性回归到逻辑回归">从线性回归到逻辑回归</a>    <ol>
+      <li><a href="#算法" id="markdown-toc-算法">算法</a></li>
+      <li><a href="#损失函数" id="markdown-toc-损失函数">损失函数</a></li>
+    </ol>
+  </li>
+  <li><a href="#梯度下降" id="markdown-toc-梯度下降">梯度下降</a></li>
+  <li><a href="#神经网络概览和表示" id="markdown-toc-神经网络概览和表示">神经网络概览和表示</a></li>
+  <li><a href="#神经网络的向量表示" id="markdown-toc-神经网络的向量表示">神经网络的向量表示</a></li>
+  <li><a href="#激活函数activation-function" id="markdown-toc-激活函数activation-function">激活函数(Activation function)</a></li>
+  <li><a href="#梯度下降正向传播和反向传播" id="markdown-toc-梯度下降正向传播和反向传播">梯度下降(正向传播和反向传播)</a></li>
+  <li><a href="#随机初始化" id="markdown-toc-随机初始化">随机初始化</a></li>
+  <li><a href="#深层神经网路" id="markdown-toc-深层神经网路">深层神经网路</a></li>
+  <li><a href="#总结" id="markdown-toc-总结">总结</a></li>
+</ol>
+
+<h2 id="神经网络种类和应用前景">神经网络种类和应用前景</h2>
+<p>下图可看出标准神经网络，卷积神经网络，递归神经网络的主要应用场景</p>
+
+<p><img src="/img/deep_learning_course/kind_NN.png" height="400" width="600" /></p>
+
+<h2 id="为何深度学习会兴起">为何深度学习会兴起</h2>
+<p>答案是数据的增加和积累
+<img src="/img/deep_learning_course/take_off.png" height="400" width="600" /></p>
+
+<h2 id="从线性回归到逻辑回归">从线性回归到逻辑回归</h2>
+
+<h3 id="算法">算法</h3>
+
+<ul>
+  <li>Given X, want $y_{predict}$,
+    <ul>
+      <li>
+        <p>Param $w=R^n$, $b\in R$</p>
+      </li>
+      <li>线性回归　Output: $y_{predict}=w^Tt + b$</li>
+      <li>逻辑回归　Output: $y_{predict} = \sigma(w^Tt +b)$ where $\sigma(z) = \frac{1}{1 + e^{-z}}$</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="损失函数">损失函数</h3>
+
+<p>一般想法为$L = \frac{1}{2}(y’-y)^2$, 但这个函数在梯度下降过程中很容易困于局部最值，于是选择以下损失函数：</p>
+
+<p>Loss function(single sample):</p>
+<ul>
+  <li>$L(y’, y)=-(ylog(y’) + (1-y)log(1-y’))$</li>
+</ul>
+
+<p>Cost function(entir train set):</p>
+<ul>
+  <li>$J(w, b) = \frac{1}{m}\sum_{i=1}^{n}L(y’^{(i)}, y^{(i)})$</li>
+</ul>
+
+<p><strong>原因解释为</strong>：</p>
+
+<p>若P(y/x)表示值为y的概率，则\(P(y/x)=y'^y(1-y')^{(1-y)}\)
+则：
+\(logP(y/x)=ylogy'+(1-y)log(1-y')\)
+结论：<strong>损失函数最小就意味着损失函数最小</strong></p>
+
+<p>对于一个数据集：
+\(P(y/x)=P(y^{1}/x^{1}) + ... P(y^{m}/x^{m})\)
+\(log(P(y/x))=log(P(y^{1}/x^{1})) + ... log(P(y^{m}/x^{m}))\)</p>
+
+<h2 id="梯度下降">梯度下降</h2>
+
+<p>梯度下降方法在数值分析中是一种很常见的求最值的方法．通过不断向最值靠近来逼近最优值，然而需要注意学习率(learning rate)大小的选取，后面章节中会具体讨论学习率大小选取的技巧．</p>
+
+<p>下图是梯度下降概念的展示：
+<img src="/img/deep_learning_course/GD.png" width="400" height="300" />
+在课程中还提到用<strong>计算图(Computation graph)</strong>来展示逻辑回归中梯度下降的实现．如下图：
+<img src="/img/deep_learning_course/lr_GD.png" width="800" height="600" /></p>
+
+<h2 id="神经网络概览和表示">神经网络概览和表示</h2>
+
+<p><img src="balance22.png" /></p>
+
+<p>如下图为一个<strong>两层</strong>的神经网路：输入层，中间层(输出层不包括)．</p>
+
+<p><img src="/img/deep_learning_course/NN_representation.png" width="600" height="800" />
+需要注意的是：每个圆圈都代表一个神经元，每个神经元中都会进行<strong>两步操作</strong>，如第二个图显示．
+<img src="/img/deep_learning_course/NN_representation2.png" width="300" height="400" /></p>
+
+<h2 id="神经网络的向量表示">神经网络的向量表示</h2>
+
+<p>由于<strong>实例，特征，层数，每层神经元数目</strong>都可能不是一个，问题变成了多维，难于理解．神经网络的<strong>向量化</strong>实现可以大大简化问题．</p>
+
+<p>结合上部分图一，有<strong>三个量</strong>在向量化中需要注意：</p>
+
+<p><strong>h</strong>: 这一层的神经元数</p>
+
+<p><strong>$n_x$</strong>: 特征的数目</p>
+
+<p><strong>m</strong>: 实例的数目</p>
+
+<p>如下图所示，具体形状如下：</p>
+
+<p><strong>(h, $n_x$)*($n_x$, m) $\longrightarrow$ (h, m) $\longrightarrow$ (h, m)</strong></p>
+
+<p><img src="/img/deep_learning_course/vector.png" width="600" height="800" /></p>
+
+<p><strong>以上还牵涉到Python语法中的传播特性，笔者会在之后补充这部分的内容</strong></p>
+
+<h2 id="激活函数activation-function">激活函数(Activation function)</h2>
+
+<p>课程中介绍了四种常见的激活函数，如下图：</p>
+
+<p><img src="/img/deep_learning_course/activation_function.png" width="600" height="800" /></p>
+
+<p>同时给出了各个函数的优缺点如下表，同时给出建议：<strong>若是不确定那个比较合适，那就都尝试一下</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Sigmoid</th>
+      <th>Tanh</th>
+      <th>ReLU</th>
+      <th>Leaky ReLU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>缺点</td>
+      <td>ｘ较大或较小时，值的变化不大</td>
+      <td>同Sigmoid</td>
+      <td>x&lt;0时斜率为０</td>
+      <td>很少被采用</td>
+    </tr>
+    <tr>
+      <td>优点</td>
+      <td>一般只用于二元问题的输出层</td>
+      <td>比较常用性能高于sigmoid</td>
+      <td>常用的中间层函数</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>这些函数都是非线性函数，如若是线性函数，则输出会是输入的线性函数，则隐藏层作用全无</strong></p>
+
+<h2 id="梯度下降正向传播和反向传播">梯度下降(正向传播和反向传播)</h2>
+
+<p>以下为反向传播的总结：
+<img src="/img/deep_learning_course/GD_summary.png" width="600" height="800" /></p>
+
+<h2 id="随机初始化">随机初始化</h2>
+
+<p>由上知道需要初始化的有两个矩阵：　w 和　b</p>
+
+<p>如若初始化为０矩阵$\longrightarrow$ 隐藏层中对称，每个神经元都得到同样结果$\longrightarrow$ 不能收敛</p>
+
+<p>为避免这个结果，<strong>随机初始化w</strong>即可，同时比较大的ｗ会导致比较大的z,结合tanh和sigmoid函数的形状特点．<strong>比较小的ｗ比较适合</strong>．</p>
+
+<p>于是：　w = 0.01*np.random.randn((x, y))</p>
+
+<p><strong>注意：</strong></p>
+<ol>
+  <li>
+    <p>np.random.rand:  choose from uniform distribution</p>
+  </li>
+  <li>
+    <p>np.random.randn: choose from normal distribution</p>
+  </li>
+</ol>
+
+<h2 id="深层神经网路">深层神经网路</h2>
+
+<p>深层的神经网络会有更多的参数，其过程可理解为从提取简单信息开始到提取高级复杂信息，下如是一个展示
+<img src="/img/deep_learning_course/DL_intuition.png" width="600" height="800" /></p>
+
+<p><strong>参数和超参数</strong></p>
+
+<p>参数：</p>
+<ol>
+  <li>$w^{[1]} d^{[1]}w^{[2]} d^{[2]}$等</li>
+</ol>
+
+<p>超参数：</p>
+<ol>
+  <li>学习率　</li>
+  <li>迭代次数</li>
+  <li>神经网络层数</li>
+  <li>每层单元数</li>
+  <li>激活函数的选择</li>
+  <li>其他方法如：　momentam, minBatch等技术的选择</li>
+</ol>
+
+<p>正式由于参数众多，深度学习的正确应用需要<strong>经验</strong>,需要<strong>不断试错</strong></p>
+
+<h2 id="总结">总结</h2>
+<p>本门课程解释了在Machine learning 课程上未解释清楚的概念，整体上介绍神经网络，同时介绍了一些基本概念和技术如损失函数，激活函数，梯度下降，正向传播和反向传播等．</p>
+:ET

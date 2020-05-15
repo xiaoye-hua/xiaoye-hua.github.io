@@ -1,0 +1,18 @@
+I"<h1 id="introduction">Introduction</h1>
+<p>Greedy algorithm is an algorithm that</p>
+<ol>
+  <li>computes the solution in steps</li>
+  <li>at each step, it makes decision that is locally optimum</li>
+</ol>
+
+<p>The greedy algorithm does not necessarily produce the optimum solution.</p>
+
+<h1 id="problem">Problem</h1>
+<p>Leetcode problems:</p>
+<ol>
+  <li>455 assign cookies</li>
+  <li>452 minimum number of arrows to burst balloons</li>
+  <li>122 best time to buy and sell stock II</li>
+  <li>605 can place flowers</li>
+</ol>
+:ET
