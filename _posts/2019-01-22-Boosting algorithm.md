@@ -15,10 +15,11 @@ tags:
 1. bagging 为放回抽样，多数表决或者平均 (Random Forest)
 2. 树的集成本质上为boosting, boosting的实质是加性模型 (GBDT)
 3. boosting 下一棵树依赖上一棵树的训练, 树树之间只能串行
+
 # Boosting
 ## Definition
-**Families of algorithms which convert weak learners to strong learners**
 
+**Families of algorithms which convert weak learners to strong learners**, pay high attention to examples which are mis-labled or have high error.
 
 ## 步骤：
 1. 初始：第一个弱学习机，所有点都初始化权重相同，预测
@@ -28,9 +29,13 @@ tags:
 
 几种算法:
 1. AdaBoost (Adaptive Boosting)
+  1 use decision stump as base learner
+  2.If prediction is incorrect using the first learner, then it gives higher weight to observation which have been predicted incorrectly. Being an iterative process, it continues to add learner(s) until a limit is reached in the number of models or accuracy.
 2. GBDT (Gradient Boosting Decision Tree)
-  1. 之前使用的是普通决策树(Desicion Trees), GBDT第一次引入了回归树CART(Classfication And Regression Trees)
-一阶泰勒展开
+  1. 之前使用的是普通决策树(Desicion Trees), GBDT第一次引入了分类和回归树CART(Classfication And Regression Trees)
+一阶泰勒展开(decison tree 叶子只包含决策值, CART每个叶子都是一个真实分数)
+  2. Each new model gradually minimizes the loss function (y = ax + b + e, e needs special attention as it is an error term) of the whole system using Gradient Descent method
+  3. The principle idea behind this algorithm is to construct new base learners which can be maximally correlated with negative gradient of the loss function
 3. XGBoost
   1. 相比GBDT, 显式引入正则项,约束决策树的复杂性
   2. 二阶泰勒展开
@@ -55,3 +60,5 @@ Questions:
 # Ref
 1. [Quick Introduction to Boosting Algorithms in Machine Learning](https://www.analyticsvidhya.com/blog/2015/11/quick-introduction-boosting-algorithms-machine-learning/)
 2. [Complete Guide to Parameters Tunning in XGBoost with codes in Python](https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/)
+3. [Introduction to boosted tree](https://xgboost.readthedocs.io/en/latest/tutorials/model.html)
+4. [Boosted Trees Slides-Tianqi Chen](https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf)

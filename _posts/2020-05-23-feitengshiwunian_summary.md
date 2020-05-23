@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 中国互联网往事系列之一
-subtitle:  腾讯传读后总结
-date: 2020-05-16
-published: True
+title: 中国互联网往事系列之二
+subtitle:  沸腾十五年读后总结
+date: 2020-05-23
+published: False
 mathjax: True
 catalog: true
 tags:
@@ -16,7 +16,7 @@ tags:
 
 # 序
 
-了解下互联网往事, 本篇文章是这个系列的第一篇. 
+了解下互联网往事, 本篇文章是这个系列的第二篇. 
 
 先说下自己和电脑, 互联网的交集:
 
@@ -30,9 +30,10 @@ tags:
 - 2015-2018, 陆陆续续学习代码
 - 2018, 入行做机器学习
 
-再说下这本书, 首先不可否认, 腾讯邀请吴晓波做的传, 客观性还是需要持怀疑态度. 不过我主要了解腾讯是如何到这步的, 期间还能和自己的经历串一串. 感觉还不错, 有收获.
+感受： 
 
 # 时间线
-<img src='/img/book_summary/腾讯传.png' width="600">
+<img src='/img/book_summary/腾讯传.png' width="800">
+
 # 链接
-1. [腾讯传-中国互联网公司进化论(豆瓣)](https://book.douban.com/subject/26929955/)
+1. [沸腾十五年(豆瓣)](https://book.douban.com/subject/5269365/)
