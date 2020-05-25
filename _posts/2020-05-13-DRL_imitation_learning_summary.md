@@ -80,7 +80,7 @@ Refer to [imitation learning tutorial ICML 2018 video](https://www.bilibili.com/
 
 
 # Reference
-1. [UC Berkeley CS285: Supervised Learning of Behaviors](http://rail.eecs.berkeley.edu/deeprlcourse/)
+1. [UC Berkeley CS285: Deep Reinforcement Learning, Decision Making, and Control](http://rail.eecs.berkeley.edu/deeprlcourse/)
 2. [A Brif Review of Imitation Learning](https://medium.com/@SmartLabAI/a-brief-overview-of-imitation-learning-8a8a75c44a9c)
 2. [imitation learning tutorial ICML 2018](https://www.bilibili.com/video/BV1eb411a7qP?from=search&seid=11615249243079680566)
 4. [模仿学习介绍](https://zhuanlan.zhihu.com/p/25688750)
