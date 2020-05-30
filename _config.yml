@@ -12,11 +12,13 @@ url: "http://xiaoye-hua.github.io"              # your host, for absolute URL
 
 # SNS settings
 # RSS: false
-weibo_username:     huxpro
+# weibo_username:     huxpro
 # zhihu_username:     huxpro
 github_username:    xiaoye-hua
-# #twitter_username:  huxpro
+douban_url: https://www.douban.com/people/73385142/
+# twitter_username:  huxpro
 # facebook_username:  huxpro
+linkedin_username: guo-hua
 
 
 
