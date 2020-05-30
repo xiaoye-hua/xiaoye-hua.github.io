@@ -12,7 +12,7 @@ url: "http://xiaoye-hua.github.io"              # your host, for absolute URL
 
 # SNS settings
 # RSS: false
-# weibo_username:     huxpro
+weibo_username:     huxpro
 # zhihu_username:     huxpro
 github_username:    xiaoye-hua
 # #twitter_username:  huxpro
