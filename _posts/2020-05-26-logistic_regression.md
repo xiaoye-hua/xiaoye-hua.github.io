@@ -15,7 +15,6 @@ tags:
 
 # Introduction
 
-
 # Assumption
 
 # Objective Function
