@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Deep Learning Course Note (Part 6)
-subtitle:  Word Embedding
+title: Word Embedding
+subtitle: Deep Learning Course Note (Part 6)
 date: 2019-02-20
 published: True
 mathjax: True

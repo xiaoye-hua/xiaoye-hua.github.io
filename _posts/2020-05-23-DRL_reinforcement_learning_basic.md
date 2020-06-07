@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Deep Reinforcement Learning Course Note (Part 2)
-subtitle:  Reinforcement Learning Basic - Concepts and Taxonomy
+title: Reinforcement Learning Basic - Concepts and Taxonomy
+subtitle: Deep Reinforcement Learning Course Note (Part 2)
 date: 2020-05-23
 published: True
 mathjax: True

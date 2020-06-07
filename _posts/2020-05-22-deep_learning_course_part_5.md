@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Deep Learning Course Note (Part 5)
-subtitle:  Recurrent Neural Networks
+title: Recurrent Neural Networks
+subtitle:  Deep Learning Course Note (Part 5)
 date: 2020-05-22
 published: True
 mathjax: True

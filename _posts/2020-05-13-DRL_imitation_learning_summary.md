@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Deep Reinforcement Learning Course Note (Part 1)
-subtitle:  Supervised Learning of Behaviors - Imitation Learning
+title: Supervised Learning of Behaviors - Imitation Learning
+subtitle:  Deep Reinforcement Learning Course Note (Part 1)
 date: 2020-05-13
 published: True
 mathjax: True
