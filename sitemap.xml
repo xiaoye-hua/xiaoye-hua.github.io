@@ -9,23 +9,193 @@
 
 <url>
   <loc>https://xiaoye-hua.github.io/</loc>
-  <lastmod>2019-05-25T02:14:52+00:00</lastmod>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://xiaoye-hua.github.io/about/</loc>
-  <lastmod>2019-05-25T02:14:52+00:00</lastmod>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://xiaoye-hua.github.io/tags/</loc>
-  <lastmod>2019-05-25T02:14:52+00:00</lastmod>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://xiaoye-hua.github.io/2018/09/01/shadowsocks/</loc>
-  <lastmod>2019-05-25T02:14:52+00:00</lastmod>
+  <loc>https://xiaoye-hua.github.io/2020/05/25/xgboost/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/05/23/DRL_reinforcement_learning_basic/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/05/22/deep_learning_course_part_5/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/05/13/DRL_imitation_learning_summary/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/04/06/regular-expression-and-python-re-module/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/04/02/sklearn_pipeline_model_deployment/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/03/26/leetcode-geedy-algorithms/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/03/21/leetcode0/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/03/15/aigile-development/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2020/03/07/leetcode/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/page2/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/02/27/deep_learning_course_part_7/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/02/20/deep_learning_course_part_6/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/01/22/Boosting-algorithm/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/02/11/deep_learning_course_part_4/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/02/10/deep_learning_course_part_3/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/02/07/deep_learning_course_note_2/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/02/06/deep_learning_course_part_1/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2017/11/30/Machine_learning_algorithms_summary/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/02/01/bfs-and-dfs/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/01/30/tree-traversals/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2018/01/04/tree-tree-algorithms/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2017/12/29/%E9%80%92%E5%BD%92%E6%80%9D%E6%83%B3(Recursion)/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2017/12/29/%E6%9F%A5%E6%89%BE(Searching)/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2017/12/29/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2017/12/27/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8CPython%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/11/15/Game-Theory-course-note/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/09/10/Parallel-in-Python/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/07/19/Python-Encoding/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/01/15/Python-Module-Tips/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/02/02/linux-shell-&amp;-window-cmd/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/02/20/git-summary/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/2019/08/12/%E8%AF%BB%E4%B9%A6%E6%80%BB%E7%BB%93/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/page3/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://xiaoye-hua.github.io/page4/</loc>
+  <lastmod>2020-06-11T23:47:11+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 
 
