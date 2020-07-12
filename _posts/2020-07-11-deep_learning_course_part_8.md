@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Attention Mechanisms
-subtitle: Deep Learning Course Note (Part 7)
-date: 2019-02-27
+subtitle: Deep Learning Course Note (Part 8)
+date: 2020-07-11
 published: True
 mathjax: True
 catalog: true
