@@ -102,6 +102,19 @@ Ref[4][5]
         - For discriminative model, it will learn the decision boundary between the dog and cat. It will check which sides the new animals falls, and make prediction accordingly.
 
 
+### What's the role of C in SVM?
+Ref[7]
+- Large value of C --> small margin --> less tolerance to misclassification
+- Small value of C --> large margin --> more tolerance to misclassification
+
+### How is decision tree pruned?
+- Pruning is the process that happend in decision tree when the branches with low predictive power are removed in order to reduce model compixicity and increase model accuracy.
+- It can be done both bottom-up or top-down using approches like reduced error pruning and cost complixity pruning.
+
+### How to calculate the similarity of two string?
+1. [编辑距离，余弦相似度，模糊相似度百分比](https://blog.csdn.net/wumian0123/article/details/81435680)
+2. [Python difflib 包判断](https://blog.csdn.net/weixin_30915275/article/details/98843250?utm_medium=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase)
+
 
 # Ref
 1. An Introduction to Statistical Learning with Application in R
@@ -110,6 +123,7 @@ Ref[4][5]
 4. [CS299 Course Note - Generative Learning Algorithms](http://cs229.stanford.edu/notes/cs229-notes2.pdf)
 5. [Machine Learning: Generative and Discriminative Model](https://cedar.buffalo.edu/~srihari/CSE574/Discriminative-Generative.pdf)
 6. Deep Learning by Ian Goodfellow
+7. [What's the Significance of C Value in SVM?](https://medium.com/@pushkarmandot/what-is-the-significance-of-c-value-in-support-vector-machine-28224e852c5a)
 
 
 

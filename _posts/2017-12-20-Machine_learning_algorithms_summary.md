@@ -159,14 +159,14 @@ Three type of algorithms
 ## 支持向量机 (Support Vector Machine)
 
 **Explain**
-1. supervised learning which is commonly use for classification
-3. Goal is to find the the hyperplane that have the greatest margin between the hyperplane and the train datasets. it will make sure all the data are correctly classfied. If no hyperplane, the datasets will be mapped into higher dimension with kernel triks to find the hyperplane
+1. Supervised learning which is commonly use for classification. The goal is to find the the hyperplane that have the greatest margin between the hyperplane and the train datasets. This hyperplane will make sure all the data are correctly classfied. 
 4. Concepts explain
-    1. support vector: the points that are close to the hyperplane, which, if removed, would alter the position of
+    - Margin: the distince between the hypterplane and the nearest data points.
+    - Support vector: the points that are close to the hyperplane, which, if removed, would alter the position of
         hyperplane. they are critical elements in the datasets
-    3. kernel triks:
-5. Pros: accuracy;
-6. Cons: less effective on noiser data with ovelaping classes.
+    - Kernel triks: It's a method to map the data into higher dimensions so that we can classified them to different class with a hyperplane. The most used kernel are: polymomial function and radial basis function(RBF). Other kernels are linear kernel and sigmoid kernel.
+5. Pros: accuracy; works well on small cleaner dataset
+6. Cons: less effective on noiser data with ovelaping classes; RF is more automated to train. However regarding SVM, there are more things to worry about such as the choose of kernel methods, the regularization penalty and so on.
 7. Usage: text classification
 
 ## 朴素贝叶斯(Naive Bayes Classifier)
