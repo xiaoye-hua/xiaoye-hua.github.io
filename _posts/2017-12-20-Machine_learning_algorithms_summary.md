@@ -154,6 +154,13 @@ Three type of algorithms
 2. C4.5
 2. CART(classification and regression tree)
 
+|     Dimensions    |            ID3           |          C4.5         |               CART               |
+|:-----------------:|:------------------------:|:---------------------:|:--------------------------------:|
+|  Split Criterion  |     Information gain     | Information gain rate |               Gini               |
+| Types of feature  | Only categorical feature |  Categorical feature  | Categorical & numerical features |
+|  Type of Problem  |      Classification      |     Classification    |    Classification & regression   |
+|       Tree        |                          |                       |            Binary tree           |
+
 
 
 ## 支持向量机 (Support Vector Machine)
