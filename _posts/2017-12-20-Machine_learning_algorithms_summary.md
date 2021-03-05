@@ -99,44 +99,10 @@ tags:
 3. cons:
     1. become slow when number of training data increase
 
-## 决策树
-
-**Explain**
-1. Used both for classfication and regression. Model behaves with "if this then that" conditions until yield the final result
-2. Use creteria such as information gain or entropy to decide where to split the node
-3. In terms of classification, the majority of labels from the child nodes are selected as result; in case of regression, average of labels of the child nodes are selected as result
-4. Pros: easy to understand; no need to process data beforehead; no need to know the distribution of the data
-5. Cons: tend to overfit
-
-可用于回归和分类问题。
-
-通过计算信息论中的信息熵(entropy), 进而计算出信息所得(infomation gain)来决定信息树的分叉。即通过计算所能得到的最高信息所得，来决定树节点的分割。
-
-优点：
-感念简单，可解释性强，输出结果容易理解．
-
-缺点：过拟合，信息确实处理起来比较困难
-
-## 随机森林
-
-**Explain**
-1. ensemble learning by combning serveral decision tree using bagging
-2. it reduces variance
-3. several decision trees are creating using sampling: every tree select subset of the datasets or subsets of all the features. Their results will be averaged as the final result.
-
-Difference between random forest classifer and random forest regressor in sklearn:
-1. split criterion for classifer: gini or infomation gain
-2. split criterion for regressor: MSE or MAE
-
-随机森林是多个决策树的合体(ensemble of decision tree), 即通过向决策树中引入方差使整体得到一个更好的结果。集成算法，随机选取不同特征和训练样本，生成大量决策树．准确性提高．
-
-主要有两种方法：
-- Bagging (subset of data)
-- random features subset
+## Decision Tree
+Decision tree works by successively splitting the dataset into small segments until the target variable are the same or until the dataset can no longer be split. Model behaves with "if this then that" conditions until yield the final result. It's a greedy algorithm which make the best decision at the given time without concern for the global optimality. It can be used both for classfication and regression. In terms of classification, the majority of labels from the child nodes are selected as result; in case of regression, average of labels of the child nodes are selected as result
 
 
-应用场景：数据维度相对较低，对准确度有较高要求
-### Decision Tree
 There are three steps in this method
 1. Selection of split feature
   2. classification criterion
@@ -149,6 +115,10 @@ There are three steps in this method
 3. Tree prune
   4. By minimize loss functions(cost function)
 
+Pro and crons:
+1. Pros: easy to understand; no need to process data beforehead; no need to know the distribution of the data
+2. Cons: tend to overfit
+
 Three type of algorithms
 1. ID3
 2. C4.5
@@ -156,10 +126,25 @@ Three type of algorithms
 
 |     Dimensions    |            ID3           |          C4.5         |               CART               |
 |:-----------------:|:------------------------:|:---------------------:|:--------------------------------:|
-|  Split Criterion  |     Information gain     | Information gain rate |               Gini               |
-| Types of feature  | Only categorical feature |  Categorical feature  | Categorical & numerical features |
+|  Split Criterion  |     Information gain     | Information gain ratio (Normalized information gain) |               Gini               |
+| Types of Feature  | Categorical feature |  Categorical & numerical feature  | Categorical & numerical features |
 |  Type of Problem  |      Classification      |     Classification    |    Classification & regression   |
-|       Tree        |                          |                       |            Binary tree           |
+|   Type of Tree    |         multiway tree    |          multiway tree    |            Binary tree           |
+
+## Random Forest
+
+
+1. ensemble learning by combning serveral decision tree using bagging
+2. it reduces variance
+3. several decision trees are creating using sampling: every tree select subset of the datasets or subsets of all the features. Their results will be averaged as the final result.
+
+
+主要有两种方法：
+- Bagging (combining serveral decision tree)
+- Sampling (subset of datasets or subset of features)
+
+
+应用场景：数据维度相对较低，对准确度有较高要求
 
 
 
