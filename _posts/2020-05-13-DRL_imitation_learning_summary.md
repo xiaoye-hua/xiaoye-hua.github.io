@@ -55,8 +55,8 @@ Definition: behavior cloning is a special of direct policy learning. First, supe
 <img src='/img/DRL/IL.png' width="400">
 
 In the process of learning, the agent should 'remembers' all the mistakes that made. Two approches are used:
-1. Data aggregation: agents are trained with all the history training data
-2. Policy aggregation: agents are only trained with data from the last iteration and then combined with policy from previous rounds wiht geometric blending.
+1. Data aggregation (DAgger): agents are trained with all the history training data (The data will be relabeled by experts, then use these data to train the agent. refer to [homework code](https://github.com/xiaoye-hua/machine_learning_learning/blob/5ec99bfe28f0e5448f195d57bba85bd2a4ee3b2c/MOOC/Ongoing_Deep_reenforcement_learning_cs285_UC_Bekeley/hw1/cs285/infrastructure/rl_trainer.py#L124))
+2. Policy aggregation: agents are only trained with data from the last iteration and then combined with policy from previous rounds with geometric blending.
 
 ## Inverse Reinforcement Learning
 

@@ -1,4 +1,4 @@
-I"�'<h1 id="process-vs-thread">Process VS Thread</h1>
+I"M(<h1 id="process-vs-thread">Process VS Thread</h1>
 <p>A process is an instance of program (e.g. Jupyter notebook, Python interpreter). Processes spawn threads (sub-processes) to handle subtasks like reading keystrokes, loading HTML pages, saving files. Threads live inside processes and share the same memory space.</p>
 
 <p><strong>Scenarios fo multi-process and multi-thread</strong>：</p>
@@ -75,11 +75,11 @@
 
 <h3 id="concurentfuture-multiprocess-error-when-running-on-windows">concurent.future, multiprocess error when running on windows</h3>
 <p>error：</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.
 </code></pre></div></div>
 <p>How fix:</p>
 
-<p>Put the main() under <code class="highlighter-rouge">if __name__ == "__main__"</code>:</p>
+<p>Put the main() under <code class="language-plaintext highlighter-rouge">if __name__ == "__main__"</code>:</p>
 
 <h2 id="parellel-and-tensorflow">Parellel and tensorflow</h2>
 <p>error:</p>
@@ -88,8 +88,8 @@
 
 <p>How to solve:</p>
 
-<p>Put the follow code under <code class="highlighter-rouge">if __name__ == "main":</code></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mp.set_start_method("spawn:)
+<p>Put the follow code under <code class="language-plaintext highlighter-rouge">if __name__ == "main":</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mp.set_start_method("spawn:)
 </code></pre></div></div>
 
 <p><a href="https://github.com/tensorflow/tensorflow/issues/5448">Ref</a></p>
@@ -97,7 +97,7 @@
 <h1 id="appendix">Appendix</h1>
 <h2 id="concurentfuturethreadpool-processpool-example">concurent.future.ThreadPool, ProcessPool example</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import concurrent.futures                                                                
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import concurrent.futures                                                                
 import time                                                                              
 number_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]                                            
                                                                                          

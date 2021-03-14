@@ -1,10 +1,10 @@
-I"<h2 id="参考文献">参考文献</h2>
+I"<h2 id="参考文献">参考文献</h2>
 <p><a href="http://www.runoob.com/linux/linux-shell.html">中文资料</a></p>
 <h2 id="性能测试">性能测试</h2>
 <h3 id="usrbintime">/usr/bin/time</h3>
 <ol>
   <li>记录程序运行时间和内存 <a href="https://gist.github.com/tkuchiki/4b77005cc64426b28c3d">链接</a>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/time -v --output=../time.log  python test.py  &gt; test.log 
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/time -v --output=../time.log  python test.py  &gt; test.log 
 </code></pre></div>    </div>
   </li>
 </ol>

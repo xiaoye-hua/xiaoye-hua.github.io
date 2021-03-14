@@ -1,4 +1,4 @@
-I"º2<h1 id="toc">TOC</h1>
+I"×3<h1 id="toc">TOC</h1>
 <ol id="markdown-toc">
   <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
@@ -215,19 +215,19 @@
 <h2 id="common-problems">Common Problems</h2>
 
 <h3 id="raw-string-notation">Raw String Notation</h3>
-<p>For example, you want to match the string <code class="highlighter-rouge">"\section"</code>, since <code class="highlighter-rouge">\</code> is a metacharactor in regular expression, you should put backslash before <code class="highlighter-rouge">\</code> which resulting in <code class="highlighter-rouge">"\\section"</code>.</p>
+<p>For example, you want to match the string <code class="language-plaintext highlighter-rouge">"\section"</code>, since <code class="language-plaintext highlighter-rouge">\</code> is a metacharactor in regular expression, you should put backslash before <code class="language-plaintext highlighter-rouge">\</code> which resulting in <code class="language-plaintext highlighter-rouge">"\\section"</code>.</p>
 
-<p><strong>However, to express this in Python string literal, both backslash need to be escaped which will resulting in <code class="highlighter-rouge">"\\\\section"</code>.</strong> This will definitly leads to duplications of backslash and makes the result string hard to understand</p>
+<p><strong>However, to express this in Python string literal, both backslash need to be escaped which will resulting in <code class="language-plaintext highlighter-rouge">"\\\\section"</code>.</strong> This will definitly leads to duplications of backslash and makes the result string hard to understand</p>
 
 <p>To solve the problem, regular string notation is introduced in Python. Below is the mapping from Python regular string to raw string notation string:</p>
 <ol>
-  <li><code class="highlighter-rouge">"ab*"</code> $\rightarrow$ <code class="highlighter-rouge">r"ab*"</code></li>
-  <li><code class="highlighter-rouge">"\\\\section"</code> $\rightarrow$ <code class="highlighter-rouge">r"\\section"</code></li>
-  <li><code class="highlighter-rouge">"\\w+\\s+\\1"</code> $\rightarrow$ <code class="highlighter-rouge">r"\w+\s+\1"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"ab*"</code> $\rightarrow$ <code class="language-plaintext highlighter-rouge">r"ab*"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"\\\\section"</code> $\rightarrow$ <code class="language-plaintext highlighter-rouge">r"\\section"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"\\w+\\s+\\1"</code> $\rightarrow$ <code class="language-plaintext highlighter-rouge">r"\w+\s+\1"</code></li>
 </ol>
 
 <h3 id="greedy-vs-non-greedy-fasion">Greedy VS Non-greedy Fasion</h3>
-<p>Non-greedy qualifiers such as <code class="highlighter-rouge">*?</code>, <code class="highlighter-rouge">+?</code>, <code class="highlighter-rouge">??</code>, <code class="highlighter-rouge">{m, n}?</code> will match text as little as possible.</p>
+<p>Non-greedy qualifiers such as <code class="language-plaintext highlighter-rouge">*?</code>, <code class="language-plaintext highlighter-rouge">+?</code>, <code class="language-plaintext highlighter-rouge">??</code>, <code class="language-plaintext highlighter-rouge">{m, n}?</code> will match text as little as possible.</p>
 
 <p>Code examples are as follows:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">begin</span> <span class="o">=</span> <span class="s">"&lt;"</span>

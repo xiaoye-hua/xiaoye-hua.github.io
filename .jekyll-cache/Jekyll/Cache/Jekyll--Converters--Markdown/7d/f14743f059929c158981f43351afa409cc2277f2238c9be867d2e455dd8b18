@@ -1,4 +1,4 @@
-I"L<h1 id="basic-information">Basic Information</h1>
+I"�<h1 id="basic-information">Basic Information</h1>
 
 <p><strong>ASCII</strong>
 <strong>Unicode</strong>
@@ -16,7 +16,7 @@
 <h1 id="code-sample">Code sample</h1>
 <h2 id="encode">Encode</h2>
 <p>Both for Python2 and Python3</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Convert Unicode to plain Python byte string: "encode"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Convert Unicode to plain Python byte string: "encode"
 unicodestring = u"Hello world"
 utf8string = unicodestring.encode("utf-8")
 asciistring = unicodestring.encode("ascii")
@@ -27,7 +27,7 @@ for string in [utf8string, asciistring, isostring, utf16string, gbkstring]:
     print(string)
 </code></pre></div></div>
 <p>Output</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b'Hello world'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b'Hello world'
 b'Hello world'
 b'Hello world'
 b'\xff\xfeH\x00e\x00l\x00l\x00o\x00 \x00w\x00o\x00r\x00l\x00d\x00'
@@ -36,7 +36,7 @@ b'Hello world'
 
 <h2 id="decode">Decode</h2>
 <p>Python 2:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Convert plain Python string to Unicode: "decode"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Convert plain Python string to Unicode: "decode"
 plainstring1 = unicode(utf8string, "utf-8")
 plainstring2 = unicode(asciistring, "ascii")
 plainstring3 = unicode(isostring, "ISO-8859-1")
@@ -45,7 +45,7 @@ plainstring5 = unicode(gbkstring, "gkb")
 assert plainstring1 == plainstring2 == plainstring3 == plainstring4 == plainstring5
 </code></pre></div></div>
 <p>Python3:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plainstring1 = utf8string.decode("utf-8")
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plainstring1 = utf8string.decode("utf-8")
 plainstring2 = asciistring.decode("ascii")
 plainstring3 = isostring.decode("ISO-8859-1")
 plainstring4 = utf16string.decode("utf-16")
@@ -57,7 +57,7 @@ assert plainstring1 == plainstring2 == plainstring3 == plainstring4 == plainstri
 <p>For Chinese charactor,</p>
 
 <p>Input:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unicodestring = u"哈"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unicodestring = u"哈"
 utf8string = unicodestring.encode("utf-8")
 gbkstring = unicodestring.encode("gbk")
 for string in [
@@ -67,7 +67,7 @@ for string in [
     print(len(string))
 </code></pre></div></div>
 <p>Output:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
 3
 2
 </code></pre></div></div>

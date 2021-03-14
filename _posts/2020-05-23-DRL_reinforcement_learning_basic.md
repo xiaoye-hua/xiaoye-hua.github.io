@@ -26,18 +26,12 @@ Below is the agent-environment interaction loop:
 
 ## States, Observations, Action Spaces and Trajectories
 
-State $s$: complete description of the state of the world
-
-Observation $o$: partial description of a state, which can be fullly observation and partially observation.
-
-
-Action spaces $a$: the set of all valid actions in a given environment. There are two types of action spaces:
-1. discrete action space, such as Atari and Go
-2. continuous action space, like where the agent control a robot in a physical world
-
-A trajectory $\tau$ is a sequence of states and actions in the world. It's also called episodes or roolouts. The very first state of the world, $s_0$, is randomly sample from the start-state distribution, denoted as $\rho_0$:
-
-$s_0\sim\rho_0(\cdot)$
+1. State $s$: complete description of the state of the world
+2. Observation $o$: partial description of a state, which can be fullly observation and partially observation.
+3. Action spaces $a$: the set of all valid actions in a given environment. There are two types of action spaces:
+    1. discrete action space, such as Atari and Go
+    2. continuous action space, like where the agent control a robot in a physical world
+4. A trajectory $\tau$ is a sequence of states and actions in the world. It's also called episodes or roolouts. The very first state of the world, $s_0$, is randomly sample from the start-state distribution, denoted as $\rho_0$: $s_0\sim\rho_0(\cdot)$
 
 ## Markov Decision Process (MDP)
 
@@ -74,9 +68,14 @@ The goal of the agent is to maximize some notion of cumulative reward over a tra
 1. For finite-horizon undiscounted return: $R(\tau)=\sum_{t=0}^{T}r_t$
 2. For infinite-horizon discounted return: $R(\tau)=\sum_{t=0}^{\infty}\gamma^{t}r_t$
 
+
+Return VS rewards:
+1. reward表示的是执行完某个动作时的立即回报 
+2. return表示的一个状态动作序列当中，到达某个状态动作时的累积回报(可以理解为是到达某个状态时其之前发生的立即回报的累加)
+
 ## The Goal of RL
 
-The goal of RL is to select a policy which maximizes **expected return** when the agent acts according to it.
+**The goal of RL** is to select a policy which maximizes **expected return** when the agent acts according to it.
 
 In the case when both the environemnt transition and the policy are stocastic, the probability of a T-step trajectory is:
 
@@ -104,12 +103,10 @@ The **on-policy action-value function**, $Q^{\pi}(s, a)$, which gives the expect
 
 We can easily know the **relationship between value function and action-value function**: $V^{\pi}(s)=E_{a\sim\pi}[Q^{\pi}(s, a)]$
 
-If we have the **optimal action-value function**, $Q^{*}$, we can directly obtain the optimal action, $a^{*}(s)$, via
-
-$a^{*}(s) = arg max_a Q^{\*}(s, a)$
+If we have the **optimal action-value function**, $Q^{\*}$, we can directly obtain the optimal action, $a^{*}(s)$, via $a^{*}(s) = arg max_a Q^{\*}(s, a)$
 
 The **advantage function $A^{\pi}(s,a)$** corresponding to a policy $\pi$ describes how much better it is to take a specific action a in state s, over randomly selecting an action according to $\pi(\cdot\|s)$, assuming you act according to $\pi$ forever after:
-$A^{\pi}(s, a) = Q^{pi}(s, a) - V^{\pi}(s)$
+$A^{\pi}(s, a) = Q^{\pi}(s, a) - V^{\pi}(s)$
 
 
 
@@ -135,10 +132,6 @@ What to learn in RL algorithms:
 <img src='/img/DRL/policy_gradients.png' width="600">
 <img src='/img/DRL/value_based.png' width="600">
 <img src='/img/DRL/actor_critic.png' width="600">
-
-
-
-
 
 
 # Reference

@@ -1,4 +1,4 @@
-I"F'<h1>Table of Contents<span class="tocSkip"></span></h1>
+I"'<h1>Table of Contents<span class="tocSkip"></span></h1>
 <div class="toc"><ul class="toc-item"><li><span><a href="#图" data-toc-modified-id="图-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>图</a></span></li><li><span><a href="#算法" data-toc-modified-id="算法-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>算法</a></span></li><li><span><a href="#实现" data-toc-modified-id="实现-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>实现</a></span></li></ul></div>
 
 <h1 id="图">图</h1>
@@ -51,7 +51,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '4', '3', '5', '6']
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '4', '3', '5', '6']
 </code></pre></div></div>
 
 <p><strong>DFS</strong></p>
@@ -85,7 +85,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '3', '4', '5', '6']
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '3', '4', '5', '6']
 </code></pre></div></div>
 
 <p>用递归实现</p>
@@ -104,6 +104,6 @@
 <span class="n">visited</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '3', '4', '5', '6']
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1', '2', '3', '4', '5', '6']
 </code></pre></div></div>
 :ET

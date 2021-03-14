@@ -1,4 +1,4 @@
-I" Z<h2 id="toc">TOC</h2>
+I"FZ<h2 id="toc">TOC</h2>
 <ol id="markdown-toc">
   <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
@@ -164,7 +164,7 @@
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('moving disk from', 'A', 'to', 'B')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('moving disk from', 'A', 'to', 'B')
 ('moving disk from', 'A', 'to', 'C')
 ('moving disk from', 'B', 'to', 'C')
 ('moving disk from', 'A', 'to', 'B')
@@ -238,7 +238,7 @@
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('Making change for', 63, 'requires')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('Making change for', 63, 'requires')
 (3, 'coins')
 They are:
 21

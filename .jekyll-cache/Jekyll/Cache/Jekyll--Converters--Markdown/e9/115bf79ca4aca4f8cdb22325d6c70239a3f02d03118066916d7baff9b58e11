@@ -1,4 +1,4 @@
-I"�%<h1 id="build-in-modules">Build In Modules</h1>
+I"�&<h1 id="build-in-modules">Build In Modules</h1>
 <h2 id="sorted-字典">sorted 字典</h2>
 <p><a href="https://blog.csdn.net/tangtanghao511/article/details/47810729">Blog Ref</a></p>
 
@@ -21,7 +21,7 @@
 <span class="p">)</span>
 </code></pre></div></div>
 <h2 id="numpy-list--list-的不同">numpy list +, list +的不同</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = np.array([1, 2])
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = np.array([1, 2])
 b = np.array([2, 3])
 a+ b
 # np.array([3, 5])
@@ -42,13 +42,13 @@ B --&gt; C(submodule.py)
 B --&gt; E(__init__.py)
 </code></pre>
 <p>script.py 中代码如下才能引用submodule中函数</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import sys
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import sys
 sys.path.append('../)
 from src.module1 import submodule
 </code></pre></div></div>
 <p>然而以上代码只能在python project/python code/ 目录中执行，如果在其他目录解决办法如下：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
 # 获取文件所在路径
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
 # 修改路径到目标路径
@@ -70,7 +70,7 @@ from src.module1 import submodule
 <h3 id="ospathjoin-在windows和linux上的不同">os.path.join() 在windows和linux上的不同</h3>
 <p><strong>结论</strong>: <strong>os.path.join() 中的 argument 都不要以“/”开头</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cwd = os.getcwd()
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cwd = os.getcwd()
 # 'D:\\code\\winner'
 os.path.join(cwd, 'engine')
 # 'D:\\code\\winner\\engine' 可以使用
@@ -94,7 +94,7 @@ ROOT_DIR = os.path.abspath(os.path.dirname(<strong>file</strong>))</p>
 
 <h2 id="impyla">impyla</h2>
 <p>对于python3， 下面impala_config 中port需要是int</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from impala.dbapi import connect
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from impala.dbapi import connect
 from impala.util import as_pandas
 import pandas as pd
 
@@ -152,7 +152,7 @@ def hive_exec(sql):
 <h2 id="scipy">scipy</h2>
 <h3 id="拟合高斯曲线得到mu-std">拟合高斯曲线，得到mu, std</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import numpy as np
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import numpy as np
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 
@@ -165,7 +165,7 @@ mu, std = norm.fit(y)
 </code></pre></div></div>
 
 <h2 id="subprocess">Subprocess</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cmd=''
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cmd=''
 exit_code = subprocess.call(cmd, shell=True)
 </code></pre></div></div>
 <p>exit_code 如果是0则成果，大于0则失败 <a href="http://www.cnblogs.com/vamei/archive/2012/09/20/2694466.html">链接: exit code</a></p>
@@ -190,7 +190,7 @@ import pytz</li>
 <p>local_tz = pytz.timezone(‘Europe/Moscow’) # use your local timezone name here</p>
 <h1 id="note-pytzreferencelocaltimezone-would-produce-wrong-result-here">NOTE: pytz.reference.LocalTimezone() would produce wrong result here</h1>
 
-<h2 id="you-could-use-tzlocal-module-to-get-local-timezone-on-unix-and-win32">You could use <code class="highlighter-rouge">tzlocal</code> module to get local timezone on Unix and Win32</h2>
+<h2 id="you-could-use-tzlocal-module-to-get-local-timezone-on-unix-and-win32">You could use <code class="language-plaintext highlighter-rouge">tzlocal</code> module to get local timezone on Unix and Win32</h2>
 <h1 id="from-tzlocal-import-get_localzone---pip-install-tzlocal">from tzlocal import get_localzone # $ pip install tzlocal</h1>
 
 <h1 id="-get-local-timezone"># get local timezone</h1>
@@ -199,7 +199,7 @@ import pytz</li>
 <p>def utc_to_local(utc_dt):
 local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
 return local_tz.normalize(local_dt) # .normalize might be unnecessary</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[原始链接](https://stackoverflow.com/questions/4563272/convert-a-python-utc-datetime-to-a-local-datetime-using-only-python-standard-lib/13287083#13287083?newreg=8cc313a2daed43ed82d6900be14ee811)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[原始链接](https://stackoverflow.com/questions/4563272/convert-a-python-utc-datetime-to-a-local-datetime-using-only-python-standard-lib/13287083#13287083?newreg=8cc313a2daed43ed82d6900be14ee811)
 
 1. strftime 和 strptime
 总是搞混两者区别 

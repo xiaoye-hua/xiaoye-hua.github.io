@@ -1,10 +1,10 @@
-I"�<h2 id="参考文献">参考文献</h2>
+I"�<h2 id="参考文献">参考文献</h2>
 <p><a href="http://www.runoob.com/linux/linux-shell.html">中文资料</a></p>
 <h2 id="性能测试">性能测试</h2>
 <h3 id="usrbintime">/usr/bin/time</h3>
 <ol>
   <li>记录程序运行时间和内存 <a href="https://gist.github.com/tkuchiki/4b77005cc64426b28c3d">链接</a>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/time -v --output=../time.log  python test.py  &gt; test.log 
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/time -v --output=../time.log  python test.py  &gt; test.log 
 </code></pre></div>    </div>
   </li>
   <li>
@@ -23,7 +23,7 @@
 <h2 id="文本文件">文本文件</h2>
 <h3 id="grep">grep</h3>
 <h4 id="显示行数">显示行数</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> tail -n 10000 move.log | grep -b "content"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> tail -n 10000 move.log | grep -b "content"
 </code></pre></div></div>
 
 <p>####</p>
@@ -32,13 +32,13 @@
 
 <h3 id="创建文件夹">创建文件夹</h3>
 <p>-p  如果不存在则建文件夹</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p 
 </code></pre></div></div>
 <h3 id="--">~  /</h3>
 <p>cd ~     回到 user/
 cd /     回到 /</p>
 <h3 id="查看目录下文件大小">查看目录下文件大小</h3>
-<p><code class="highlighter-rouge">du -h --max-depth=1</code></p>
+<p><code class="language-plaintext highlighter-rouge">du -h --max-depth=1</code></p>
 <h3 id="ll">ll</h3>
 <p>ll =  ls -l   (ubuntu 中没有)</p>
 
@@ -54,7 +54,7 @@ cd /     回到 /</p>
 </code></pre></div>    </div>
   </li>
   <li>查找目录下所有文件是否包含字符串
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . | xargs grep -ri '字符串'
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . | xargs grep -ri '字符串'
 </code></pre></div>    </div>
     <p>-r : recursive
 -i : ignore case</p>
@@ -64,17 +64,17 @@ cd /     回到 /</p>
 <h3 id="文件下文件多少">文件下文件多少</h3>
 <p>所有文件多少</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l | wc -l
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l | wc -l
 </code></pre></div></div>
 
 <p>文件夹数目</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l | grep "^d" |wc -l
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l | grep "^d" |wc -l
 </code></pre></div></div>
 
 <p>文件的数目</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -lR| grep "^-" | wc -l ### zip 命令
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -lR| grep "^-" | wc -l ### zip 命令
 
 zip -r target.zip target_directory/
 </code></pre></div></div>
@@ -96,7 +96,7 @@ zip -r target.zip target_directory/
 <p>nohup sh -c ‘./cmd2 &gt;result2 &amp;&amp; ./cmd1 &gt;result1’ &amp;<a href="https://unix.stackexchange.com/questions/67221/running-multiple-nohup-commands-in-background">链接</a></p>
 
 <h3 id="连续执行多条命令">连续执行多条命令</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; 即使前面错了，还可以继续执行 &amp;&amp; 前面出错，则停止执行
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; 即使前面错了，还可以继续执行 &amp;&amp; 前面出错，则停止执行
 </code></pre></div></div>
 
 <h3 id="服务器和端口">服务器和端口</h3>
@@ -120,7 +120,7 @@ zip -r target.zip target_directory/
 <p><a href="https://www.digitalcitizen.life/command-prompt-how-use-basic-commands">参考链接</a></p>
 <h3 id="改到d盘">改到D盘</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d:
 </code></pre></div></div>
 
 <h2 id="window-putty-连接服务器">window putty 连接服务器</h2>

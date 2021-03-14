@@ -1,4 +1,4 @@
-I"<h2 id="toc">TOC</h2>
+I"*<h2 id="toc">TOC</h2>
 <ol id="markdown-toc">
   <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
   <li><a href="#searching" id="markdown-toc-searching">Searching</a></li>
@@ -59,7 +59,7 @@
 <span class="c1"># print(binarySearch(testlist, 13))
 </span></code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
 </code></pre></div></div>
 
 <h2 id="hashing">Hashing</h2>

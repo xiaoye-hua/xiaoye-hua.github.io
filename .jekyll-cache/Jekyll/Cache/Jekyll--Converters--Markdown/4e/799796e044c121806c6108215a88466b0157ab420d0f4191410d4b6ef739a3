@@ -1,4 +1,4 @@
-I"(<<h1>Table of Contents<span class="tocSkip"></span></h1>
+I"t<<h1>Table of Contents<span class="tocSkip"></span></h1>
 <div class="toc"><ul class="toc-item"><li><span><a href="#定义树节点" data-toc-modified-id="定义树节点-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>定义树节点</a></span></li><li><span><a href="#由前序，中序到后序" data-toc-modified-id="由前序，中序到后序-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>由前序，中序到后序</a></span></li><li><span><a href="#由后序，中序到前序" data-toc-modified-id="由后序，中序到前序-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>由后序，中序到前序</a></span></li></ul></div>
 
 <h1 id="定义树节点">定义树节点</h1>
@@ -59,7 +59,7 @@
 <span class="n">print_post</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[4, 5, 2, 6, 7, 3, 1]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[4, 5, 2, 6, 7, 3, 1]
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 测试
@@ -68,7 +68,7 @@
 <span class="k">print</span><span class="p">(</span><span class="s">'Post order is : '</span><span class="p">,</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Post order is :  AEFDHZMG
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Post order is :  AEFDHZMG
 </code></pre></div></div>
 
 <h1 id="由后序中序到前序">由后序，中序到前序</h1>
@@ -116,7 +116,7 @@
 <span class="n">print_pre</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, 2, 4, 5, 3, 6, 7]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, 2, 4, 5, 3, 6, 7]
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 测试
@@ -125,6 +125,6 @@
 <span class="k">print</span><span class="p">(</span><span class="s">'Pre order is : '</span><span class="p">,</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pre order is :  GDAFEMHZ
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pre order is :  GDAFEMHZ
 </code></pre></div></div>
 :ET

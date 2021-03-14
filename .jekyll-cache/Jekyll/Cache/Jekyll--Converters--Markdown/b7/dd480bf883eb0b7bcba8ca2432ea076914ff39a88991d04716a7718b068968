@@ -1,10 +1,10 @@
-I"M<h2 id="toc">TOC</h2>
+I"s<h2 id="toc">TOC</h2>
 <ol id="markdown-toc">
   <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
   <li><a href="#training-and-deployment-with-pipeline-and-joblib-in-sklearn" id="markdown-toc-training-and-deployment-with-pipeline-and-joblib-in-sklearn">Training and Deployment with Pipeline and joblib in sklearn</a></li>
   <li><a href="#error--solution" id="markdown-toc-error--solution">Error &amp; Solution</a>    <ol>
-      <li><a href="#error-module-__main__-has-no-attribute" id="markdown-toc-error-module-__main__-has-no-attribute">Error: module <code class="highlighter-rouge">__main__</code> has no attribute</a></li>
+      <li><a href="#error-module-__main__-has-no-attribute" id="markdown-toc-error-module-__main__-has-no-attribute">Error: module <code class="language-plaintext highlighter-rouge">__main__</code> has no attribute</a></li>
     </ol>
   </li>
 </ol>
@@ -42,7 +42,7 @@
 </code></pre></div></div>
 
 <h2 id="error--solution">Error &amp; Solution</h2>
-<h3 id="error-module-__main__-has-no-attribute">Error: module <code class="highlighter-rouge">__main__</code> has no attribute</h3>
+<h3 id="error-module-__main__-has-no-attribute">Error: module <code class="language-plaintext highlighter-rouge">__main__</code> has no attribute</h3>
 <p>When deploying the model with joblib, I encountered this error:
 <img src="/img/programming/20200401_sklearn_bug.png" width="800" /></p>
 
