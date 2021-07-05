@@ -2,7 +2,7 @@
 layout: post
 title: Learner and Solver
 subtitle: The Way to General Intelligence ?
-date: 2021-01-16
+date: 2020-09-03
 published: True
 mathjax: True
 catalog: true
@@ -118,4 +118,107 @@ The intergration of learning and reasoning is  one of the key challenge in AI an
 3. Scaling inference
 4. Data efficiency
 5. Symbolic representation learning 
+
+
+# Neural-Symbolic VQA: Disentangling Reasoning from Vision and Language Understanding
+
+## TODO
+
+1. symbolic program executor
+2. Details of REINFORCE
+    1. how to set the output of question parser 
+    2. unsupervised or weakly supervised representation learning
+
+## Problem
+
+[CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning](https://cs.stanford.edu/people/jcjohns/clevr/)
+
+## Prevous & Current Methods
+
+### Previous
+
+Two seperate approaches:
+1. Deep learning
+2. symbolic approach
+
+### Current
+
+Current Approach, three components:
+1. a scene parser (de-renderer)
+2. a question parser (program generator)
+3. and a program executor.
+
+<img src='/img/learner_and_solver/current.png' width="600">
+
+## Result & Conclusion & Insight
+
+Three advantages:
+
+1. First, executing programs on a symbolic space is more robust to long program traces; our model can solve complex reasoning tasks better, achieving an accuracy of 99.8% on the CLEVR dataset.
+
+2. Second, the model is more data- and memory-effificient: it performs well after learning on a small number of training data; it can also encode an image into a compact representation, requiring less  storage than existing methods for offlfline question answering. 
+
+3. Third, symbolic program execution offers full transparency to the reasoning process; we are thus able to interpret and diagnose each execution step.
+
+## Limitation & Potential Direction
+
+However, building structured representations for scenes and sentence meanings—the targets of these mappings—in ways that generalize to truly novel situations remains a challenge for many approaches including ours.
+
+Recent progress on unsupervised or weakly supervised representation learning, in both language and vision, offers some promise of generalization. Integrating this work with our neural-symbolic approach to visually grounded language is a promising future 
+
+# CLEVRER: COLLISION EVENTS FOR VIDEO REPRESENTATION AND REASONING
+
+## TODO
+
+1. Dynamics predictor
+2. symbolic program executor
+3. First limitation 
+
+## Problem
+
+[CLEVRER: CoLlision Events for Video REpresentation and Reasoning](http://clevrer.csail.mit.edu/)
+
+CLEVRER includes four types of question: 
+1. descriptive (e.g., ‘what color’)
+2. explanatory (‘what’s responsible for’)
+3. predictive (‘what will happen next’)
+4. counterfactual (‘what if’).
+
+While these state-of-the-art models for visual reasoning thrive on the perceptionbased task (descriptive), they perform poorly on the causal tasks (explanatory, predictive and counterfactual)
+
+## Prevous & Current Methods
+
+### Previous
+
+Three previosu research directions
+1. video understanding
+2. visual question answering
+3. physical and causal reasoning
+
+### Current
+
+Our model Neuro-Symbolic Dynamic Reasoning (NS-DR) combines neural nets for pattern recognition anddynamics prediction, and symbolic logic for causal reasoning.
+
+1. a video frame parser 
+2. a neural dynamics predictor 
+3. a question parser
+4. a program executor
+<img src='/img/learner_and_solver/current2.png' width="600">
+
+
+## Result &Conclusion & Insight
+<img src='/img/learner_and_solver/setup.png' width="600">
+<img src='/img/learner_and_solver/result.png' width="600">
+
+Contributions
+1. First, NS-DR incorporates a dynamics planner into the visual reasoning task
+2. Second, symbolic representation provides a powerful common ground for vision, language, dynamics and causality.
+
+
+## Limitation & Possible Direction
+
+training of the video and question parser relies on extra supervisions such as object masks, attributes, and quesion programs. Even though the amount of data required for training is minimal compared to end-to-end approaches (i.e. thou sands of annotated frames and programs), these data is hard to acquire in real-world applications. This constraint could be relaxed by applying unsupervised/weaklysupervised methods for scene decomposition and concept discovery 
+Second, our model performance decreases on tasks that require long-term dynamics prediction such as the counterfactual questions. This suggests that we need a better dynamics model capable of generating more stable and accurate trajectories.
+
+
 
