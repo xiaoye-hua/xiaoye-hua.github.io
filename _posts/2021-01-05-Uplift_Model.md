@@ -139,3 +139,7 @@ logit demand curve
 在开源数据和公司数据上都有验证
 
 
+# Ref
+
+1. [阿里文娱营销增量模型技术（uplift model）实践](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247498630&idx=1&sn=b36515e54c2dbc20186942102497c390&chksm=fbd749eacca0c0fc9e285ffc7d06e336115f387394362a4707c71377f02832f8c42bcc71cc7a&mpshare=1&scene=24&srcid=&sharer_sharetime=1585109170232&sharer_shareid=255a68ecb152bdfa3b164d51ce560a8d#rd)
+2. [Didi food 智能补贴实战](https://mp.weixin.qq.com/s?__biz=MzU1ODEzNjI2NA==&mid=2247495888&idx=1&sn=204d7df7e5b4c96bf538bf3dd769a87b&chksm=fc299e77cb5e17615886ccdf82a6e9c3458f7fa659225e9382dda3f804ea6a8d06675bab87c0&scene=27#wechat_redirect)

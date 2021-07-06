@@ -44,11 +44,14 @@ tags:
 
 Valid and same convolution:
 + valid:  (n, n)\*(f, f) $\longrightarrow$ (n-f+1, n-f+1)
-+ same:  Input size = output size
++ same:  Input size = output size (padding needed)
 
 最终维度为:
 
 (n, n) image, padding p, (f, f) filter, $\longrightarrow$ ($\frac{n+2p-f}{s} + 1$, $\frac{n+2p-f}{s} + 1$)
+
+
+Prarameter sizes: kernel_size ** 2 * input_height * filter_num
 
 **卷积神经网络中的层**
 
