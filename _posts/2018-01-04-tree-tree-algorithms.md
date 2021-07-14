@@ -203,90 +203,122 @@ class Solution(object):
         return res
 ```
 
-# 用二叉堆实现优先队列
+# Implementing Priority Queue with Binary Heap
 
-搜索树，字典结构都支持覆盖数据全集的访问和操作，然而优先级队列的操作对象限定于当前的**全局极值者**。这种访问被成为**循优先级访问(call-by-priority)**。
+Queue is a fist-in first-out data structure. priority queue is a variation of queue in which the logic order of item is determined by its priority. 
+We can use binary heap to implement priority queue, which will allow us both enqueue and dequeue items in $O(logn)
 
-**Priority queue**: the highest priority items are at the front of queue and the lowest priority items are at the back.
+## Heap
 
-用二叉堆(binary heap)可以使enqueue and dequeue items in $O(logn)$
+To implement binary heap, we need **complete binary tree**. In complete binary tree
 
-二叉堆：
-1. min heap 最小堆 ---不管进入的顺序如何，最小的元素会被最先移除
-2. max heap 最大堆 ----。。。。。。。。。。最大。。。。。。。。
+heap property:
+    1. structure property: complete binary tree (all levels are full of nodes except for the last level, in which we fill from left to right)
+        1. 2p and 2p+1 between parent and children
+    2. order property: parent is no smaller than (no bigger than) children
 
-构造二叉堆
---
-
-用完全二叉树：位置p的点的子代是2p和2p+1
-
-**Heap Order Property**: 节点x的父亲是p，则p的key要小于或等于x的key(min heap)
+Two types of heaps:
+1. min heap: the smallest key is always at the front
+2. max heap: the largest key is always at the front
 
 如下，二叉堆第一个元素为0：
 <img src='/img/deep_learning_course/heapList.png' width='800'>
 
-
 ```python
-class BinHeap:
+class MinHeap:
+    def __init__(self, list_input=False):
+        """
+        heap property:
+            1. structure property:
+                complete tree, 2p and 2p+1 between parent and children
+            2. order property:
+                parent is smaller that children
 
-    def __init__(self):
-        self.heapList = [0]
-        self.size = 0
+        list_input: whether the input value is a list, if True, the first element of the list will be the key
+        """
+        self.lst = [0]
+        self.size = 0  # size of heap
+        self.list_input = list_input
 
-    def precUp(self, i):
-        while i // 2 > 0:
-            if self.heapList[i//2] > self.heapList[i]:
-                self.heapList[i//2], self.heapList[i] = self.heapList[i], self.heapList[i//2]
-            i = i//2
-
-    def insert(self, item):
-        self.heapList.append(item)
+    def push(self, value):
+        self.lst.append(value)
         self.size += 1
-        self.precUp(self.size)
+        self.prec_up(self.size)
 
-    def findMin(self):
-        pass
-
-    def precDown(self, i):
-        while i*2<= self.size:
-            mc = self.minChild(i)
-            if self.heapList[mc] < self.heapList[i]:
-                self.heapList[mc], self.heapList[i] = self.heapList[i], self.heapList[mc]
-            i = i * 2
-    def minChild(self, i):
-        if i*2 == self.size:
-            return i*2
-        else:
-            if self.heapList[i*2] < self.heapList[i*2+1]:
-                return i*2
-            else:
-                return i*2 + 1
-
-    def delMin(self):
-        minItem = self.heapList[1]
-        self.heapList[1] = self.heapList[self.size]
+    def pop(self):
+        min_value = self.lst.pop(1)
         self.size -= 1
-        self.heapList.pop()
-        self.precDown(1)
-        return minItem
+        self.lst.insert(1, self.lst.pop())
+        self.prec_down(1)
+        return min_value
 
-    def isEmpty(self):
-        return self.size == 0
-
-    def size(self):
-        return self.size
-
-    def dbuildHeap(self, alist):
-        i = len(alist) // 2
-        self.size = len(alist)
-        self.heapList = [0] +  alist
-        while i > 0:
-            self.precDown(i)
+    def build_heap(self, lst):
+        """
+        Two methods to build from a entire list:
+            1. iterate and insert one by one：　O(nlogn)
+            2. start with the entire list: O(n)
+        """
+        i = len(lst) // 2
+        self.lst = [0] + lst[:]
+        self.size = len(lst)
+        while i >= 0:
+            self.prec_down(i)
             i -= 1
 
+    def prec_up(self, i):
+        if self.list_input:
+            while i//2>0:
+                idx = i//2
+                if self.lst[idx][0] >= self.lst[i][0]:
+                    self.lst[idx], self.lst[i] = self.lst[i], self.lst[idx]
+                else:
+                    return
+                i = idx
+        else:
+            while i//2>0:
+                idx = i//2
+                if self.lst[idx] >= self.lst[i]:
+                    self.lst[idx], self.lst[i] = self.lst[i], self.lst[idx]
+                else:
+                    return
+                i = idx
+
+    def prec_down(self, i):
+        if self.list_input:
+            while 2 * i <= self.size:
+                idx = self.min_child(i)
+                if self.lst[idx][0] <= self.lst[i][0]:
+                    self.lst[idx], self.lst[i] = self.lst[i], self.lst[idx]
+                    i = idx
+                else:
+                    return
+        else:
+            while 2*i <= self.size:
+                idx = self.min_child(i)
+                if self.lst[idx] <= self.lst[i]:
+                    self.lst[idx], self.lst[i] = self.lst[i], self.lst[idx]
+                    i = idx
+                else:
+                    return
+
+    def min_child(self, i):
+        if 2*i+1 > self.size:
+            return 2*i
+        if self.list_input:
+            if self.lst[2 * i][0] < self.lst[2 * i + 1][0]:
+                return 2 * i
+            else:
+                return 2 * i + 1
+        else:
+            if self.lst[2*i] < self.lst[2*i+1]:
+                return 2*i
+            else:
+                return 2*i + 1
 ```
 
-二叉堆的另一应用为[堆排序](http://blog.csdn.net/guohua1992/article/details/79419604)
+TODO: The complexity build_heap is O(n) ?
+
+Refer to [Sorting Algorithms](https://xiaoye-hua.github.io/2017/12/29/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/) for heap sorting. 
 
 # 二叉树搜索(Binary search tree)
 
@@ -302,7 +334,6 @@ map ADT的操作：
 **搜索二叉树性质**: left subtree < root < right subtree
 
 复杂度分析：对于put函数来说，复杂度介于O(logn)和O(n)之间。
-
 
 
 ```python

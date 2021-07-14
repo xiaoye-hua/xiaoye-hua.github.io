@@ -11,6 +11,8 @@ tags:
 ---
 
 # Introduction
+1. Introduction
+{:toc}
 
 本节总结如下排序方法：
 1. Bubble sort 冒泡排序
