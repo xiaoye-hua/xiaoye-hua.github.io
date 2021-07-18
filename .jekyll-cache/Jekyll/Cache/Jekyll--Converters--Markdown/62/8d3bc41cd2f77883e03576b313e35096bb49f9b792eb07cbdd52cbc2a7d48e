@@ -1,4 +1,4 @@
-I"×3<h1 id="toc">TOC</h1>
+I"4<h1 id="toc">TOC</h1>
 <ol id="markdown-toc">
   <li><a href="#toc" id="markdown-toc-toc">TOC</a></li>
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
@@ -145,7 +145,7 @@
 </span></code></pre></div></div>
 
 <p>Backreference:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">r'\b(\w+)\s+\1\b'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="sa">r</span><span class="s">'\b(\w+)\s+\1\b'</span><span class="p">)</span>
 <span class="n">p</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'Paris in the the spring'</span><span class="p">).</span><span class="n">group</span><span class="p">()</span>
 <span class="c1"># "the the"
 </span></code></pre></div></div>
@@ -238,8 +238,8 @@
 <span class="n">non_greedy_result</span> <span class="o">=</span> <span class="n">pat</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">begin</span><span class="o">+</span><span class="s">'(.*)'</span><span class="o">+</span><span class="n">end</span><span class="p">,</span><span class="n">re</span><span class="p">.</span><span class="n">S</span><span class="p">)</span>
 <span class="n">greedy_result</span> <span class="o">=</span> <span class="n">pat</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">f"Non-greedy result: </span><span class="si">{</span><span class="n">non_greedy_result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">f"Greedy result: </span><span class="si">{</span><span class="n">greedy_result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Non-greedy result: </span><span class="si">{</span><span class="n">non_greedy_result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Greedy result: </span><span class="si">{</span><span class="n">greedy_result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 
 <span class="c1">## Output:
 # Non-greedy result: ['hah', 'ffd']
