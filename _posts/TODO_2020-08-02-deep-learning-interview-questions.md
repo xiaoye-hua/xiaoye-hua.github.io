@@ -20,7 +20,7 @@ tags:
 Three question to ask:
 - The purpose of this technique
 - Steps of this technique
-- Howthese steps contribute to the goal?
+- How these steps contribute to the goal?
 
 ### What's gradient descent?
 Ref[1][2]
@@ -84,6 +84,9 @@ Ref[2][3]
 ### Dropout
 - Dropout is a technique to reduce overfitting. It introduces noise while computing the hidden layer in the forward propagation.
 - Throughout the training, every iteration, this technique will zero out fractions of nodes before computing the subsequent layer.
+
+
+
 
 # Ref
 1. [ML Glossary](https://ml-cheatsheet.readthedocs.io/en/latest/gradient_descent.html)
