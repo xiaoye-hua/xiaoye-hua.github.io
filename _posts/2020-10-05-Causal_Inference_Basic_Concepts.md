@@ -19,8 +19,8 @@ tags:
 为什么需要因果推断： 相关性并不意味着因果关系。比如游戏公司在AB实验组中，营销组的登录比较高，如何判断高登录率多大程度是营销导致的，多大程度是因为用户本身就是高活用户给。本质上，我们在分析一个干预（treatment）对结果（outcome）的影响。
 
 常见的因果推断模型有两个：
-1. Potential Outcome Framework (Robin Causal Model (RCM))
-2. Causal diagram
+1. Potential Outcome Framework (Robin Causal Model (RCM)) (潜在因果模型)
+2. Causal diagram　(因果图)
 
 ## ATE, CATE, and ITE
 Difference between ATE and CATE:
@@ -46,7 +46,7 @@ ATE Wikipedia:
 
 [因果推断漫谈（二）：倾向性得分匹配介绍](https://dango.rocks/blog/2019/01/20/Causal-Inference-Introduction2-Propensity-Score-Matching/)
 
-## Synthetic Data
+## Synthetic Datakuozhan
 
 we generate data with known causal and non-causal links between the outcome, treatment and some of confounding variables.
 
@@ -57,8 +57,12 @@ Refer to Validate with synthetic data set for more details
 Sensitivy analysis aim to check the robustness of the unconfoundeness assumption. If there is hidden bias (unobserved confounders), it detemineds how severe whould have to be to change conclusion by examine the average treatment effect estimation
 
 ## Uplift Model
-### Meta-Learner Algorithm
-### Tree-Based Algorithm
+### Model Types
+1. Meta-Learner Algorithm
+   1. S-Learner  (single base learner with treatment as feature)
+   2. T-learner, X-learner, R-learner (multiple base learner for each of treatment and control group)
+2. Tree-Based Algorithm
+   1. tree-based algorithm where the split criterion is based on difference in uplift
 ### Offline Evaluation
 1. Qini metirc
 2. ERUPT (Expected Respond Under Proposed Treatments. refer to MR-uplift Python package)
@@ -89,6 +93,7 @@ MR-uplift:
 
 # Reference
 1. [CausalML: Python Package for Causal Machine Learning - Paper with code](https://ml.paperswithcode.com/paper/causalml-python-package-for-causal-machine)
+3. [CausalML Documentation]() 
 2. [因果推断漫谈（一）掀开因果推断的面纱](https://dango.rocks/blog/2019/01/08/Causal-Inference-Introduction1/)
 3. [因果推断漫谈（二）：倾向性得分匹配介绍](https://dango.rocks/blog/2019/01/20/Causal-Inference-Introduction2-Propensity-Score-Matching/)
 4. [MR-uplift Python package](https://github.com/Ibotta/mr_uplift)
