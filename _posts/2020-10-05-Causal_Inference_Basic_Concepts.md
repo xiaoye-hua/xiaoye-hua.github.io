@@ -46,7 +46,7 @@ ATE Wikipedia:
 
 [因果推断漫谈（二）：倾向性得分匹配介绍](https://dango.rocks/blog/2019/01/20/Causal-Inference-Introduction2-Propensity-Score-Matching/)
 
-## Synthetic Datakuozhan
+## Synthetic Data
 
 we generate data with known causal and non-causal links between the outcome, treatment and some of confounding variables.
 
