@@ -17,6 +17,26 @@ tags:
  "when you go through this process, you'll find there are many thing you think you understand but you didn't. You will make connections that you didn't see before and simplied the the information in your head as you try to condense it down and regurgitate it... This step is crucial to retain information and developing more than a surface-understanding of a subject" 
 
 # Question & Answer
+
+## Training Data
+
+### How to Cope Imbalance Data?
+
+1. Resampling
+    1. Under-sampling (add copy of instances from less-presented class):
+        1. It's better to add some noise 
+    2. Over-sampling (delete instances from over-presented class)
+        1. Ensemble learning is better (for every estimator, random choose subset of the over-presented class)
+2. Data augmentation
+    1. SMOTE (Synthetic Minority Over Sampling Technique)
+3. Change weight of data
+    1. such as XGBoost
+4. Try it as anomaly detection
+
+Ref
+1. [正负样本不均衡的解决办法](https://blog.csdn.net/jemila/article/details/77992967)
+2. [8 Tactics to Combat Imbalanced Classes in Your Machine Learning Dataset](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
+
 ### What's the trade-off between bias and variance
 1. The goal of machine learning is to reduce the error between the predicted value and the groud truth.
 2. The total errors comprises three parts: bias, variance and irreducible error. Irreducible error can not be reduced. Bias is introduced by too simple model, while vairiance is introduced by to complex model

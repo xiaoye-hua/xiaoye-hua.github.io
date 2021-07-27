@@ -67,9 +67,9 @@ Number of paramters is the summation of the follow:
 ## Gated Recurrent Unit(GRU)
 
 The key distinction between regular RNN and GRU is that the latter support gatting of the hidden states.
- 
-1. Reset gate controls how much of the previous state we **might still*8 want to remember; 
-2. update gate how much of the new state is just a copy of the old state.
+
+1. Reset gate controls how much of the previous state we might still want to remember. It controls the shor-term skip.
+2. Update gate how much of the new hidden state is just a copy of the old state. It controls the long-term dependency.
 
 <img src='/img/deep_learning_course/gru.png' width="600">
 
@@ -92,8 +92,8 @@ For a single LSTM cell:
 
 <img src='/img/deep_learning_course/lstm.png' width="600">
 
-1. Forget gate: $F_t=sigmoid(W_f\[\frac{h^{\<t-1\>}}{x_t}\]+b_f)$
-2. Input gate: $I_i=sigmoid(W_i\[\frac{h^{\<t-1\>}}{x_t}\]+b_i)$
+1. Forget gate (how much of the new cell memory  is just the copy of the previous cel memory): $F_t=sigmoid(W_f\[\frac{h^{\<t-1\>}}{x_t}\]+b_f)$
+2. Input gate (how much new information we want to use): $I_i=sigmoid(W_i\[\frac{h^{\<t-1\>}}{x_t}\]+b_i)$
 3. Output gate: $O_i=sigmoid(W_o\[\frac{h^{\<t-1\>}}{x_t}\]+b_o)$
 4. Candidate memory: $\tilde{c}=tanh(W_c\[\frac{h^{\<t-1\>}}{x_t}\]+b_c)$
 5. Memory: $c^{\<t\>}=U_i\*\tilde{c} + F_i\*c^{\<t-1\>}$
@@ -105,24 +105,44 @@ Number of paramters is the summation of the follow:
 2. $n_a \* n_y + n_y$
 
 ## Bidirectional RNN
+
+Compared other RNN, Bidrectiional RNN adds a hidden to pass information in a backward direction. The key feature of Bidirectional rnn is that it will use information from both ends of the sentences, which is also a constraint when applying Bidirectional RNN. There is another shortcut that the gradient may have long dependency chain.
 <img src='/img/deep_learning_course/bi_rnn.png' width="600">
+<img src='/img/deep_learning_course/bi-rnn.png' width="600">
+
+1. The hidden state of current timestep is simultaneously determined by the data prior and after the current timestep
+2. The bidirectional RNN is useful for sentence embedding and the estimation of observation given bidirecional information.
 
 1. costly to train due to long gradient chains
 
 # Limitations
 ## Gradient vanishing
-According to [ref2](https://www.zhihu.com/question/44895610), LSTM can address the problem of gradient vanishing, which is a problem for RNN.
+According to ref2, LSTM can address the problem of gradient vanishing, which is a problem for RNN.
+
+1. gates are used to ensure that the gradient can't be too small, as a result, to ensure the long term information can be stored(ref3)
 
 多个回路的连接，同时gate的控制类似于ResNet，让梯度能够透传。
 
 ## Gradient exploding
 
-Sometime the gradient can be quite and the optimization can not converge. We can gradient clipping to address this problem, namely clipping the gradient by projecting them back to a ball of given radius, say $\theta$ via 
+Sometime the gradient can be quite and the optimization can not converge. We can gradient clipping to address this problem, namely clipping the gradient by projecting them back to a ball of given radius, say $\theta$ via
 
 $g=min(1, \frac{\theta}{g})g$
 
+
+# Questions
+
+## RNN能不能使用relu
+结论是可以，而且加上之后性能堪比lstm. 但是初始化是权重要在1附近
+RNN 中为什么要采用 tanh，而不是 ReLU 作为激活函数？ - 何之源的回答 - 知乎 https://www.zhihu.com/question/61265076/answer/186347780
+RNN 中为什么要采用 tanh，而不是 ReLU 作为激活函数？ - chaopig的回答 - 知乎
+https://www.zhihu.com/question/61265076/answer/260492479
+
+
+
+
 # Reference
 1. [Dive Into Deep Learning Chapter 9](https://d2l.ai/)
-2. [LSTM如何应对梯度消失](https://www.zhihu.com/question/44895610)
+2. [为什么相比于RNN，LSTM在梯度消失上表现更好？ - Bill的回答 - 知乎](https://www.zhihu.com/question/44895610/answer/616818627)
 
 
