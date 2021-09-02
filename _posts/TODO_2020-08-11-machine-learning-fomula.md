@@ -20,7 +20,7 @@ tags:
 Three question to ask:
 - The purpose of this technique
 - Steps of this technique
-- Howthese steps contribute to the goal?
+- How these steps contribute to the goal?
 
 ### What's gradient descent?
 Ref[1][2]
