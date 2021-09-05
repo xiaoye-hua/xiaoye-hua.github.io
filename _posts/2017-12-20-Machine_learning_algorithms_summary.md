@@ -149,28 +149,28 @@ Three type of algorithms
 
 
 ## 支持向量机 (Support Vector Machine)
-
-**Explain**
-1. Supervised learning which is commonly use for classification. The goal is to find the the hyperplane that have the greatest margin between the hyperplane and the train datasets. This hyperplane will make sure all the data are correctly classfied. 
+1. Supervised learning which is commonly use for classification. 
+    1. The goal is to find the the hyperplane that have the greatest margin between the hyperplane and the support vectors. This hyperplane will make sure all the data are correctly classified. 
+    2. If the hyperplane can't be found in the feature space, then the features will be mapped into a higher dimensional space with kernel tricks.
 4. Concepts explain
-    - Margin: the distince between the hypterplane and the nearest data points.
+    - Margin: the distance between the hypterplane and the nearest data points (support vector).
     - Support vector: the points that are close to the hyperplane, which, if removed, would alter the position of
         hyperplane. they are critical elements in the datasets
-    - Kernel triks: It's a method to map the data into higher dimensions so that we can classified them to different class with a hyperplane. The most used kernel are: polymomial function and radial basis function(RBF). Other kernels are linear kernel and sigmoid kernel.
+    - Kernel tricks: It's a method to map the data into higher dimensions so that we can classified them to different class with a hyperplane. The most used kernel are: polymomial function and radial basis function(RBF). Other kernels are linear kernel and sigmoid kernel.
 5. Pros: accuracy; works well on small cleaner dataset
-6. Cons: less effective on noiser data with ovelaping classes; RF is more automated to train. However regarding SVM, there are more things to worry about such as the choose of kernel methods, the regularization penalty and so on.
+6. Cons: less effective on noisier data with overlaping classes; RF is more automated to train. However regarding SVM, there are more things to worry about such as the choose of kernel methods, the regularization penalty and so on.
 7. Usage: text classification
 
 ## 朴素贝叶斯(Naive Bayes Classifier)
 
-**Explain**
-1. a collection of algorithms that based on Bayes Theorem. based on the "naive" assumption of conditional independence of every pairs of features given the value of the target variable, which means that every feature contributes independently to the target variable
-2. There different kinds of naive bayes classfier, they differ mainly by the assumptions they make regarding the distribution of $P(x_i/y)$
-  3. Gaussian naive Bayes
-  4. Multinormial naive Bayes
-  5. Bernoulli naive Bayes
-  6. cagegory naive Bayes
-  7. ...
+1. Supervised Learning algorithm for classification. A collection of algorithms that based on Bayes Theorem. 
+    1. Naive: based on the "naive" assumption of conditional independence of every pairs of features given the value of the target variable
+        1. which means that every feature contributes independently to the target variable
+2. There different kinds of naive bayes classifier, they differ mainly by the assumptions they make regarding the distribution of $P(x_i/y)$
+    3. Gaussian naive Bayes
+    4. Multinormial naive Bayes
+    5. Bernoulli naive Bayes
+    6. cagegory naive Bayes
 2. Pros: relatively simple; easy to train; run fast
 3. Cons: In real case, features are not all independent
 4. Usage: document classification and text spam detection
@@ -194,3 +194,12 @@ Three type of algorithms
 3. Pros:
 4. Cons:
     1. likely end up in a local optimum, several runs with independent init might be necessary
+
+
+
+# Ref
+
+1. [Support Vectors Machines - A simple explanation](https://www.kdnuggets.com/2016/07/support-vector-machines-simple-explanation.html)
+2. Introduction to Statistical Learning with Application in R
+3. 统计学习方法 - 李航
+4. [Naive Bayes Classifier - Scikit-learn documents](https://scikit-learn.org/stable/modules/naive_bayes.html)
