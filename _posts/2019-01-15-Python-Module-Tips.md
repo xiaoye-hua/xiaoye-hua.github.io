@@ -8,6 +8,10 @@ tags:
   - Python
   - Python Module
 ---
+# TOC
+1. Introduction
+{:toc}
+
 #  Build In Modules
 ## sorted 字典
 [Blog Ref](https://blog.csdn.net/tangtanghao511/article/details/47810729)
@@ -197,29 +201,28 @@ exit_code 如果是0则成果，大于0则失败 [链接: exit code](http://www.
 ## argparse
 文件1中有argparse参数，如果文件2中从文件1import参数，则运行文件2的时候出错，原因不明，还需确认
 
- ##  opencv, plt
+## opencv, plt
  
  1. plt.imsave 后的图片， cv2.imread 后像素差一个。 最好一致。
  2. opencv 图片序列和反序列化时，会对像素点进行四舍五入，如果图片已经归一化，然后进行序列化和反序列化的话，信息会丢失 cv2.imencode,   cv2.imdecode  
  
- ## datetime
+## datetime
 1. 将UTC时间转化为当地时间
-```python
-import pytz
-
-local_tz = pytz.timezone('Europe/Moscow') # use your local timezone name here
-# NOTE: pytz.reference.LocalTimezone() would produce wrong result here
-
-## You could use `tzlocal` module to get local timezone on Unix and Win32
-# from tzlocal import get_localzone # $ pip install tzlocal
-
-# # get local timezone
-# local_tz = get_localzone()
-
-def utc_to_local(utc_dt):
-local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
-return local_tz.normalize(local_dt) # .normalize might be unnecessary
-```
+    ```
+    import pytz
+    
+    local_tz = pytz.timezone('Europe/Moscow') # use your local timezone name here
+    # NOTE: pytz.reference.LocalTimezone() would produce wrong result here
+    
+    ## You could use `tzlocal` module to get local timezone on Unix and Win32
+    # from tzlocal import get_localzone # $ pip install tzlocal
+    
+    # # get local timezone
+    # local_tz = get_localzone()
+    def utc_to_local(utc_dt):
+        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
+        return local_tz.normalize(local_dt) # .normalize might be unnecessary
+    ```
 [原始链接](https://stackoverflow.com/questions/4563272/convert-a-python-utc-datetime-to-a-local-datetime-using-only-python-standard-lib/13287083#13287083?newreg=8cc313a2daed43ed82d6900be14ee811)
 
 1. strftime 和 strptime
