@@ -56,11 +56,6 @@ Ref:
     2. High bias means that the model is too simple that it extract all useful information from the training data
     3. Hig variance means that the model is too complex that it extract noise information from the training data
 
-
-
-
-
-
 Ref:
 
 1. [Interview Questions: What's the Bias-variance Trade-off ?](https://machinelearningspecialist.com/machine-learning-interview-questions-q1-whats-the-trade-off-between-bias-and-variance/)
@@ -196,9 +191,7 @@ Ref:
 
 # Finished Bayes Classifier
 
-
 # Model Evalutation
-
 
 ## Precision & Recall & F1 Score (Ref3)
 
@@ -235,7 +228,6 @@ Ref:
 2. How :
     1. Shapley values calculate the importance of a feature by comparing what a model predicts with and without the feature. However, since the order in which a model sees features can affect its predictions, this is done in every possible order, so that the features are fairly compared
 
-
 Ref
 
 1. [Shap Value - Kaggle learning](https://www.kaggle.com/dansbecker/shap-values)
@@ -260,9 +252,14 @@ https://zhuanlan.zhihu.com/p/82462362
 3. Details:
     1. Fist layer, group data based on their similarity
     2. Use the similar method to construct the above layers
+    
+    
+Ref
+
+1. [Hierarchical Clustering and Its Application](https://towardsdatascience.com/hierarchical-clustering-and-its-applications-41c1ad4441a6)
+2. [Hierarchical Clustering in Python](https://www.analyticsvidhya.com/blog/2019/05/beginners-guide-hierarchical-clustering/)
 
 ## TODO Evaluation
-
 
 # Ref
 

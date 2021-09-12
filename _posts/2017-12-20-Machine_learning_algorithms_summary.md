@@ -153,13 +153,16 @@ Three type of algorithms
     1. The goal is to find the the hyperplane that have the greatest margin between the hyperplane and the support vectors. This hyperplane will make sure all the data are correctly classified. 
     2. If the hyperplane can't be found in the feature space, then the features will be mapped into a higher dimensional space with kernel tricks.
 4. Concepts explain
-    - Margin: the distance between the hypterplane and the nearest data points (support vector).
+    - Margin: the distance between the hyperplane and the nearest data points (support vector).
     - Support vector: the points that are close to the hyperplane, which, if removed, would alter the position of
         hyperplane. they are critical elements in the datasets
     - Kernel tricks: It's a method to map the data into higher dimensions so that we can classified them to different class with a hyperplane. The most used kernel are: polymomial function and radial basis function(RBF). Other kernels are linear kernel and sigmoid kernel.
 5. Pros: accuracy; works well on small cleaner dataset
-6. Cons: less effective on noisier data with overlaping classes; RF is more automated to train. However regarding SVM, there are more things to worry about such as the choose of kernel methods, the regularization penalty and so on.
+6. Cons: less effective on noisier data with overlapping classes; RF is more automated to train. However regarding SVM, there are more things to worry about such as the choose of kernel methods, the regularization penalty and so on.
 7. Usage: text classification
+
+
+Ref 1, 2, 3
 
 ## 朴素贝叶斯(Naive Bayes Classifier)
 
