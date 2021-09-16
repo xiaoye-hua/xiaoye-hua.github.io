@@ -107,6 +107,20 @@ Keep in mind:
     3. p-value < 0.05 => reject the null hypothesis
 4. For example
     1. height of US citizen
+    
+    
+## Significance Level $\alpha$
+
+1. $\alpha$ for hypothesis test is value for which the p-value is less or equal is considered as statistically significant.
+2. In decision theory, this value is the probability of Type I error 
+3. Change: the lower the $\alpha$, the more we are confident about the result.
+
+Ref
+1. [Test of Significance - Yale](http://www.stat.yale.edu/Courses/1997-98/101/sigtest.htm)
+
+## Critical Value
+1. The point where the Null Hypothesis gets rejected is called as Critical Value. 
+2. It is also called as dividing point for separation of the regions where hypothesis is accepted and rejected.
 
 ## Type I error
 
@@ -196,3 +210,4 @@ What are some common pitfalls?
 1. [Couse Note of Applied Regression Analysis from PennState Unversity](https://online.stat.psu.edu/stat462/node/83/)
 2. [Confidence Interval, P-value, Power, Type I and Type II Error - YouTube Explain](https://www.youtube.com/watch?v=Allap_hrjyo)
 3. [Handle Skewed Data In A/B Testing](https://qr.ae/pGZYXZ)
+4. [Yale Statistic Course Note](http://www.stat.yale.edu/Courses/1997-98/101/toplist.htm)

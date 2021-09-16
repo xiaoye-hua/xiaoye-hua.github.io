@@ -166,7 +166,7 @@ Ref 1, 2, 3
 
 ## 朴素贝叶斯(Naive Bayes Classifier)
 
-1. Supervised Learning algorithm for classification. A collection of algorithms that based on Bayes Theorem. 
+1. Supervised Learning algorithm for classification. A collection of algorithms that based on Bayes Theorem. And it's solved with Maximum A Posterior estimation
     1. Naive: based on the "naive" assumption of conditional independence of every pairs of features given the value of the target variable
         1. which means that every feature contributes independently to the target variable
 2. There different kinds of naive bayes classifier, they differ mainly by the assumptions they make regarding the distribution of $P(x_i/y)$
