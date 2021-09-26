@@ -54,7 +54,7 @@ uplift model
 ## Current
 
 1. predict uplift, return & cost
-2. Solve it with knapack problem
+2. Solve it with knapsack problem
 3. Retrospective Estimation 
 
 # Result & Conclusion & Insight
