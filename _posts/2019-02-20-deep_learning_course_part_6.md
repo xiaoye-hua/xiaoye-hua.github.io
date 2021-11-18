@@ -45,18 +45,18 @@ In the approch of word2vec, by learning a langage model, we extract the weights 
 
 ### Skip-Gram
 
-Skip-gram model assumes that the central target word can be generated from the context words. The probability of generating the context words given the central word can be obtained by performing a softmax operation on the vector inner product:
+Skip-gram model assumes that the context word can be generated from the central target word. The probability of generating the context words given the central word can be obtained by performing a softmax operation on the vector inner product:
 
 $P(w_o\|w_c)=\frac{exp(u_o^Tv_c)}{\sum_{i\in V}exp(u_i^Tv_c)}$
 
 By apply maximium likelihood estimation, we can get the objective function, and optimize it with gradient descent algorithms.
 
 ### CBOW
-While the CBOW model assumes that the context word can be generated from the central target word. 
+While the CBOW model assumes that the central target word can be generated from the context words. 
 
 ### Approximate Training
 Due to the structure of cross-entropy objective function, for larger word dictionary the overhead computing for gradient can be high, two approximate methods are introduced:
-1. Negative sampling
+1. Negative sampling -> change the problem to a binary classification problem.
 2. Hierarchical softmax
 
 ## GloVe

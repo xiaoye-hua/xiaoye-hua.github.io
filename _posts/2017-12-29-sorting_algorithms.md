@@ -57,18 +57,21 @@ tags:
 
 
 ```python
-def bubbleSort(alist):
-    for passnum in range(len(alist)-1,0,-1):
-        for i in range(passnum):
-            if alist[i]>alist[i+1]:
-                temp = alist[i]
-                alist[i] = alist[i+1]
-                alist[i+1] = temp
+def bubbleSort(alist, ascending=True):
+    for unordered_boundary in range(len(alist)-1,0,-1):
+        for i in range(unordered_boundary):
+            if ascending:
+                if alist[i]>alist[i+1]:
+                    alist[i], alist[i+1] = alist[i+1], alist[i]
+            else:
+                if alist[i]<alist[i+1]:
+                    alist[i], alist[i+1] = alist[i+1], alist[i]
 
 alist = [54,26,93,17,77,31,44,55,20]
-bubbleSort(alist)
+bubbleSort(alist, ascending=True)
 print(alist)
-
+bubbleSort(alist, ascending=False)
+print(alist)
 ```
 
     [17, 20, 26, 31, 44, 54, 55, 77, 93]
@@ -84,21 +87,19 @@ print(alist)
 
 
 ```python
-def selectionSort(alist):
-   for fillslot in range(len(alist)-1,0,-1):
-       positionOfMax=0
-       for location in range(1,fillslot+1):
-           if alist[location]>alist[positionOfMax]:
-               positionOfMax = location
+def selection_sort(lst) -> None:
+    length = len(lst) 
+    for unordered_right_boundary in range(length-1, 0, -1): 
+        max_idx = 0 
+        for idx in range(0, unordered_right_boundary+1): 
+            if lst[idx] > lst[max_idx]:
+                max_idx = idx
+        lst[max_idx], lst[unordered_right_boundary] = lst[unordered_right_boundary], lst[max_idx]
 
-       temp = alist[fillslot]
-       alist[fillslot] = alist[positionOfMax]
-       alist[positionOfMax] = temp
 
 alist = [54,26,93,17,77,31,44,55,20]
-selectionSort(alist)
+selection_sort(alist)
 print(alist)
-
 ```
 
     [17, 20, 26, 31, 44, 54, 55, 77, 93]
@@ -212,43 +213,40 @@ Split 二分log(n)； Merge 每个元素都会被放入排序好的list中,每�
 
 
 ```python
-def merge_sort(lst):
-    print 'Spliting: ' + str(lst)
-
-    #spliting lst
-    if len(lst) > 1:
-        mid = len(lst) // 2
+def mergeSort(lst) -> None:
+    length = len(lst)
+    if length <= 1:
+        return
+    else:
+        mid = length // 2
         left_half = lst[:mid]
         right_half = lst[mid:]
-        merge_sort(left_half)
-        merge_sort(right_half)
-
-        # index of left_half, right_half & lst
-        i = 0
-        j = 0
-        k = 0
-
-        # while until one of the list has been iterated
-        while i < len(left_half) and j < len(right_half):
-            if left_half[i] < right_half[j]:
-                lst[k] = left_half[i]
-                i += 1
+        mergeSort(left_half)
+        mergeSort(right_half)
+        left_idx = 0
+        right_idx = 0
+        total_idx = 0
+        while left_idx<mid and right_idx<length-mid:
+            if left_half[left_idx] < right_half[right_idx]:
+                lst[total_idx] = left_half[left_idx]
+                left_idx += 1
             else:
-                lst[k] = right_half[j]
-                j += 1
-            k += 1
+                lst[total_idx] = right_half[right_idx]
+                right_idx += 1
+            total_idx += 1
+        while left_idx < mid:
+            lst[total_idx] = left_half[left_idx]
+            total_idx += 1
+            left_idx += 1
+        while right_idx < length-mid:
+            lst[total_idx] = right_half[right_idx]
+            total_idx += 1
+            right_idx += 1
 
-        # To iterate the rest one
-        while i < len(left_half):
-            lst[k] = left_half[i]
-            i += 1
-            k += 1
-        while j < len(right_half):
-            lst[k] = right_half[j]
-            j += 1
-            k += 1
-        print 'Merging: ' + str(lst)
 
+alist = [54,26,93,17,77,31,44,55,20]
+mergeSort(alist)
+print(alist)
 ```
 
 #  Quick sort
