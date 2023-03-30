@@ -17,8 +17,6 @@ tags:
 
 DSSM was initial invented for NLP word-matching task, recent years, it is widely used in candidate generation stage of recommendation system.
 
-
-
 ## Problem Definition
 
 1. Main objective:
@@ -59,5 +57,3 @@ DSSM was initial invented for NLP word-matching task, recent years, it is widely
         1. [ ] in-batch softmax ??就是利用batch内样本互相做彼此的负样本，来构建softmax损失
     2. [ ] Embedding-based Retrieval in Facebook Search: from facebook 2022
     3. [ ] [deepmatch DSSM example](https://t.zsxq.com/0cuPUvjUl)
-
-
