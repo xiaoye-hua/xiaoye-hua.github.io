@@ -54,5 +54,8 @@ tags:
     2. Similarity difference in difference dimensions
     3. Embedding evaluation tools 
 3. [Video demostration of this paper](https://www.youtube.com/watch?v=aWjsUEX7B1I&t=415s)
+4. [ ] blogs from Wangzhe
+    1. [从KDD 2018 Best Paper看Airbnb实时搜索排序中的Embedding技巧 - 王喆的文章 - 知乎](https://zhuanlan.zhihu.com/p/55149901)
+    2. [Airbnb如何解决Embedding的数据稀疏问题？ - 王喆的文章 - 知乎](https://zhuanlan.zhihu.com/p/57313656)
 
 
