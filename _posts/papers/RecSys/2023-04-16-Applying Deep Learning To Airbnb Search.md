@@ -48,8 +48,9 @@ check: scaling all the values of a given feature in the test set, such
 as price to 2x, 3x, 4x etc. and observing changes in NDCG. We
 found that the model’s performance was remarkably stable over
 these values it had never seen before.
+2. [ ] what NN structure ??
+    1. [ ] trained with pairwise loss
 2. toread
     1. [ ] Improving Deep Learning For Airbnb Search (industry, airbnb)
-        
-        
+          
 ## Ref
