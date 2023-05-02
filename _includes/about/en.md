@@ -1,1 +1,1 @@
-Hua, currently works as a algorithm engineer in Beijing, China.
+Hua, currently works as a data scientist in the Netherlands.

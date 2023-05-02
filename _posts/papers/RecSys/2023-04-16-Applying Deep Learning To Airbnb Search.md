@@ -27,7 +27,7 @@ This paper is an interesting industry paper from Airbnb. The most interesting pa
 
 ## Methods
 
-1. Gain of DNN: Earlier the focus was largely on feature engineering, but aer the move to deep learning, trying to do beer math on the features manually has lost its luster. is has freed us up to investigate problems at a higher level, like how can we improve our optimization objective, and are we accurately representing all our users?
+1. Gain of DNN: Earlier the focus was largely on feature engineering, but aer the move to deep learning, trying to do beer math on the features manually has lost its luster. It has freed us up to investigate problems at a higher level, like how can we improve our optimization objective, and are we accurately representing all our users?
 2. Model evolution
     1. Manually crafted score function 
     2. GBDT
@@ -49,8 +49,8 @@ as price to 2x, 3x, 4x etc. and observing changes in NDCG. We
 found that the model’s performance was remarkably stable over
 these values it had never seen before.
 2. [ ] what NN structure ??
-    1. [ ] trained with pairwise loss
+    1. [ ] trained with pairwise loss ??
 2. toread
-    1. [ ] Improving Deep Learning For Airbnb Search (industry, airbnb)
+    1. [x] Improving Deep Learning For Airbnb Search (industry, airbnb)
           
 ## Ref
