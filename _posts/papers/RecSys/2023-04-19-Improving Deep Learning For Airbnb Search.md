@@ -49,4 +49,4 @@ search results has been the most reliable gauge of model performance for us.
 	
 ## TODO & Questions & Further Reading
 
-[ ] more papers from airbnb
+[x] more papers from airbnb

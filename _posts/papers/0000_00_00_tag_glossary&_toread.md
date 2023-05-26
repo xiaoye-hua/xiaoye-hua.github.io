@@ -9,6 +9,8 @@
     5. DS competition 
     6. Industry
         1. Airbnb
+        2. Booking.com
+    7. pricing
     
     
     

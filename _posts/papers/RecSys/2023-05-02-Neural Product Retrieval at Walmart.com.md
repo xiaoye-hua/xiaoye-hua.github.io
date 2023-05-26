@@ -30,10 +30,10 @@ tags:
 1. All implementation based on tensorflow ranking
 2. Pair-wise loss has a better performance than pointwise loss
 3. Our neural retrieval model in Section 3 is closely related to CLSM and DSSM.
-4. In this section we propose three different models: A simple bag-of-token model based directly
-on tokens in query and product, a neural text model which can
-incorporate semantic similarity between query and product, and
-lastly a customized neural text model which is more optimized for
+4. In this section we propose three different models: 
+    1. A simple bag-of-token model based directly on tokens in query and product, 
+    2. a neural text model which can incorporate semantic similarity between query and product, and
+    3. lastly a customized neural text model which is more optimized for
 retrieval.
 4. Labels: Note that though we are optimizing for
 order rate, we did not use order rate as label for training because
@@ -43,5 +43,5 @@ order data is sparser compared with click data.
 	
 ## TODO & Questions & Further Reading
 
-1. [ ] TF ranking
+1. [x] TF ranking
 2. [ ] An Introduction to Neural Information Retrieval
