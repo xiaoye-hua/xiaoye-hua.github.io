@@ -10,6 +10,7 @@
     6. Industry
         1. Airbnb
         2. Booking.com
+        3. Alibaba
     7. pricing
     
     
