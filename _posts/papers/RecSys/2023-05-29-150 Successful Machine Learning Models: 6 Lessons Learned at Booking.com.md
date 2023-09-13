@@ -1,6 +1,7 @@
 ---
 layout: post
-title: 2019-150 Successful Machine Learning Models: 6 Lessons Learned at Booking.com
+title: 2019-150 Successful Machine Learning Models
+subtitle: 6 Lessons Learned at Booking.com
 published: True
 date: 2023-05-29
 mathjax: True

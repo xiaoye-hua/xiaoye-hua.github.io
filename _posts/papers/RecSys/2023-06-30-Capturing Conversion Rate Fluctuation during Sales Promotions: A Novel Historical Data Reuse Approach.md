@@ -1,6 +1,7 @@
 ---
 layout: post
-title: 2023-Capturing Conversion Rate Fluctuation during Sales Promotions: A Novel Historical Data Reuse Approach
+title: 2023-Capturing Conversion Rate Fluctuation during Sales Promotions
+subtitle: A Novel Historical Data Reuse Approach
 published: True
 date: 2023-06-30
 mathjax: True
@@ -11,6 +12,7 @@ tags:
   - Industry
   - Alibaba
 ---
+
 
 **Table of Contents**
 1. Introduction
