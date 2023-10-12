@@ -29,6 +29,9 @@ tags:
           1. alibaba, airline: purchase probability + revenue optimization
           2. airbnb: Predict optimal price directly; then apply business constrain 
     3. 1 component solution -> combine the above 2 components to 1 single model (airline ancillaries)
+    4. Meituan solution
+       1. from the perspective from hotel -> recommendate price for each hotel 
+    5. Casual inference -> AWS solution
 
 ## Offline Evaluation
 In the work from Airbnb, a set of offline metrics are developed, which were adopted by Meituan, Alibaba & Airline company. Below is the logics and definition of these metrics:
