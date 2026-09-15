@@ -1,11 +1,77 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dutch notes</title>
-<style>body{font:16px/1.6 system-ui,sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem}</style>
-</head><body>
-  <h1>Dutch notes</h1>
-  <p>Daily lesson worksheets from my own Dutch study. Read-only.</p>
-  <ul>
-    <li><a href="lessons/s2-les-04/">s2-les-04</a></li>
+<meta name="description" content="Lesson worksheets from my own Dutch study: sentences, word meanings, pronunciation and grammar, one page per lesson.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--ground:#F5F7FA;--surface:#FFFFFF;--ink:#1B2233;--muted:#5C6578;--faint:#8A92A3;--rule:#DDE2EA;
+  --delft:#2B4C9B;--delft-soft:#E6ECF8;--gram:#1F7A4D;--shadow:0 1px 2px rgba(27,34,51,.06);--pop:0 8px 28px rgba(27,34,51,.14);
+  --serif:"Literata",Georgia,"Times New Roman",serif;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme: dark){:root{--ground:#12151C;--surface:#1A1F29;--ink:#E6E9EF;--muted:#A3ABBB;--faint:#7C8597;
+  --rule:#2C3342;--delft:#93ABE8;--delft-soft:#1F2A44;--gram:#6FCF97;--shadow:none;--pop:0 8px 28px rgba(0,0,0,.5)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding:0 16px}
+.wrap{max-width:1040px;margin:0 auto;padding-block:48px 80px}
+header h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0 0 8px}
+header p{color:var(--muted);margin:0;max-width:62ch}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:32px 0 16px;
+  border-top:1px solid var(--rule);padding-top:16px}
+.count{color:var(--faint);font-size:13px}
+.filters{display:flex;gap:6px}
+.filters button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface);color:var(--muted);
+  border-radius:999px;padding:4px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--delft);border-color:var(--delft);color:var(--surface)}
+ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.card a{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;color:inherit;text-decoration:none;box-shadow:var(--shadow);transition:box-shadow .15s,border-color .15s,transform .15s}
+.card a:hover,.card a:focus-visible{border-color:var(--delft);box-shadow:var(--pop);transform:translateY(-2px)}
+.card a:focus-visible{outline:2px solid var(--delft);outline-offset:2px}
+.thumb{aspect-ratio:16/9;background:var(--delft-soft);overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.label{margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--delft)}
+.card h2{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.25;margin:0;text-wrap:balance}
+.gram{margin:0;font-size:14px;color:var(--gram)}
+.stats{margin:auto 0 0;padding-top:6px;font-size:13px;color:var(--muted)}
+.date{margin:0;font-size:12px;color:var(--faint)}
+.card[hidden]{display:none}
+footer{margin-top:48px;color:var(--faint);font-size:13px}
+@media (prefers-reduced-motion: reduce){.card a{transition:none}.card a:hover{transform:none}}
+</style>
+</head><body><div class="wrap">
+  <header>
+    <h1>Dutch notes</h1>
+    <p>Worksheets from my own Dutch study, one page per lesson: every sentence with its translation, word meanings and pronunciation, the grammar it practises, and the video to follow along.</p>
+  </header>
+  <div class="bar">
+    <span class="count" id="count">1 lesson</span>
+    
+  </div>
+  <ul id="lessons">
+    <li class="card" data-season="2">
+      <a href="lessons/s2-les-04/">
+        <div class="thumb"><img src="https://i.ytimg.com/vi/qdRawPmlv_U/hqdefault.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <p class="label">S2 · Les 4</p>
+          <h2 lang="nl">Plural nouns in Dutch (special cases) - Meervoud (uitzonderingen)</h2>
+          <p class="gram">Grammar 1, les 44 + 45 — irregular plural nouns (meervoud)</p>
+          <p class="stats">57 sentences · 31 new words · 5:16 video</p>
+          <p class="date">Published 2026-09-15</p>
+        </div>
+      </a>
+    </li>
   </ul>
+  <footer>Read-only. Pages are study notes; nothing you click is saved.</footer>
+</div>
+<script>
+document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+  const on = b.getAttribute("aria-pressed") !== "true";
+  document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", "false"));
+  b.setAttribute("aria-pressed", String(on));
+  const cards = [...document.querySelectorAll(".card")];
+  cards.forEach(c => c.hidden = on && c.dataset.season !== b.dataset.f);
+  const n = cards.filter(c => !c.hidden).length;
+  document.getElementById("count").textContent = n + (n === 1 ? " lesson" : " lessons");
+}));
+</script>
 </body></html>

@@ -167,8 +167,6 @@ ol.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:co
 .flagbtn[aria-pressed="true"]{background:var(--flag);border-color:var(--flag);color:var(--surface)}
 textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--ground);border:1px solid var(--rule);border-radius:6px;padding:6px 10px;width:100%;min-height:36px;resize:vertical}
 .empty{color:var(--muted);padding:30px 0;text-align:center}
-.closing{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;font-size:14px}
-.closing ul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
 /* hover tooltip + click card */
 #tip{position:fixed;z-index:30;pointer-events:none;background:var(--ink);color:var(--ground);font-size:13px;padding:4px 8px;border-radius:5px;max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #tip .ipa{font-family:var(--mono);opacity:.75;margin-left:6px}
@@ -245,7 +243,7 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
 }
 @media (max-width:640px){
   .row{grid-template-columns:1fr} .gut{flex-direction:row;gap:10px;align-items:baseline;margin-bottom:4px}
-  .nl{font-size:19px} .act,.stats,.closing{grid-template-columns:1fr} .save{margin-left:0}
+  .nl{font-size:19px} .act,.stats{grid-template-columns:1fr} .save{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -296,7 +294,6 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
 </div>
 <div id="notice" class="studyonly"></div>
 <ol class="list studyonly" id="list"></ol>
-<section class="closing studyonly" id="closing"></section>
 <section id="recite" hidden aria-labelledby="reciteh">
   <h2 id="reciteh">Recite</h2>
   <p class="small">Type the Dutch for each English sentence from memory. Don't look anything up — the sentences you can't produce are exactly the ones worth a card. Press <strong>Check</strong> to see the correct Dutch, or <strong>I don't know</strong> if it won't come.</p>
@@ -870,7 +867,6 @@ document.addEventListener("change", e => { const cb = e.target.closest("[data-k-
       <tbody>${o.rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}${gramRow}</tbody></table></div>
       <p class="small">${o.totals}</p>
       <p class="small">Σ beside a sentence number is the running total of new words. To stop the analysis after a sentence, set <code>--max_unknown_words</code> to its Σ − 1.</p>`;
-    $("#closing").innerHTML = d.closing.map(c => `<div><h2>${esc(c.title)}</h2>${c.html}</div>`).join("");
     const found = Object.values(WORDS).filter(w=>w.found).length, total = Object.keys(WORDS).length;
     const withEx = SENT.filter(s=>s.explanation).length;
     $("#notice").innerHTML = `<div class="notice">First version: ${found} of ${total} words have a meaning and ${withEx} sentences have a grammar explanation so far. The rest show as “not generated yet”.</div>`;
