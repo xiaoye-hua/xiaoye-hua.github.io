@@ -21,7 +21,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Les 4 Werkblad</title>
+<title>Lesson worksheet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -159,7 +159,7 @@ ol.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:co
 .chunks,.mine{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600}
 .chunk{font-family:var(--serif);font-size:14px;background:var(--ground);border:1px solid var(--rule);border-radius:4px;padding:0 6px}
-a.chunk.ref{color:var(--delft);text-decoration:none;border-color:var(--delft)}
+a.chunk.ref{color:inherit;text-decoration:none;border-color:var(--delft);border-bottom-width:2px}
 a.chunk.ref:hover{background:var(--delft);color:#fff}
 nav.modes .lib{margin:8px 0 0;font-size:13px;color:var(--muted)}
 nav.modes .lib a{color:inherit}
@@ -272,8 +272,8 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   <p class="lib"><a href="../../">Dutch notes</a> · <a href="../../collocations/">Collocations</a> · <a href="../../grammar/">Grammar</a> · <a href="../../words/">Words</a><span id="audioLinks"></span></p>
 </nav>
 <header>
-  <h1>Heb je zin? S2 · Les 4</h1>
-  <p class="sub studyonly">Speciale vormen van het meervoud — Grammar 1, les 44 + 45. Hover a word for its meaning; click it to hear it (when a recording exists) and to mark it unfamiliar. Click the English line or <em>Explain</em> for the sentence's grammar.</p>
+  <h1 id="lessonTitle">Lesson worksheet</h1>
+  <p class="sub studyonly"><span id="lessonSub"></span> Hover a word for its meaning; click it to hear it (when a recording exists) and to mark it unfamiliar. Click the English line or <em>Explain</em> for the sentence's grammar.</p>
   <div class="legend studyonly">
     <span><span class="sw pipe">woord</span> blue = new word found by the precheck</span>
     <span><span class="sw mark">woord</span> marked by you</span>
@@ -288,8 +288,6 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
 <div class="bar studyonly" role="toolbar" aria-label="Filters">
   <div class="seg" id="partSeg">
     <button id="pAll" data-p="all" aria-pressed="false">All</button>
-    <button id="p1" data-p="1" aria-pressed="true">Part 1 · 5–33</button>
-    <button id="p2" data-p="2" aria-pressed="false">Part 2 · 34–54</button>
   </div>
   <label class="chk"><input type="checkbox" id="showBoiler"> Show intro, outro &amp; filler</label>
   <label class="chk"><input type="checkbox" id="onlyMine"> Only what I marked</label>
@@ -305,7 +303,7 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   <div class="rc-head">
     <div class="seg" id="rSet">
       <button type="button" id="rSetDrill" data-rset="drill" aria-pressed="true">Drilled sentences</button>
-      <button type="button" id="rSetAll" data-rset="all" aria-pressed="false">All part 1 sentences</button>
+      <button type="button" id="rSetAll" data-rset="all" aria-pressed="false">All sentences in this part</button>
     </div>
     <span class="dkey"><span class="mk">+</span> missing · <span class="mk">✕</span> extra · <span class="mk">~</span> misspelled</span>
     <span class="rc-prog" id="rProg"></span>
@@ -344,6 +342,10 @@ async function renderAudioLinks(id){
   }catch(e){ /* offline or not published: leave the row as it is */ }
 }
 
+let META = { lessonId:"lesson", title:"Lesson worksheet", subtitle:"", parts:[], marksFile:"marks.json", recitePart:"1" };
+const firstPart = () => (META.parts[0] || {id:"1"}).id, lastPart = () => (META.parts[META.parts.length-1] || {id:"1"}).id;
+const partOfRow = s => s.part || (s.type==="intro" ? firstPart() : s.type==="outro" ? lastPart() : "");
+const partInfo = id => META.parts.find(p => p.id === id) || {id, label:"Part " + id, range:""};
 const state = { part:"1", showBoiler:false, onlyMine:false, onlyGram:false, marks:{}, open:new Set() };
 let RULES = {};
 const BOILER = new Set(["intro","outro","filler"]);
@@ -455,17 +457,17 @@ function rowHTML(s){
 
 function visible(s){
   if (BOILER.has(s.type) && !state.showBoiler) return false;
-  const part = s.part || (s.type==="intro" ? "1" : s.type==="outro" ? "2" : "");
+  const part = partOfRow(s);
   if (state.part!=="all" && part!==state.part) return false;
   if (state.onlyMine && !hasMine(markOf(s.n))) return false;
   if (state.onlyGram && !(s.grammarHits && s.grammarHits.length)) return false;
   return true;
 }
 function renderStats(){
-  $("#stats").innerHTML = ["1","2"].map(p => {
+  $("#stats").innerHTML = META.parts.map(pp => pp.id).map(p => {
     let words=0, flagged=0, comments=0;
     SENT.filter(s=>s.part===p).forEach(s => { const m=markOf(s.n); words+=m.words.length; if(m.treatAsNew) flagged++; if((m.comment||"").trim()) comments++; });
-    return `<div class="stat"><b>Part ${p} · sentences ${p==="1"?"5–33":"34–54"}</b>
+    return `<div class="stat"><b>${esc(partInfo(p).label)}${partInfo(p).range?` · sentences ${esc(partInfo(p).range)}`:""}</b>
       <span><span class="k">${words}</span><span class="l">words marked</span></span>
       <span><span class="k">${flagged}</span><span class="l">flagged as new</span></span>
       <span><span class="k">${comments}</span><span class="l">comments</span></span></div>`;
@@ -587,7 +589,7 @@ document.addEventListener("click", e => {
   if (go){
     e.preventDefault();
     const s = SENT.find(x=>x.n===+go.dataset.goto); if (!s) return;
-    const part = s.part || (s.type==="outro" ? "2" : "1");
+    const part = partOfRow(s) || firstPart();
     if (state.part!=="all" && state.part!==part){ state.part = part; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p===part)); }
     if (BOILER.has(s.type)){ state.showBoiler = true; $("#showBoiler").checked = true; }
     state.onlyMine = false; $("#onlyMine").checked = false;
@@ -688,10 +690,10 @@ function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
 function inline(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>"); }
 
 function drillSet(){
-  return SENT.filter(s => s.part === "1" && !BOILER.has(s.type) && (
+  return SENT.filter(s => s.part === META.recitePart && !BOILER.has(s.type) && (
     (s.newWords && s.newWords.length) || markOf(s.n).treatAsNew || markOf(s.n).words.length));
 }
-function allSet(){ return SENT.filter(s => s.part === "1" && ["story","new","focus"].includes(s.type)); }
+function allSet(){ return SENT.filter(s => s.part === META.recitePart && ["story","new","focus"].includes(s.type)); }
 
 function toks(s){ return String(s||"").toLowerCase().replace(/[—–"“”„'‘’.,!?;:()\[\]…]/g," ").split(/\s+/).filter(Boolean); }
 function lev(a, b){
@@ -774,7 +776,7 @@ function reciteItem(s){
 function renderRecite(){
   const drill = drillSet(), all = allSet(), set = RSET === "all" ? all : drill;
   $("#rSetDrill").textContent = `Drilled sentences (${drill.length})`;
-  $("#rSetAll").textContent = `All part 1 sentences (${all.length})`;
+  $("#rSetAll").textContent = `All ${partInfo(META.recitePart).label.toLowerCase()} sentences (${all.length})`;
   $("#rSetDrill").setAttribute("aria-pressed", RSET !== "all");
   $("#rSetAll").setAttribute("aria-pressed", RSET === "all");
   $("#rList").innerHTML = set.map(reciteItem).join("");
@@ -838,7 +840,7 @@ async function saveCards(){
 
 function setMode(m){
   if (!["study","recite","cards"].includes(m)) m = "study";
-  MODE = m; lsSet("s2-les-04-mode", m);
+  MODE = m; lsSet(META.lessonId + "-mode", m);
   document.body.classList.toggle("mode-recite", m === "recite");
   document.body.classList.toggle("mode-cards", m === "cards");
   document.querySelectorAll("#modeSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === m));
@@ -853,7 +855,7 @@ function setMode(m){
 }
 document.addEventListener("click", e => {
   const mb = e.target.closest("[data-mode]"); if (mb) return setMode(mb.dataset.mode);
-  const rs = e.target.closest("[data-rset]"); if (rs){ RSET = rs.dataset.rset; lsSet("s2-les-04-rset", RSET); return renderRecite(); }
+  const rs = e.target.closest("[data-rset]"); if (rs){ RSET = rs.dataset.rset; lsSet(META.lessonId + "-rset", RSET); return renderRecite(); }
   const ck = e.target.closest("[data-rcheck]"); if (ck) return submitRecite(+ck.dataset.rcheck, false);
   const dk = e.target.closest("[data-rdk]"); if (dk) return submitRecite(+dk.dataset.rdk, true);
   const rt = e.target.closest("[data-rretry]");
@@ -874,14 +876,24 @@ document.addEventListener("change", e => { const cb = e.target.closest("[data-k-
     if (tm){ TIMINGS = tm.sentences || {}; VIDEO = tm.videoId; } else setNow("No sentence timings for this lesson yet.", true);
     D = d; SENT = d.sentences; WORDS = d.words;
     renderAudioLinks(d.lesson);
+    META = Object.assign(META, d.meta || {});
+    if (!META.parts.length) META.parts = [...new Set(SENT.map(s => s.part).filter(Boolean))].sort().map(id => ({id, label:"Part " + id, range:""}));
+    if (!META.parts.some(p => p.id === META.recitePart)) META.recitePart = firstPart();
+    state.part = META.recitePart;
+    document.title = META.title || "Lesson worksheet";
+    $("#lessonTitle").textContent = META.title || "Lesson worksheet";
+    $("#lessonSub").textContent = META.subtitle ? META.subtitle + "." : "";
+    $("#partSeg").insertAdjacentHTML("beforeend", META.parts.map(p =>
+      `<button id="p${esc(p.id)}" data-p="${esc(p.id)}" aria-pressed="${p.id === state.part}">${esc(p.label)}${p.range?` · ${esc(p.range)}`:""}</button>`).join(""));
+    $("#pAll").setAttribute("aria-pressed", "false");
     Object.entries(mk).forEach(([n, v]) => { if (!/^\d+$/.test(n) || !v) return;
       state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"" }; });
     const G = d.grammar;
     if (G){ G.rules.forEach(r => { RULES[r.id] = r; }); }
     const hitsFor = pred => SENT.filter(s => pred(s) && s.grammarHits && s.grammarHits.length);
-    const partOf = s => s.part || (s.type==="outro" ? "2" : s.type==="intro" ? "1" : "");
+    const partOf = partOfRow;
     const linkList = list => list.length ? list.map(s => `<a href="#s${s.n}" data-goto="${s.n}">s${s.n}</a>`).join(", ") : "—";
-    const gramRow = G ? `<tr><th scope="row"><strong>Grammar sentences</strong></th><td>${hitsFor(s=>partOf(s)==="1").length}: ${linkList(hitsFor(s=>partOf(s)==="1"))}</td><td>${hitsFor(s=>partOf(s)==="2").length}: ${linkList(hitsFor(s=>partOf(s)==="2"))}</td></tr>` : "";
+    const gramRow = G ? `<tr><th scope="row"><strong>Grammar sentences</strong></th>${META.parts.map(p => `<td>${hitsFor(s=>partOf(s)===p.id).length}: ${linkList(hitsFor(s=>partOf(s)===p.id))}</td>`).join("")}</tr>` : "";
     if (G){
       const files = (G.source.files||[]).map(f => `<code>${esc(f.split("/").pop())}</code>`).join(" and ");
       $("#gram").innerHTML = `<h2 id="gramh">Grammar of this lesson</h2>
@@ -895,19 +907,19 @@ document.addEventListener("change", e => { const cb = e.target.closest("[data-k-
             <td><div class="hits">${hs.length ? hs.map(({s,h}) => `<a href="#s${s.n}" data-goto="${s.n}">s${s.n} · <span lang="nl">${esc(h.token)}</span></a>`).join("") : "—"}</div></td></tr>`;
         }).join("")}</tbody></table></div>`;
     }
-    const o = d.overview;
-    $("#ov").innerHTML = `<h2>The two parts at a glance</h2><p class="small">${o.intro}</p>
-      <div class="tscroll"><table><thead><tr><th></th><th scope="col">Part 1</th><th scope="col">Part 2</th></tr></thead>
+    const o = d.overview || {intro:"", rows:[], totals:""};
+    $("#ov").innerHTML = (o.rows.length || gramRow) ? `<h2>The two parts at a glance</h2><p class="small">${o.intro}</p>
+      <div class="tscroll"><table><thead><tr><th></th>${META.parts.map(p => `<th scope="col">${esc(p.label)}</th>`).join("")}</tr></thead>
       <tbody>${o.rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}${gramRow}</tbody></table></div>
       <p class="small">${o.totals}</p>
-      <p class="small">Σ beside a sentence number is the running total of new words. To stop the analysis after a sentence, set <code>--max_unknown_words</code> to its Σ − 1.</p>`;
+      <p class="small">Σ beside a sentence number is the running total of new words. To stop the analysis after a sentence, set <code>--max_unknown_words</code> to its Σ − 1.</p>` : "";
     const found = Object.values(WORDS).filter(w=>w.found).length, total = Object.keys(WORDS).length;
     const withEx = SENT.filter(s=>s.explanation).length;
     $("#notice").innerHTML = `<div class="notice">First version: ${found} of ${total} words have a meaning and ${withEx} sentences have a grammar explanation so far. The rest show as “not generated yet”.</div>`;
     render();
     setSave(Object.keys(state.marks).length ? "Marks loaded" : "No marks yet");
-    RSET = lsGet("s2-les-04-rset", "drill") === "all" ? "all" : "drill";
-    setMode(lsGet("s2-les-04-mode", "study"));
+    RSET = lsGet(META.lessonId + "-rset", "drill") === "all" ? "all" : "drill";
+    setMode(lsGet(META.lessonId + "-mode", "study"));
     loadYT();
   }catch(e){
     setSave("Couldn't load the lesson data", true);
