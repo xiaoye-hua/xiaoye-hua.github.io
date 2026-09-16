@@ -159,6 +159,10 @@ ol.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:co
 .chunks,.mine{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600}
 .chunk{font-family:var(--serif);font-size:14px;background:var(--ground);border:1px solid var(--rule);border-radius:4px;padding:0 6px}
+a.chunk.ref{color:var(--delft);text-decoration:none;border-color:var(--delft)}
+a.chunk.ref:hover{background:var(--delft);color:#fff}
+nav.modes .lib{margin:8px 0 0;font-size:13px;color:var(--muted)}
+nav.modes .lib a{color:inherit}
 .note{max-width:72ch}
 .mine .w{font-family:var(--serif);background:var(--mark-bg);color:var(--mark-ink);border-radius:3px;padding:0 6px;font-size:14px}
 .act{margin-top:12px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
@@ -265,6 +269,7 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
     <button type="button" id="mRecite" data-mode="recite" aria-pressed="false">Recite</button>
     <button type="button" id="mCards" data-mode="cards" aria-pressed="false">Cards</button>
   </div>
+  <p class="lib"><a href="../../">Dutch notes</a> · <a href="../../collocations/">Collocations</a> · <a href="../../grammar/">Grammar</a> · <a href="../../words/">Words</a><span id="audioLinks"></span></p>
 </nav>
 <header>
   <h1>Heb je zin? S2 · Les 4</h1>
@@ -322,6 +327,23 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
 <div id="card" hidden role="dialog" aria-label="Word details"></div>
 
 <script>
+/* Library base — local mirror served by serve_worksheet.py; export_public_worksheet.py rewrites it to the site-relative path. */
+const LIB = "../../";
+/* Pimsleur audio: link only the parts that really have a published track.
+   audio.json is written by export_audio_page.py; absent = no audio, render nothing. */
+async function renderAudioLinks(id){
+  const el = document.getElementById("audioLinks");
+  if(!el || !id) return;
+  try{
+    const r = await fetch(`${LIB}lessons/${id}/audio.json`, {cache:"no-store"});
+    if(!r.ok) return;
+    const parts = await r.json();
+    if(!parts.length) return;
+    el.innerHTML = " · " + parts.map(p =>
+      `<a href="${LIB}lessons/${id}/${p.href}">Audio deel ${p.part}</a>`).join(" · ");
+  }catch(e){ /* offline or not published: leave the row as it is */ }
+}
+
 const state = { part:"1", showBoiler:false, onlyMine:false, onlyGram:false, marks:{}, open:new Set() };
 let RULES = {};
 const BOILER = new Set(["intro","outro","filler"]);
@@ -402,7 +424,11 @@ function rowHTML(s){
   [...new Set(hits.map(h=>h.rule))].forEach(r => chips.push(`<span class="chip gram">grammar: ${esc(RULES[r] ? RULES[r].name : r)}</span>`));
   const gbox = hits.length ? `<div class="grambox">${hits.map(h=>`<div class="g"><span class="rl">Rule ${esc(h.rule)} · ${esc(RULES[h.rule]?RULES[h.rule].name:"")}</span><span class="hl" lang="nl">${h.highlight}</span></div><div>${esc(h.explanation)}</div>`).join("")}</div>` : "";
   const mine = m.words.length ? `<div class="mine"><span class="lbl">You marked</span>${m.words.map(w=>`<span class="w">${esc(w)}</span>`).join("")}</div>` : "";
-  const chunks = s.chunks.length ? `<div class="chunks"><span class="lbl">Chunks</span>${s.chunks.map(c=>`<span class="chunk">${c}</span>`).join("")}</div>` : "";
+  const chunks = s.chunks.length ? `<div class="chunks"><span class="lbl">Chunks</span>${s.chunks.map(c=>{
+    const id = (s.chunkRefs||{})[c];
+    return id ? `<a class="chunk ref" href="${LIB}collocations/${id}/" title="Open this chunk in the collocation library">${c}</a>`
+              : `<span class="chunk">${c}</span>`;
+  }).join("")}</div>` : "";
   const note = s.note ? `<div class="note">${s.note}</div>` : "";
   const explain = open ? `<div class="explain" id="ex${s.n}">
       ${s.explanation ? mdLite(s.explanation) : `<p class="none">No grammar explanation generated for this sentence yet.</p>`}
@@ -840,6 +866,7 @@ document.addEventListener("change", e => { const cb = e.target.closest("[data-k-
     RECITE = rc || {}; CARDS = cd || {};
     if (tm){ TIMINGS = tm.sentences || {}; VIDEO = tm.videoId; } else setNow("No sentence timings for this lesson yet.", true);
     D = d; SENT = d.sentences; WORDS = d.words;
+    renderAudioLinks(d.lesson);
     Object.entries(mk).forEach(([n, v]) => { if (!/^\d+$/.test(n) || !v) return;
       state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"" }; });
     const G = d.grammar;
