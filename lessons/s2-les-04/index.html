@@ -329,7 +329,7 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
 <script>
 /* Library base — local mirror served by serve_worksheet.py; export_public_worksheet.py rewrites it to the site-relative path. */
 const LIB = "../../";
-/* Pimsleur audio: link only the parts that really have a published track.
+/* Audio drill: link only the parts that really have a published track.
    audio.json is written by export_audio_page.py; absent = no audio, render nothing. */
 async function renderAudioLinks(id){
   const el = document.getElementById("audioLinks");
