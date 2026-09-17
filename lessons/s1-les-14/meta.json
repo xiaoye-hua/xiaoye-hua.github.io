@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-14",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 14,
  "title": "Cursus NT2: oefen Nederlandse zinnen; leer Nederlands met Bart de Pau",
@@ -13,5 +15,5 @@
   "2025-06-22"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

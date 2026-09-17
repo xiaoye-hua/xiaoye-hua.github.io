@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-13",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 13,
  "title": "Nederlands leren met Bart de Pau - NT2: nederlandse grammatica / zinnen oefenen.",
@@ -13,5 +15,5 @@
   "2025-06-20"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

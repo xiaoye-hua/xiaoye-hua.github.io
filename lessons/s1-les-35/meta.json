@@ -1,16 +1,18 @@
 {
  "lesson": "s1-les-35",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 35,
  "title": "Poćwiczmy gramatykę niderlandzką: prosty czas przeszły w języku niderlandzkim (odcinek 35).",
  "grammar": null,
  "sentences": 74,
  "newWords": null,
- "videoId": "6iToli6OCHc",
- "duration": null,
+ "videoId": "Ol2x2xY55eg",
+ "duration": 240,
  "studied": [
   "2025-10-08"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

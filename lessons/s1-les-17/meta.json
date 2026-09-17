@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-17",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 17,
  "title": "Dutch grammar applied: the indefinite pronoun = het onbepaald voornaamwoord",
@@ -13,5 +15,5 @@
   "2025-06-28"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

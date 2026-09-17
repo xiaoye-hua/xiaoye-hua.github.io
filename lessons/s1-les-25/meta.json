@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-25",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 25,
  "title": "Dutch grammar applied: gaan, laten, blijven (Dutch verbs combined with an infinitive)",
@@ -12,5 +14,5 @@
   "2025-07-20"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

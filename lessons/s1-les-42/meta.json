@@ -1,16 +1,18 @@
 {
  "lesson": "s1-les-42",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 42,
  "title": "Gramatyka stosowana – o zdaniach podrzędnie złożonych i spójnikach wynikowych (odcinek 42).",
  "grammar": null,
  "sentences": 40,
  "newWords": null,
- "videoId": "8bs6bR2uYFw",
- "duration": null,
+ "videoId": "-ts1Eh0F084",
+ "duration": 290,
  "studied": [
   "2025-10-24"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

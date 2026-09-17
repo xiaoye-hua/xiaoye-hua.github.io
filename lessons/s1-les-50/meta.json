@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-50",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 50,
  "title": "Dutch grammar applied: reviewing #dutchgrammmar-1 and the first 14 lessons of #dutchgrammar-2",
@@ -12,5 +14,5 @@
   "2025-11-15"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

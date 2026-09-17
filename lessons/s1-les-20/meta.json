@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-20",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 20,
  "title": "Dutch grammar applied: degrees of comparison / de trappen van vergelijking",
@@ -13,5 +15,5 @@
   "2025-07-05"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-19",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 19,
  "title": "The OV-chipkaart: How to buy a train ticket in the Netherlands?",
@@ -13,5 +15,5 @@
   "2025-07-03"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

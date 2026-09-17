@@ -1,17 +1,19 @@
 {
  "lesson": "s1-les-23",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 23,
  "title": "Poćwicz gramatykę niderlandzką: czasownik modalny 'zullen' (odcinek 23).",
  "grammar": null,
  "sentences": 58,
  "newWords": null,
- "videoId": "26ODe8TdMD8",
- "duration": null,
+ "videoId": "bRuc7IxblZQ",
+ "duration": 344,
  "studied": [
   "2025-07-11",
   "2025-07-12"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }

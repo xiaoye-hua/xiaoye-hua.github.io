@@ -629,7 +629,7 @@ function loadYT(){
     player = new YT.Player("yt", { videoId: VIDEO, playerVars: { rel: 0, playsinline: 1, modestbranding: 1 },
       events: {
         onReady: () => { playerReady = true; if (pending != null){ const n = pending; pending = null; playSentence(n); } },
-        onError: () => setNow("YouTube couldn't play this video here.", true)
+        onError: () => { ytBlocked = true; setNow("This channel doesn't allow playing its videos on other sites. The ▶ buttons open YouTube at that sentence instead.", true); }
       } });
   };
   const s = document.createElement("script");
@@ -659,8 +659,13 @@ function startPoll(){
     if ($("#keepPlaying").checked){ const n = sentenceAt(ct); if (n && n !== playingN) setPlaying(n, true); }
   }, 100);
 }
+let ytBlocked = false;  /* the channel disabled embedding (NOS does) */
 function playSentence(n){
   const t = TIMINGS[n]; if (!t) return;
+  if (ytBlocked){
+    window.open(`https://www.youtube.com/watch?v=${encodeURIComponent(VIDEO)}&t=${Math.max(0, Math.floor(t.start - 1))}s`, "yt-sentence", "noopener");
+    return;
+  }
   if ($("#shell").classList.contains("novideo")) toggleVideo(true);
   setPlaying(n);
   if (!playerReady){ pending = n; setNow("Loading the video…"); return; }
@@ -689,11 +694,13 @@ function lsGet(k, d){ try{ const v = localStorage.getItem(k); return v == null ?
 function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
 function inline(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>"); }
 
+/* News episodes (d.news): every story is a part, and recite follows the story picked in Study. */
+const recitePartNow = () => (D && D.news && state.part !== "all") ? state.part : META.recitePart;
 function drillSet(){
-  return SENT.filter(s => s.part === META.recitePart && !BOILER.has(s.type) && (
+  return SENT.filter(s => s.part === recitePartNow() && !BOILER.has(s.type) && (
     (s.newWords && s.newWords.length) || markOf(s.n).treatAsNew || markOf(s.n).words.length));
 }
-function allSet(){ return SENT.filter(s => s.part === META.recitePart && ["story","new","focus"].includes(s.type)); }
+function allSet(){ return SENT.filter(s => s.part === recitePartNow() && ["story","new","focus"].includes(s.type)); }
 
 function toks(s){ return String(s||"").toLowerCase().replace(/[—–"“”„'‘’.,!?;:()\[\]…]/g," ").split(/\s+/).filter(Boolean); }
 function lev(a, b){
@@ -776,7 +783,7 @@ function reciteItem(s){
 function renderRecite(){
   const drill = drillSet(), all = allSet(), set = RSET === "all" ? all : drill;
   $("#rSetDrill").textContent = `Drilled sentences (${drill.length})`;
-  $("#rSetAll").textContent = `All ${partInfo(META.recitePart).label.toLowerCase()} sentences (${all.length})`;
+  $("#rSetAll").textContent = D && D.news ? `All sentences of “${partInfo(recitePartNow()).label}” (${all.length})` : `All ${partInfo(META.recitePart).label.toLowerCase()} sentences (${all.length})`;
   $("#rSetDrill").setAttribute("aria-pressed", RSET !== "all");
   $("#rSetAll").setAttribute("aria-pressed", RSET === "all");
   $("#rList").innerHTML = set.map(reciteItem).join("");
@@ -865,6 +872,14 @@ document.addEventListener("click", e => {
 document.addEventListener("input", e => { const ta = e.target.closest("textarea[data-r]"); if (ta){ drafts[+ta.dataset.r] = ta.value; const msg = document.getElementById("rmsg" + ta.dataset.r); if (msg) msg.textContent = ""; } });
 document.addEventListener("change", e => { const cb = e.target.closest("[data-k-card]"); if (cb) cardSel[+cb.dataset.kCard] = cb.checked; });
 
+/* news: clicking a story in the overview selects that part */
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-story]"); if (!a) return;
+  e.preventDefault();
+  const b = document.querySelector(`#partSeg [data-p="${CSS.escape(a.dataset.story)}"]`);
+  if (b){ b.click(); document.getElementById("partSeg").scrollIntoView({block:"start"}); }
+});
+
 /* ---------- boot ---------- */
 (async () => {
   try{
@@ -897,17 +912,30 @@ document.addEventListener("change", e => { const cb = e.target.closest("[data-k-
     if (G){
       const files = (G.source.files||[]).map(f => `<code>${esc(f.split("/").pop())}</code>`).join(" and ");
       $("#gram").innerHTML = `<h2 id="gramh">Grammar of this lesson</h2>
-        <p class="small">${esc(G.source.title)}. Taken from the slides ${files}${G.source.fromSlides===false?" — <strong>not from the slides</strong>, written by Meester":""}. Every sentence below that uses one of these rules has a green double underline.</p>
-        <div class="tscroll"><table><thead><tr><th scope="col">Rule</th><th scope="col">How it works</th><th scope="col">Slide examples</th><th scope="col">In this episode</th></tr></thead><tbody>
+        <p class="small">${esc(G.source.title)}. ${D.news ? "One point per story, <strong>not from the slides</strong>: generated from the episode's own sentences" : `Taken from the slides ${files}${G.source.fromSlides===false?" — <strong>not from the slides</strong>, written by Meester":""}`}. Every sentence below that uses one of these rules has a green double underline.</p>
+        <div class="tscroll"><table><thead><tr><th scope="col">Rule</th><th scope="col">How it works</th><th scope="col">${D.news ? "Examples" : "Slide examples"}</th><th scope="col">In this episode</th></tr></thead><tbody>
         ${G.rules.map(r => {
           const hs = SENT.flatMap(s => (s.grammarHits||[]).filter(h=>h.rule===r.id).map(h => ({s,h})));
-          return `<tr><th scope="row"><span class="rid">${esc(r.id)}</span>${esc(r.name)}<div class="small" style="margin:2px 0 0">les ${esc(r.lesson)}</div></th>
+          return `<tr><th scope="row"><span class="rid">${esc(r.id)}</span>${esc(r.name)}<div class="small" style="margin:2px 0 0">${D.news ? esc(r.lesson) : "les " + esc(r.lesson)}</div></th>
             <td>${esc(r.how)}</td>
             <td><div class="ex" lang="nl">${r.examples.map(x => `<span>${esc(x[0])}${x[1]?` → ${esc(x[1])}`:""}<span class="h">${esc(x[2]||"")}</span></span>`).join("")}</div></td>
             <td><div class="hits">${hs.length ? hs.map(({s,h}) => `<a href="#s${s.n}" data-goto="${s.n}">s${s.n} · <span lang="nl">${esc(h.token)}</span></a>`).join("") : "—"}</div></td></tr>`;
         }).join("")}</tbody></table></div>`;
     }
     const o = d.overview || {intro:"", rows:[], totals:""};
+    if (d.news){
+      const N = d.news, mm = t => Math.floor(t/60) + ":" + String(Math.floor(t%60)).padStart(2,"0");
+      const newIn = p => new Set(SENT.filter(s => s.part === p).flatMap(s => s.newWords.map(w => w.toLowerCase()))).size;
+      $("#ov").innerHTML = `<h2>Stories in this episode</h2>
+        <p class="small">${esc(N.source)} · ${esc(N.date)}. Each story is a part: pick it in the bar below to study it, and Recite follows the story you picked. A sentence note names who is speaking when it isn't the presenter; interviews are unscripted, faster Dutch.</p>
+        <div class="tscroll"><table><thead><tr><th scope="col">Story</th><th scope="col">What happens</th><th scope="col">Phrases worth keeping</th><th scope="col">New words</th></tr></thead><tbody>
+        ${N.stories.map(st => `<tr><th scope="row"><a href="#" data-story="${esc(st.part)}" lang="nl">${esc(st.nl)}</a><div class="small" style="margin:2px 0 0">${mm(st.start)} · ${esc(st.en)}</div></th>
+          <td>${esc(st.summary)}</td>
+          <td>${(st.phrases||[]).map(ph => `<div><span lang="nl"><strong>${esc(ph.nl)}</strong></span> <span class="small">${esc(ph.en)}</span></div>`).join("") || "—"}</td>
+          <td>${newIn(st.part)}</td></tr>`).join("")}</tbody></table></div>`;
+      const lg = document.querySelector(".legend .sw.pipe");
+      if (lg && lg.parentElement) lg.parentElement.innerHTML = `<span class="sw pipe">woord</span> blue = not in your known words`;
+    } else
     $("#ov").innerHTML = (o.rows.length || gramRow) ? `<h2>The two parts at a glance</h2><p class="small">${o.intro}</p>
       <div class="tscroll"><table><thead><tr><th></th>${META.parts.map(p => `<th scope="col">${esc(p.label)}</th>`).join("")}</tr></thead>
       <tbody>${o.rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}${gramRow}</tbody></table></div>

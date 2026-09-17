@@ -1,5 +1,7 @@
 {
  "lesson": "s1-les-07",
+ "kind": "lesson",
+ "date": null,
  "season": 1,
  "number": 7,
  "title": "Learn Dutch phrases | buying food - using numbers and plural nouns",
@@ -14,5 +16,5 @@
   "2025-06-05"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-17"
 }
