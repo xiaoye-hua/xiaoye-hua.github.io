@@ -1,5 +1,7 @@
 {
  "lesson": "s2-les-02",
+ "kind": "lesson",
+ "date": null,
  "season": 2,
  "number": 2,
  "title": "Lesson 02 – Imperative",
@@ -12,5 +14,5 @@
   "2026-06-15"
  ],
  "published": "2026-09-16",
- "updated": "2026-09-16"
+ "updated": "2026-09-18"
 }
