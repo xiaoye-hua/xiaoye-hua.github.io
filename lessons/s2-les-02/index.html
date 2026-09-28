@@ -1,20 +1,40 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script>
-/* Read-only public copy: writes never leave this browser tab. */
+<script data-absent="[&quot;marks.json&quot;, &quot;recite.json&quot;, &quot;cards.json&quot;, &quot;timings.json&quot;, &quot;audio.json&quot;]">
+/* Read-only public copy: writes never leave this browser tab. Each store starts from the
+   exported JSON, so a POST's reply is the whole object, as the local server's is.
+   data-absent (stamp_absent) lists this lesson's optional files that were never published
+   (an older lesson has no marks/recite/cards/audio): the page is answered "not found" here,
+   without a request, instead of four red 404s in the console. */
 (() => {
   const realFetch = window.fetch.bind(window);
+  const ABSENT = new Set(JSON.parse(document.currentScript.dataset.absent || "[]")
+    .map(n => new URL(n, location.href).pathname));
+  const absent = u => { try { return ABSENT.has(new URL(u, location.href).pathname); } catch (e) { return false; } };
   const mem = {};
   const file = { "/marks": "marks.json", "/recite": "recite.json", "/cards": "cards.json" };
+  const reply = obj => new Response(JSON.stringify(obj || {}), { status: 200, headers: { "Content-Type": "application/json" } });
+  const load = async k => {
+    if (!(k in mem)) {
+      try { const r = absent(file[k]) ? null : await realFetch(file[k]); mem[k] = r && r.ok ? await r.json() : {}; } catch (e) { mem[k] = {}; }
+    }
+    return mem[k];
+  };
   window.fetch = async (url, opts = {}) => {
     const u = String(url), method = (opts.method || "GET").toUpperCase();
-    if (method !== "POST") return realFetch(u, opts);
-    const k = Object.keys(file).find(p => u.endsWith(p) || u.endsWith(file[p]));
+    if (method !== "POST") return absent(u) ? new Response("not published", { status: 404 }) : realFetch(u, opts);
     let body = {}; try { body = JSON.parse(opts.body || "{}"); } catch (e) {}
+    if (u.endsWith("recite/reset")) {  // "Start again": drop those sentences, this tab only
+      const cur = await load("/recite");
+      (body.ns || []).forEach(n => { delete cur[n]; });
+      return reply(cur);
+    }
+    const k = Object.keys(file).find(p => u.endsWith(p) || u.endsWith(file[p]));
+    if (!k) return reply({});
     if (k === "/marks") mem[k] = body;
-    else if (k) mem[k] = Object.assign(mem[k] || {}, body);
-    return new Response(JSON.stringify(mem[k] || {}), { status: 200, headers: { "Content-Type": "application/json" } });
+    else Object.assign(await load(k), body);
+    return reply(mem[k]);
   };
 })();
 </script>
@@ -22,237 +42,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lesson worksheet</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-:root{
-  --ground:#F5F7FA; --surface:#FFFFFF; --ink:#1B2233; --muted:#5C6578; --faint:#8A92A3;
-  --rule:#DDE2EA; --delft:#2B4C9B; --delft-soft:#E6ECF8;
-  --mark-bg:#FFE36E; --mark-ink:#1B2233;
-  --flag:#B8432F; --flag-soft:#FBE9E5;
-  --focus:#6A4BB0; --focus-soft:#EEE8F8;
-  --gram:#1F7A4D; --gram-soft:#E2F2E8;
-  --ok:#1F7A4D; --ok-soft:#E2F2E8; --warn:#9A5B00; --warn-soft:#FBEFD9; --bad:#B8432F; --bad-soft:#FBE9E5;
-  --shadow:0 1px 2px rgba(27,34,51,.06); --pop:0 8px 28px rgba(27,34,51,.18);
-  --serif:"Literata",Georgia,"Times New Roman",serif;
-  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --ground:#12151C; --surface:#1A1F29; --ink:#E6E9EF; --muted:#A3ABBB; --faint:#7C8597;
-    --rule:#2C3342; --delft:#93ABE8; --delft-soft:#1F2A44;
-    --mark-bg:#E8C94A; --mark-ink:#16181D;
-    --flag:#EC8A77; --flag-soft:#3A221E;
-    --focus:#B9A2EC; --focus-soft:#2A2340;
-    --gram:#6FCF97; --gram-soft:#1B3326;
-    --ok:#6FCF97; --ok-soft:#1B3326; --warn:#E8B45A; --warn-soft:#3A2C14; --bad:#EC8A77; --bad-soft:#3A221E;
-    --shadow:none; --pop:0 8px 28px rgba(0,0,0,.5);
-  }
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding:0 16px}
-.wrap{max-width:980px;margin:0 auto;padding-block:28px 80px}
-.shell{display:grid;grid-template-columns:minmax(300px,38%) minmax(0,1fr);gap:0 28px;max-width:1560px;margin:0 auto}
-.shell .wrap{max-width:none;margin:0}
-.player{position:sticky;top:0;align-self:start;height:100vh;padding-block:24px;display:flex;flex-direction:column;gap:12px}
-.ytbox{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;width:100%}
-.ytbox iframe,#yt{position:absolute;inset:0;width:100%;height:100%;border:0}
-.pctl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
-.now{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;font-size:14px;color:var(--muted);min-height:44px}
-.now b{font-family:var(--mono);color:var(--ink);margin-right:6px;font-weight:500}
-.now .nl{font-size:17px;color:var(--ink);display:inline}
-.now.err{color:var(--flag)}
-.shell.novideo{grid-template-columns:minmax(0,1fr)}
-.shell.novideo .player{display:none}
-.shell.novideo .wrap{max-width:980px;margin:0 auto}
-.playbtn{font:inherit;font-size:13px;line-height:1;border:1px solid var(--rule);background:var(--surface);color:var(--delft);border-radius:999px;width:30px;height:30px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin-top:4px}
-.playbtn:hover{border-color:var(--delft);background:var(--delft-soft)}
-.gut .num[data-play]{cursor:pointer}
-.row.playing{border-color:var(--delft);box-shadow:inset 3px 0 0 var(--delft)}
-.row.playing .playbtn{background:var(--delft);color:var(--surface);border-color:var(--delft)}
-h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:0 0 4px;text-wrap:balance}
-h2{font-family:var(--serif);font-weight:600;font-size:19px;margin:0 0 6px}
-.sub{color:var(--muted);margin:0 0 16px;max-width:70ch}
-.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted);margin:0 0 20px}
-.legend>span{display:inline-flex;align-items:center;gap:6px}
-.sw{display:inline-block;padding:0 5px;border-radius:3px;font-family:var(--serif);color:var(--ink)}
-.sw.pipe{color:var(--delft);font-weight:600} .sw.mark{background:var(--mark-bg);color:var(--mark-ink)}
-.sw.nodata{color:var(--faint)}
-.sw.gram{text-decoration:underline double var(--gram);text-underline-offset:5px;text-decoration-thickness:1.5px}
-.tok.gram{text-decoration:underline double var(--gram);text-underline-offset:6px;text-decoration-thickness:1.5px}
-.chip.gram{background:var(--gram-soft);color:var(--gram);border-color:transparent;text-transform:none;letter-spacing:0}
-.grambox{margin-top:10px;background:var(--gram-soft);border-radius:6px;padding:8px 12px;font-size:14px;display:flex;flex-direction:column;gap:4px}
-.grambox .g{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
-.grambox .hl{font-family:var(--serif);font-size:16px}
-.grambox .hl b,.gram-sec .ex b,#card .gramblk b{color:var(--gram);font-weight:600}
-.grambox .rl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--gram);font-weight:600}
-.gram-sec{margin:0 0 22px}
-.gram-sec table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
-.gram-sec th,.gram-sec td{text-align:left;vertical-align:top;padding:8px 12px;border-bottom:1px solid var(--rule)}
-.gram-sec tbody tr:last-child>*{border-bottom:0}
-.gram-sec thead th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--ground)}
-.gram-sec tbody th{font-weight:600;white-space:nowrap}
-.gram-sec .rid{display:inline-block;min-width:1.5em;color:var(--gram);font-family:var(--mono)}
-.gram-sec .ex{font-family:var(--serif);display:flex;flex-direction:column;gap:1px}
-.gram-sec .ex .h{font-family:var(--mono);font-size:12px;color:var(--faint);margin-left:6px}
-.gram-sec .hits{display:flex;flex-direction:column;gap:3px}
-.gram-sec a{color:var(--gram);text-decoration:none;font-weight:500}
-.gram-sec a:hover{text-decoration:underline}
-#card .gramblk{background:var(--gram-soft);border-radius:6px;padding:8px 10px;margin:0 22px 10px 0;font-size:14px}
-#card .gramblk .rl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--gram);font-weight:600}
-#card .gramblk .hl{font-family:var(--serif);font-size:16px}
-.small{font-size:14px;color:var(--muted);margin:6px 0;max-width:80ch}
-code{font-family:var(--mono);font-size:.88em;background:var(--ground);padding:0 3px;border-radius:3px}
-.tscroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
-.ov{margin:0 0 20px}
-.ov table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
-.ov th,.ov td{text-align:left;vertical-align:top;padding:7px 12px;border-bottom:1px solid var(--rule)}
-.ov tbody tr:last-child>*{border-bottom:0}
-.ov thead th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--ground)}
-.ov tbody th{font-weight:500;width:22%}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
-.stat{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline}
-.stat b{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;width:100%}
-.stat .k{font-family:var(--mono);font-size:20px;font-variant-numeric:tabular-nums}
-.stat .l{font-size:13px;color:var(--muted);margin-left:4px}
-.bar{position:sticky;top:0;z-index:5;background:var(--ground);padding:10px 0;border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
-.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--surface)}
-.seg button{font:inherit;font-size:14px;border:0;background:transparent;color:var(--ink);padding:6px 12px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--delft);color:var(--surface)}
-.chk{display:inline-flex;gap:6px;align-items:center;font-size:14px;color:var(--muted);cursor:pointer}
-.save{margin-left:auto;font-size:13px;color:var(--faint);font-family:var(--mono)}
-.save.err{color:var(--flag)}
-.notice{background:var(--flag-soft);border-radius:6px;padding:10px 14px;margin:12px 0;font-size:14px}
-ol.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
-.row{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 14px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px;box-shadow:var(--shadow)}
-.row.flagged{border-color:var(--flag);box-shadow:inset 3px 0 0 var(--flag)}
-.row.dim{background:transparent;box-shadow:none}
-.row.dim .nl{font-size:16px;color:var(--muted)}
-.gut{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--faint);font-size:13px;display:flex;flex-direction:column;gap:2px}
-.gut .num{font-size:17px;color:var(--ink)} .gut .cum{font-size:11px}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
-.chip{font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;padding:1px 7px;border-radius:999px;border:1px solid var(--rule);color:var(--muted)}
-.chip.new{background:var(--delft-soft);color:var(--delft);border-color:transparent}
-.chip.focus{background:var(--focus-soft);color:var(--focus);border-color:transparent}
-.chip.p{font-family:var(--mono);text-transform:none;letter-spacing:0}
-.nl{font-family:var(--serif);font-size:21px;line-height:1.6;margin:0;display:flex;flex-wrap:wrap;column-gap:.28em;row-gap:2px}
-.tok{font:inherit;color:inherit;background:transparent;border:0;padding:0 2px;margin:0 -2px;border-radius:3px;cursor:pointer;line-height:inherit}
-.tok:hover,.tok.open{background:var(--delft-soft)}
-.tok.nodata{color:var(--faint)}
-.tok.pipe{color:var(--delft);font-weight:600}
-.tok.mark,.tok.mark:hover{background:var(--mark-bg);color:var(--mark-ink)}
-.punct{align-self:center}
-:focus-visible{outline:2px solid var(--delft);outline-offset:2px}
-.enline{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-top:4px}
-.en{color:var(--muted);margin:0;max-width:72ch;cursor:pointer;background:none;border:0;font:inherit;text-align:left;padding:0}
-.en:hover{color:var(--ink)}
-.linkbtn{font:inherit;font-size:13px;color:var(--delft);background:none;border:0;padding:0;cursor:pointer;font-weight:500}
-.linkbtn:hover{text-decoration:underline}
-.explain{margin-top:10px;border-top:1px solid var(--rule);padding-top:10px;font-size:14px;max-width:76ch}
-.explain h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 4px}
-.explain h4:first-child{margin-top:0}
-.explain p{margin:4px 0}
-.explain ul{margin:2px 0;padding-left:18px}
-.explain li.sub{list-style:circle;margin-left:14px;color:var(--muted)}
-.explain .none{color:var(--muted);font-style:italic}
-.extra{margin-top:10px;display:flex;flex-direction:column;gap:6px;font-size:14px}
-.chunks,.mine{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600}
-.chunk{font-family:var(--serif);font-size:14px;background:var(--ground);border:1px solid var(--rule);border-radius:4px;padding:0 6px}
-a.chunk.ref{color:inherit;text-decoration:none;border-color:var(--delft);border-bottom-width:2px}
-a.chunk.ref:hover{background:var(--delft);color:#fff}
-nav.modes .lib{margin:8px 0 0;font-size:13px;color:var(--muted)}
-nav.modes .lib a{color:inherit}
-.note{max-width:72ch}
-.mine .w{font-family:var(--serif);background:var(--mark-bg);color:var(--mark-ink);border-radius:3px;padding:0 6px;font-size:14px}
-.act{margin-top:12px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
-.btn{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:6px;padding:6px 10px;cursor:pointer;white-space:nowrap}
-.btn:hover{border-color:var(--delft)}
-.flagbtn[aria-pressed="true"]{background:var(--flag);border-color:var(--flag);color:var(--surface)}
-textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--ground);border:1px solid var(--rule);border-radius:6px;padding:6px 10px;width:100%;min-height:36px;resize:vertical}
-.empty{color:var(--muted);padding:30px 0;text-align:center}
-/* hover tooltip + click card */
-#tip{position:fixed;z-index:30;pointer-events:none;background:var(--ink);color:var(--ground);font-size:13px;padding:4px 8px;border-radius:5px;max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#tip .ipa{font-family:var(--mono);opacity:.75;margin-left:6px}
-#card{position:fixed;z-index:40;width:min(340px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--rule);border-radius:8px;box-shadow:var(--pop);padding:14px 16px}
-#card .hw{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.2}
-#card .ipa{font-family:var(--mono);color:var(--muted);font-size:14px}
-#card .pos{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600;margin-top:6px}
-#card .mean{font-size:16px;margin:2px 0 6px}
-#card ul{margin:4px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
-#card{max-height:calc(100vh - 16px);overflow-y:auto}
-#card .formnote{font-size:14px;background:var(--delft-soft);color:var(--ink);border-radius:5px;padding:4px 8px;margin:6px 0}
-#card .sec{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600;margin:10px 0 2px}
-#card table{border-collapse:collapse;font-size:13px;width:100%}
-#card td{padding:2px 6px 2px 0;vertical-align:top}
-#card td:first-child{color:var(--muted);width:42%}
-#card td.v{font-family:var(--serif)}
-#card .fast{font-size:13px;color:var(--ink)}
-#card details{margin-top:10px;font-size:13px}
-#card summary{cursor:pointer;color:var(--delft);font-weight:500}
-#card .ctxtag{font-size:11px;color:var(--faint)}
-#card .none{color:var(--muted);font-style:italic;font-size:14px;margin:6px 0}
-#card .cardact{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-#card .x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--faint);font-size:18px;cursor:pointer;line-height:1}
-.voicenote{font-size:11px;color:var(--faint)}
-[hidden]{display:none!important}
-.modes{display:flex;align-items:center;gap:12px;margin:0 0 18px}
-.modes .seg button{font-weight:500;padding:7px 16px}
-body.mode-recite .shell,body.mode-cards .shell{grid-template-columns:minmax(0,1fr)}
-body.mode-recite .player,body.mode-cards .player{display:none}
-body.mode-recite .shell .wrap,body.mode-cards .shell .wrap{max-width:860px;margin:0 auto}
-body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
-.rc-head{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:8px 0 16px}
-.rc-prog{font-family:var(--mono);font-size:13px;color:var(--muted);margin-left:auto}
-.rc-list,.cd-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-.rc{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 14px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px;box-shadow:var(--shadow)}
-.rc .num{font-family:var(--mono);font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums}
-.cue{font-size:17px;margin:0 0 8px;max-width:70ch}
-.rc textarea{font-family:var(--serif);font-size:18px;background:var(--ground);min-height:48px}
-.rc-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;align-items:center}
-.btn.primary{background:var(--delft);border-color:var(--delft);color:var(--surface)}
-.rc-msg{font-size:13px;color:var(--bad)}
-.reveal{margin-top:12px;border-top:1px solid var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:8px}
-.reveal .lbl{display:block;margin-bottom:2px}
-.reveal .nl{font-size:19px}
-.diff{font-family:var(--serif);font-size:17px;line-height:1.9;display:flex;flex-wrap:wrap;column-gap:.35em}
-.diff .d-miss{background:var(--warn-soft);color:var(--ink);border-bottom:2px solid var(--warn);padding:0 3px;border-radius:3px}
-.diff .d-extra{background:var(--bad-soft);color:var(--ink);text-decoration:line-through;text-decoration-color:var(--bad);padding:0 3px;border-radius:3px}
-.diff .d-near{background:var(--focus-soft);color:var(--ink);border-bottom:2px dotted var(--focus);padding:0 3px;border-radius:3px}
-.diff .mk{font-family:var(--mono);font-size:.75em;font-weight:600;margin-right:2px}
-.diff .d-miss .mk{color:var(--warn)} .diff .d-extra .mk{color:var(--bad)} .diff .d-near .mk{color:var(--focus)}
-.diff small{font-family:var(--sans);font-size:12px;color:var(--muted);margin-left:3px}
-.dkey{font-size:12px;color:var(--muted)}
-.vchip{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;padding:1px 8px;border-radius:999px}
-.vchip.v-correct,.vchip.v-exact{background:var(--ok-soft);color:var(--ok)}
-.vchip.v-partly{background:var(--warn-soft);color:var(--warn)}
-.vchip.v-wrong,.vchip.v-dk{background:var(--bad-soft);color:var(--bad)}
-.vchip.v-anki{background:var(--delft-soft);color:var(--delft)}
-.vchip.v-status{background:var(--ground);color:var(--muted);border:1px solid var(--rule)}
-.grade{background:var(--ground);border-radius:6px;padding:8px 10px;font-size:14px;display:flex;flex-direction:column;gap:6px}
-.grade .pats{display:flex;flex-wrap:wrap;gap:6px}
-.grade code{background:var(--surface)}
-.cd{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 14px;align-items:start;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:12px 16px}
-.cd .num{font-family:var(--mono);font-size:17px}
-.cd .nl{font-size:18px}
-.cd .en{cursor:default}
-.cd .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.cd label{white-space:nowrap}
-.cd-foot{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:16px}
-@media (max-width:900px){
-  .shell{grid-template-columns:minmax(0,1fr)}
-  .player{position:sticky;top:0;z-index:8;height:auto;padding-block:8px;background:var(--ground)}
-  .player .now{display:none}
-  .bar{position:static}
-}
-@media (max-width:640px){
-  .row{grid-template-columns:1fr} .gut{flex-direction:row;gap:10px;align-items:baseline;margin-bottom:4px}
-  .nl{font-size:19px} .act,.stats{grid-template-columns:1fr} .save{margin-left:0}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+<!-- One stylesheet for the whole site (D003-ui-harness P1/U3): tokens + every component, incl. this page's
+     (scoped under body.ws). Locally it comes from the library mirror; the export makes the link site-relative. -->
+<link rel="stylesheet" href="../../site.css">
 </head>
-<body>
+<body class="ws">
+<header class="site"><div class="bar"><a class="logo" href="../../">Dutch notes</a><nav aria-label="Library"><a href="../../words/">Words</a><a href="../../collocations/">Collocations</a><a href="../../grammar/">Grammar</a></nav></div></header>
 <div class="shell" id="shell">
 <aside class="player" id="player" aria-label="Episode video">
   <div class="ytbox"><div id="yt"></div></div>
@@ -260,16 +55,22 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
     <label class="chk"><input type="checkbox" id="keepPlaying"> Keep playing after the sentence</label>
     <button type="button" class="btn" id="hideVideo">Hide video</button>
   </div>
+  <div class="epwrap" id="epWrap" hidden>
+    <div class="eplabel">Episode audio</div>
+    <div class="tabs" id="epPick"></div>
+    <audio id="epAudio" controls preload="none"></audio>
+    <label class="chk" id="epKeepWrap"><input type="checkbox" id="epKeep"> Keep playing after the sentence</label>
+  </div>
   <div class="now" id="nowPlaying" aria-live="polite">Click ▶ next to a sentence to hear it in the episode.</div>
 </aside>
 <div class="wrap">
+<p class="crumb"><a href="../../">Dutch notes</a> › <span id="crumbLesson">Lesson</span><span id="audioLinks"></span></p>
 <nav class="modes" aria-label="Mode">
-  <div class="seg" id="modeSeg">
+  <div class="tabs mode" id="modeSeg">
     <button type="button" id="mStudy" data-mode="study" aria-pressed="true">Study</button>
     <button type="button" id="mRecite" data-mode="recite" aria-pressed="false">Recite</button>
     <button type="button" id="mCards" data-mode="cards" aria-pressed="false">Cards</button>
   </div>
-  <p class="lib"><a href="../../">Dutch notes</a> · <a href="../../collocations/">Collocations</a> · <a href="../../grammar/">Grammar</a> · <a href="../../words/">Words</a><span id="audioLinks"></span></p>
 </nav>
 <header>
   <h1 id="lessonTitle">Lesson worksheet</h1>
@@ -283,12 +84,10 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   </div>
   <section class="gram-sec studyonly" id="gram" aria-labelledby="gramh"></section>
   <section class="ov studyonly" id="ov"></section>
+  <nav class="ptabs" aria-label="Parts"><div class="tabs" id="partSeg"></div></nav>
   <div class="stats studyonly" id="stats"></div>
 </header>
-<div class="bar studyonly" role="toolbar" aria-label="Filters">
-  <div class="seg" id="partSeg">
-    <button id="pAll" data-p="all" aria-pressed="false">All</button>
-  </div>
+<div class="toolbar studyonly" role="toolbar" aria-label="Filters">
   <label class="chk"><input type="checkbox" id="showBoiler"> Show intro, outro &amp; filler</label>
   <label class="chk"><input type="checkbox" id="onlyMine"> Only what I marked</label>
   <label class="chk"><input type="checkbox" id="onlyGram"> Grammar sentences</label>
@@ -301,12 +100,13 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   <h2 id="reciteh">Recite</h2>
   <p class="small">Type the Dutch for each English sentence from memory. Don't look anything up — the sentences you can't produce are exactly the ones worth a card. Press <strong>Check</strong> to see the correct Dutch, or <strong>I don't know</strong> if it won't come.</p>
   <div class="rc-head">
-    <div class="seg" id="rSet">
+    <div class="tabs" id="rSet">
       <button type="button" id="rSetDrill" data-rset="drill" aria-pressed="true">Drilled sentences</button>
       <button type="button" id="rSetAll" data-rset="all" aria-pressed="false">All sentences in this part</button>
     </div>
     <span class="dkey"><span class="mk">+</span> missing · <span class="mk">✕</span> extra · <span class="mk">~</span> misspelled</span>
     <span class="rc-prog" id="rProg"></span>
+    <button type="button" id="rClear" class="btn"></button>
   </div>
   <ol class="rc-list" id="rList"></ol>
 </section>
@@ -327,6 +127,15 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
 <script>
 /* Library base — local mirror served by serve_worksheet.py; export_public_worksheet.py rewrites it to the site-relative path. */
 const LIB = "../../";
+/* This lesson's files (D003 step 5). A page at …/lessons/<id>/ reads and writes the files
+   beside it: on the local server those are that lesson's routes (/lessons/<id>/marks.json …),
+   on the public copy and the local library mirror they are the exported JSON. Any other URL (the "/"
+   of an older server, /video) is the legacy one-lesson server: root routes, which act on the
+   lesson in progress. Never hard-code a root path here — that is how lesson B's marks would
+   overwrite lesson A's. */
+const LESSON_BASE = (/^(.*\/lessons\/[^/]+\/)/.exec(location.pathname) || [])[1] || "";
+const LEGACY_ROUTE = { "marks.json":"/marks", "recite.json":"/recite", "cards.json":"/cards" };
+const api = name => LESSON_BASE ? LESSON_BASE + name : (LEGACY_ROUTE[name] || "/" + name);
 /* Audio drill: link only the parts that really have a published track.
    audio.json is written by export_audio_page.py; absent = no audio, render nothing. */
 async function renderAudioLinks(id){
@@ -364,7 +173,7 @@ function persist(delay){
   saveTimer = setTimeout(async () => {
     setSave("Saving…");
     try{
-      const r = await fetch("marks.json", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(state.marks) });
+      const r = await fetch(api("marks.json"), { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(state.marks) });
       if (!r.ok) throw new Error(r.status);
       setSave("Read-only copy: not saved");
     }catch(e){ setSave("Read-only copy: not saved", true); }
@@ -411,6 +220,11 @@ function tokens(s){
     if (pipe.includes(k)) cls.push("pipe");
     if (gram.includes(k)) cls.push("gram");
     if (m.words.includes(k)) cls.push("mark");
+    // Frequency-category colouring is a NEWS-NOTE feature only (hua, 2026-09-20):
+    // a news text is unfiltered real Dutch, so knowing which frequency list a word sits
+    // on tells you what to bother with. A graded lesson is already pitched at hua's level.
+    const fc = D && D.news && s.freqCats && s.freqCats[k];
+    if (fc) cls.push("f-" + fc);
     return `<button type="button" class="${cls.join(" ")}" data-n="${s.n}" data-k="${esc(k)}">${esc(raw)}</button>`;
   }).join("");
 }
@@ -426,11 +240,14 @@ function rowHTML(s){
   [...new Set(hits.map(h=>h.rule))].forEach(r => chips.push(`<span class="chip gram">grammar: ${esc(RULES[r] ? RULES[r].name : r)}</span>`));
   const gbox = hits.length ? `<div class="grambox">${hits.map(h=>`<div class="g"><span class="rl">Rule ${esc(h.rule)} · ${esc(RULES[h.rule]?RULES[h.rule].name:"")}</span><span class="hl" lang="nl">${h.highlight}</span></div><div>${esc(h.explanation)}</div>`).join("")}</div>` : "";
   const mine = m.words.length ? `<div class="mine"><span class="lbl">You marked</span>${m.words.map(w=>`<span class="w">${esc(w)}</span>`).join("")}</div>` : "";
-  const chunks = s.chunks.length ? `<div class="chunks"><span class="lbl">Chunks</span>${s.chunks.map(c=>{
-    const id = (s.chunkRefs||{})[c];
-    return id ? `<a class="chunk ref" href="${LIB}collocations/${id}/" title="Open this chunk in the collocation library">${c}</a>`
-              : `<span class="chunk">${c}</span>`;
-  }).join("")}</div>` : "";
+  /* Fixed collocations for this sentence, straight from the registry (data.json
+     `collocations`). Only real entries appear, and each opens its own page. The
+     pipeline's raw `chunks` list is candidate material, not page content. */
+  const colls = (s.collocations || []).length
+    ? `<div class="chunks"><span class="lbl">Collocations</span>${s.collocations.map(c =>
+        `<a class="chunk ref" href="${LIB}collocations/${c.id}/" title="${esc(c.en)}">${esc(c.head)}</a>`
+      ).join("")}</div>`
+    : "";
   const note = s.note ? `<div class="note">${s.note}</div>` : "";
   const explain = open ? `<div class="explain" id="ex${s.n}">
       ${s.explanation ? mdLite(s.explanation) : `<p class="none">No grammar explanation generated for this sentence yet.</p>`}
@@ -446,7 +263,7 @@ function rowHTML(s){
       </div>
       ${explain}
       ${gbox}
-      ${(mine||chunks||note)?`<div class="extra">${mine}${chunks}${note}</div>`:""}
+      ${(mine||colls||note)?`<div class="extra">${mine}${colls}${note}</div>`:""}
       ${dim?"":`<div class="act">
         <button type="button" class="btn flagbtn" data-flag="${s.n}" aria-pressed="${m.treatAsNew}">${m.treatAsNew?"✓ Study as new sentence":"Study as new sentence"}</button>
         <textarea id="c${s.n}" data-c="${s.n}" rows="1" placeholder="Question or comment for Meester…">${esc(m.comment||"")}</textarea>
@@ -458,7 +275,7 @@ function rowHTML(s){
 function visible(s){
   if (BOILER.has(s.type) && !state.showBoiler) return false;
   const part = partOfRow(s);
-  if (state.part!=="all" && part!==state.part) return false;
+  if (part!==state.part) return false;
   if (state.onlyMine && !hasMine(markOf(s.n))) return false;
   if (state.onlyGram && !(s.grammarHits && s.grammarHits.length)) return false;
   return true;
@@ -479,8 +296,11 @@ function render(){
   renderStats();
 }
 function rerenderRow(n, refocus){
+  const s_ = SENT.find(x=>x.n===n);
+  const copy = document.getElementById("rs"+n);     // the recite view's copy, if open
+  if (copy) copy.outerHTML = rowHTML(s_).replace(`id="s${n}"`, `id="rs${n}"`);
   const el = document.getElementById("s"+n); if (!el) return;
-  el.outerHTML = rowHTML(SENT.find(x=>x.n===n));
+  el.outerHTML = rowHTML(s_);
   renderStats();
   if (refocus){ const t = document.querySelector(refocus); t && t.focus(); }
 }
@@ -538,7 +358,7 @@ function openCard(btn){
       ${w.audio?`<button type="button" class="btn" id="cardPlay">▶ Pronounce</button>`:""}
       <button type="button" class="btn flagbtn" id="cardMark" aria-pressed="${marked}">${marked?"✓ Marked unfamiliar":"Mark unfamiliar"}</button>
     </div>
-    ${w.audio?"":`<div class="voicenote" style="margin-top:6px">No recording for this word yet</div>`}`;
+    ${w.audio?"":`<div class="voicenote gap">No recording for this word yet</div>`}`;
   card.hidden = false;
   const r = btn.getBoundingClientRect(), cw = card.offsetWidth, ch = card.offsetHeight;
   card.style.left = Math.max(16, Math.min(window.innerWidth - cw - 16, r.left)) + "px";
@@ -560,6 +380,12 @@ document.addEventListener("focusin", e => { const t = e.target.closest(".tok"); 
 window.addEventListener("scroll", () => { hideTip(); closeCard(); }, { passive:true });
 document.addEventListener("keydown", e => { if (e.key === "Escape"){ hideTip(); closeCard(); } });
 
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-rfull]"); if (!b) return;
+  const n = +b.dataset.rfull;
+  rfull.has(n) ? rfull.delete(n) : rfull.add(n);
+  renderRecite();
+});
 document.addEventListener("click", e => {
   if (e.target.closest("#cardClose")) return closeCard();
   if (e.target.closest("#cardPlay")) return cardFor && playWord(cardFor.k);
@@ -590,7 +416,7 @@ document.addEventListener("click", e => {
     e.preventDefault();
     const s = SENT.find(x=>x.n===+go.dataset.goto); if (!s) return;
     const part = partOfRow(s) || firstPart();
-    if (state.part!=="all" && state.part!==part){ state.part = part; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p===part)); }
+    if (state.part!==part){ setPart(part, true); if (!/^#s\d+$/.test(location.hash)) syncHash(); }  // a #s<N> link in the address bar is left alone
     if (BOILER.has(s.type)){ state.showBoiler = true; $("#showBoiler").checked = true; }
     state.onlyMine = false; $("#onlyMine").checked = false;
     render();
@@ -599,7 +425,7 @@ document.addEventListener("click", e => {
     return;
   }
   const pb = e.target.closest("#partSeg button");
-  if (pb){ state.part = pb.dataset.p; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b===pb)); render(); }
+  if (pb){ setPart(pb.dataset.p); syncHash(); }
 });
 document.addEventListener("input", e => {
   const t = e.target.closest("textarea[data-c]"); if (!t) return;
@@ -613,6 +439,7 @@ document.addEventListener("change", e => {
 });
 
 /* ---------- YouTube player ---------- */
+let epStopAt = null;
 let TIMINGS = {}, VIDEO = null, player = null, playerReady = false, pending = null, stopAt = null, playingN = null, poll = null;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 function setNow(html, err){ const el = $("#nowPlaying"); el.innerHTML = html; el.classList.toggle("err", !!err); }
@@ -662,6 +489,16 @@ function startPoll(){
 let ytBlocked = false;  /* the channel disabled embedding (NOS does) */
 function playSentence(n){
   const t = TIMINGS[n]; if (!t) return;
+  // The episode's own audio wins when we have it: it plays in the page, needs no
+  // embed permission, and the same timings drive it. YouTube stays the fallback.
+  const ep = document.getElementById("epAudio");
+  if (ep && ep.src){
+    setPlaying(n);
+    ep.currentTime = Math.max(0, t.start - 0.2);
+    ep.play().catch(() => {});
+    epStopAt = $("#epKeep").checked ? null : Math.min(t.end + 0.25, t.start + 15);
+    return;
+  }
   if (ytBlocked){
     window.open(`https://www.youtube.com/watch?v=${encodeURIComponent(VIDEO)}&t=${Math.max(0, Math.floor(t.start - 1))}s`, "yt-sentence", "noopener");
     return;
@@ -674,6 +511,31 @@ function playSentence(n){
   stopAt = $("#keepPlaying").checked ? null : Math.min(t.end + 0.25, t.start + 15);
   startPoll();
 }
+document.addEventListener("timeupdate", e => {
+  const ep = e.target;
+  if (ep.id !== "epAudio" || epStopAt == null) return;
+  if (ep.currentTime >= epStopAt){ ep.pause(); epStopAt = null; setPlaying(null); }
+}, true);
+
+
+function setupEpisodeAudio(tracks){
+  /* Present only when the episode's audio has actually been published. No tracks →
+     the panel stays hidden and playSentence falls back to opening YouTube. */
+  if (!tracks || !tracks.length) return;
+  const wrap = $("#epWrap"), pick = $("#epPick"), au = $("#epAudio");
+  wrap.hidden = false;
+  const choose = i => {
+    au.src = tracks[i].url;
+    pick.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-pressed", i === j));
+  };
+  pick.innerHTML = tracks.map((t, i) =>
+    `<button type="button" data-ep="${i}" aria-pressed="${i === 0}">${esc(t.label)}</button>`).join("");
+  pick.addEventListener("click", e => { const b = e.target.closest("[data-ep]"); if (b) choose(+b.dataset.ep); });
+  choose(0);
+  $("#shell").classList.remove("novideo");
+  document.body.classList.add("audioonly");
+}
+
 function toggleVideo(show){
   $("#shell").classList.toggle("novideo", !show);
   $("#showVideo").hidden = show;
@@ -694,13 +556,12 @@ function lsGet(k, d){ try{ const v = localStorage.getItem(k); return v == null ?
 function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
 function inline(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>"); }
 
-/* News episodes (d.news): every story is a part, and recite follows the story picked in Study. */
-const recitePartNow = () => (D && D.news && state.part !== "all") ? state.part : META.recitePart;
+/* Study and Recite share one part (state.part), picked in the part tabs or by the URL hash. */
 function drillSet(){
-  return SENT.filter(s => s.part === recitePartNow() && !BOILER.has(s.type) && (
+  return SENT.filter(s => s.part === state.part && !BOILER.has(s.type) && (
     (s.newWords && s.newWords.length) || markOf(s.n).treatAsNew || markOf(s.n).words.length));
 }
-function allSet(){ return SENT.filter(s => s.part === recitePartNow() && ["story","new","focus"].includes(s.type)); }
+function allSet(){ return SENT.filter(s => s.part === state.part && ["story","new","focus"].includes(s.type)); }
 
 function toks(s){ return String(s||"").toLowerCase().replace(/[—–"“”„'‘’.,!?;:()\[\]…]/g," ").split(/\s+/).filter(Boolean); }
 function lev(a, b){
@@ -752,6 +613,13 @@ function gradeHTML(r){
 }
 function answered(r){ return r && (r.dontKnow || (typeof r.answer === "string" && r.answer.trim())); }
 
+const rfull = new Set();   // recite items showing the full study row
+function studyCopy(s){
+  /* Reuse the Study row verbatim — one renderer, so the two views cannot drift.
+     The id is rewritten because the same sentence also exists in the (hidden) study
+     list, and two elements with one id make rerenderRow update the wrong copy. */
+  return `<ul class="rc-study">${rowHTML(s).replace(`id="s${s.n}"`, `id="rs${s.n}"`)}</ul>`;
+}
 function reciteItem(s){
   const r = RECITE[s.n], shown = answered(r) && !retry.has(s.n);
   const val = drafts[s.n] != null ? drafts[s.n] : (r && !r.dontKnow ? r.answer || "" : "");
@@ -764,7 +632,9 @@ function reciteItem(s){
         : d.exact ? `<div><span class="vchip v-exact">✓ Exact</span></div>`
         : `<div><span class="lbl">Your answer compared</span><div class="diff" lang="nl">${diffHTML(d)}</div></div>`}
       ${gradeHTML(r)}
-      <div class="rc-act"><button type="button" class="btn" data-rretry="${s.n}">Try again</button></div>
+      <div class="rc-act"><button type="button" class="btn" data-rretry="${s.n}">Try again</button>
+        <button type="button" class="btn" data-rfull="${s.n}" aria-pressed="${rfull.has(s.n)}">${rfull.has(s.n) ? "Hide the details" : "Show everything"}</button></div>
+      ${rfull.has(s.n) ? studyCopy(s) : ""}
     </div>`;
   }
   return `<li class="rc" id="rc${s.n}">
@@ -783,14 +653,40 @@ function reciteItem(s){
 function renderRecite(){
   const drill = drillSet(), all = allSet(), set = RSET === "all" ? all : drill;
   $("#rSetDrill").textContent = `Drilled sentences (${drill.length})`;
-  $("#rSetAll").textContent = D && D.news ? `All sentences of “${partInfo(recitePartNow()).label}” (${all.length})` : `All ${partInfo(META.recitePart).label.toLowerCase()} sentences (${all.length})`;
+  $("#rSetAll").textContent = D && D.news ? `All sentences of “${partInfo(state.part).label}” (${all.length})` : `All ${partInfo(state.part).label.toLowerCase()} sentences (${all.length})`;
   $("#rSetDrill").setAttribute("aria-pressed", RSET !== "all");
   $("#rSetAll").setAttribute("aria-pressed", RSET === "all");
   $("#rList").innerHTML = set.map(reciteItem).join("");
   $("#rProg").textContent = `${set.filter(s => answered(RECITE[s.n])).length} of ${set.length} answered`;
+  renderClear(set);
+}
+
+/* Start this set again from scratch: drops the answers AND their grading for the shown
+   sentences, after one rolling backup on the server. Two clicks, never a native dialog. */
+let clearArmed = false;
+function renderClear(set){
+  const done = set.filter(s => answered(RECITE[s.n]));
+  const b = $("#rClear");
+  if (!b) return;
+  b.hidden = !done.length;
+  b.textContent = clearArmed ? `Yes, clear ${done.length} — I'll recite again` : `Start again (clear ${done.length})`;
+  b.setAttribute("aria-pressed", clearArmed);
+  b.onclick = async () => {
+    if (!clearArmed){ clearArmed = true; renderClear(set); return; }
+    const ns = done.map(s => s.n);
+    try{
+      const r = await fetch(api("recite/reset"), { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ ns }) });
+      if (!r.ok) throw new Error(r.status);
+      RECITE = await r.json();
+      ns.forEach(n => { retry.delete(n); delete drafts[n]; });
+      clearArmed = false;
+      renderRecite();
+      const first = document.getElementById("r" + ns[0]); first && first.focus();
+    }catch(e){ clearArmed = false; $("#rProg").textContent = "Not cleared — is the worksheet server still running?"; }
+  };
 }
 async function postRecite(n, body){
-  const r = await fetch("recite.json", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ [n]: body }) });
+  const r = await fetch(api("recite.json"), { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ [n]: body }) });
   if (!r.ok) throw new Error(r.status);
   RECITE = await r.json();
 }
@@ -835,7 +731,7 @@ async function saveCards(){
   rows.forEach(s => { const cb = document.getElementById("k" + s.n); if (cb) body[s.n] = { selected: cb.checked }; });
   $("#cSave").textContent = "Saving…";
   try{
-    const r = await fetch("cards.json", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+    const r = await fetch(api("cards.json"), { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
     if (!r.ok) throw new Error(r.status);
     CARDS = await r.json();
     Object.keys(cardSel).forEach(k => delete cardSel[k]);
@@ -861,7 +757,7 @@ function setMode(m){
   if (m === "cards") renderCards();
 }
 document.addEventListener("click", e => {
-  const mb = e.target.closest("[data-mode]"); if (mb) return setMode(mb.dataset.mode);
+  const mb = e.target.closest("[data-mode]"); if (mb){ setMode(mb.dataset.mode); return syncHash(); }
   const rs = e.target.closest("[data-rset]"); if (rs){ RSET = rs.dataset.rset; lsSet(META.lessonId + "-rset", RSET); return renderRecite(); }
   const ck = e.target.closest("[data-rcheck]"); if (ck) return submitRecite(+ck.dataset.rcheck, false);
   const dk = e.target.closest("[data-rdk]"); if (dk) return submitRecite(+dk.dataset.rdk, true);
@@ -871,6 +767,75 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("input", e => { const ta = e.target.closest("textarea[data-r]"); if (ta){ drafts[+ta.dataset.r] = ta.value; const msg = document.getElementById("rmsg" + ta.dataset.r); if (msg) msg.textContent = ""; } });
 document.addEventListener("change", e => { const cb = e.target.closest("[data-k-card]"); if (cb) cardSel[+cb.dataset.kCard] = cb.checked; });
+
+/* ---------- part tabs + URL hash (D003 §6b) ----------
+   #part-<P>          → that part, Study
+   #part-<P>/recite   → that part, Recite     (#part-<P>/cards → Cards)
+   Anything else (no hash, #s12, a part this lesson doesn't have) leaves the page as it was:
+   META.recitePart and the last mode. Switching writes the hash with replaceState, so the
+   back button isn't filled with tab clicks and a reload stays where you are. */
+function setPart(p, quiet){
+  if (!META.parts.some(x => x.id === p)) return false;
+  state.part = p; clearArmed = false;
+  document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p === p));
+  if (!quiet) render();
+  if (MODE === "recite") renderRecite();
+  return true;
+}
+function parseHash(h){
+  const m = /^#part-([^/]+)(?:\/(study|recite|cards))?$/.exec(h || "");
+  if (!m || !META.parts.some(x => x.id === decodeURIComponent(m[1]))) return null;
+  return { part: decodeURIComponent(m[1]), mode: m[2] || "study" };
+}
+function syncHash(){
+  const h = "#part-" + encodeURIComponent(state.part) + (MODE === "study" ? "" : "/" + MODE);
+  if (location.hash !== h) try{ history.replaceState(history.state, "", h); }catch(e){}
+}
+function applyHash(){
+  const want = parseHash(location.hash);
+  if (!want) return false;
+  if (want.part !== state.part) setPart(want.part);
+  if (want.mode !== MODE) setMode(want.mode);
+  return true;
+}
+window.addEventListener("hashchange", () => {
+  if (applyHash()) return;
+  const m = /^#s(\d+)$/.exec(location.hash);   // a pasted sentence link: go to it like data-goto
+  if (m) gotoSentence(+m[1]);
+});
+function gotoSentence(n){
+  if (MODE !== "study") setMode("study");
+  const a = document.createElement("a"); a.dataset.goto = n; a.hidden = true;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+/* Each tab shows the days that part was studied / recited: /days.json of the site when it
+   can be read (public site; the local mirror of the site), else dates in the lesson's meta
+   (meta.parts[].studied / .recited). Nothing found → the tab just has no dates. */
+const shortDate = d => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d); return m ? new Date(Date.UTC(+m[1], +m[2]-1, +m[3])).toLocaleDateString("en-GB", {day:"numeric", month:"short", timeZone:"UTC"}) : d; };
+function partDatesHTML(p, days){
+  const pick = kind => [...new Set(days.filter(r => r.part === p.id && String(r.kind||"").includes(kind)).map(r => r.date))].sort();
+  let st = pick("study"), rc = pick("recite");
+  if (!st.length && Array.isArray(p.studied)) st = p.studied.slice().sort();
+  if (!rc.length && Array.isArray(p.recited)) rc = p.recited.slice().sort();
+  const bits = [];
+  if (st.length) bits.push("Studied " + st.map(shortDate).join(", "));
+  if (rc.length) bits.push("Recited " + rc.map(shortDate).join(", "));
+  return bits.length ? `<span class="pdates">${esc(bits.join(" · "))}</span>` : "";
+}
+function renderPartTabs(days){
+  $("#partSeg").innerHTML = META.parts.map(p =>
+    `<button type="button" id="p${esc(p.id)}" data-p="${esc(p.id)}" aria-pressed="${p.id === state.part}">${esc(p.label)}${p.range?` · ${esc(p.range)}`:""}${partDatesHTML(p, days)}</button>`).join("");
+}
+async function loadPartDates(id){
+  try{
+    const r = await fetch(`${LIB}days.json`, {cache:"no-store"});
+    if (!r.ok) return;
+    const rows = await r.json();
+    if (!Array.isArray(rows)) return;
+    const mine = rows.filter(x => x && x.lesson === id && !x.historical && x.part && x.date);
+    if (mine.length) renderPartTabs(mine);
+  }catch(e){ /* no days.json here (older mirror, offline): keep the tabs as they are */ }
+}
 
 /* news: clicking a story in the overview selects that part */
 document.addEventListener("click", e => {
@@ -883,24 +848,28 @@ document.addEventListener("click", e => {
 /* ---------- boot ---------- */
 (async () => {
   try{
-    const [d, mk, tm, rc, cd] = await Promise.all([fetch("data.json").then(r=>r.json()), fetch("marks.json").then(r => r.ok ? r.json() : {}).catch(() => ({})),
-      fetch("timings.json").then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch("recite.json").then(r => r.ok ? r.json() : {}).catch(() => ({})),
-      fetch("cards.json").then(r => r.ok ? r.json() : {}).catch(() => ({}))]);
+    const [d, mk, tm, rc, cd] = await Promise.all([fetch(api("data.json")).then(r=>r.json()), fetch(api("marks.json")).then(r => r.ok ? r.json() : {}).catch(() => ({})),
+      fetch(api("timings.json")).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch(api("recite.json")).then(r => r.ok ? r.json() : {}).catch(() => ({})),
+      fetch(api("cards.json")).then(r => r.ok ? r.json() : {}).catch(() => ({}))]);
     RECITE = rc || {}; CARDS = cd || {};
     if (tm){ TIMINGS = tm.sentences || {}; VIDEO = tm.videoId; } else setNow("No sentence timings for this lesson yet.", true);
     D = d; SENT = d.sentences; WORDS = d.words;
+    if (d.news) document.body.classList.add("newsnote");
+    setupEpisodeAudio(d.news && d.news.audio);
     renderAudioLinks(d.lesson);
     META = Object.assign(META, d.meta || {});
     if (!META.parts.length) META.parts = [...new Set(SENT.map(s => s.part).filter(Boolean))].sort().map(id => ({id, label:"Part " + id, range:""}));
     if (!META.parts.some(p => p.id === META.recitePart)) META.recitePart = firstPart();
     state.part = META.recitePart;
+    const fromHash = parseHash(location.hash);
+    if (fromHash) state.part = fromHash.part;
     document.title = META.title || "Lesson worksheet";
     $("#lessonTitle").textContent = META.title || "Lesson worksheet";
+    { const m = /^s(\d+)-les-0*(\d+)$/.exec(d.lesson || ""); $("#crumbLesson").textContent = m ? `S${m[1]} · Lesson ${m[2]}` : (META.title || "Lesson"); }
     $("#lessonSub").textContent = META.subtitle ? META.subtitle + "." : "";
-    $("#partSeg").insertAdjacentHTML("beforeend", META.parts.map(p =>
-      `<button id="p${esc(p.id)}" data-p="${esc(p.id)}" aria-pressed="${p.id === state.part}">${esc(p.label)}${p.range?` · ${esc(p.range)}`:""}</button>`).join(""));
-    $("#pAll").setAttribute("aria-pressed", "false");
+    renderPartTabs([]);
+    loadPartDates(META.lessonId || d.lesson);
     Object.entries(mk).forEach(([n, v]) => { if (!/^\d+$/.test(n) || !v) return;
       state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"" }; });
     const G = d.grammar;
@@ -916,7 +885,7 @@ document.addEventListener("click", e => {
         <div class="tscroll"><table><thead><tr><th scope="col">Rule</th><th scope="col">How it works</th><th scope="col">${D.news ? "Examples" : "Slide examples"}</th><th scope="col">In this episode</th></tr></thead><tbody>
         ${G.rules.map(r => {
           const hs = SENT.flatMap(s => (s.grammarHits||[]).filter(h=>h.rule===r.id).map(h => ({s,h})));
-          return `<tr><th scope="row"><span class="rid">${esc(r.id)}</span>${esc(r.name)}<div class="small" style="margin:2px 0 0">${D.news ? esc(r.lesson) : "les " + esc(r.lesson)}</div></th>
+          return `<tr><th scope="row"><span class="rid">${esc(r.id)}</span>${esc(r.name)}<div class="small tight">${D.news ? esc(r.lesson) : "les " + esc(r.lesson)}</div></th>
             <td>${esc(r.how)}</td>
             <td><div class="ex" lang="nl">${r.examples.map(x => `<span>${esc(x[0])}${x[1]?` → ${esc(x[1])}`:""}<span class="h">${esc(x[2]||"")}</span></span>`).join("")}</div></td>
             <td><div class="hits">${hs.length ? hs.map(({s,h}) => `<a href="#s${s.n}" data-goto="${s.n}">s${s.n} · <span lang="nl">${esc(h.token)}</span></a>`).join("") : "—"}</div></td></tr>`;
@@ -929,7 +898,7 @@ document.addEventListener("click", e => {
       $("#ov").innerHTML = `<h2>Stories in this episode</h2>
         <p class="small">${esc(N.source)} · ${esc(N.date)}. Each story is a part: pick it in the bar below to study it, and Recite follows the story you picked. A sentence note names who is speaking when it isn't the presenter; interviews are unscripted, faster Dutch.</p>
         <div class="tscroll"><table><thead><tr><th scope="col">Story</th><th scope="col">What happens</th><th scope="col">Phrases worth keeping</th><th scope="col">New words</th></tr></thead><tbody>
-        ${N.stories.map(st => `<tr><th scope="row"><a href="#" data-story="${esc(st.part)}" lang="nl">${esc(st.nl)}</a><div class="small" style="margin:2px 0 0">${mm(st.start)} · ${esc(st.en)}</div></th>
+        ${N.stories.map(st => `<tr><th scope="row"><a href="#" data-story="${esc(st.part)}" lang="nl">${esc(st.nl)}</a><div class="small tight">${mm(st.start)} · ${esc(st.en)}</div></th>
           <td>${esc(st.summary)}</td>
           <td>${(st.phrases||[]).map(ph => `<div><span lang="nl"><strong>${esc(ph.nl)}</strong></span> <span class="small">${esc(ph.en)}</span></div>`).join("") || "—"}</td>
           <td>${newIn(st.part)}</td></tr>`).join("")}</tbody></table></div>`;
@@ -947,7 +916,8 @@ document.addEventListener("click", e => {
     render();
     setSave(Object.keys(state.marks).length ? "Marks loaded" : "No marks yet");
     RSET = lsGet(META.lessonId + "-rset", "drill") === "all" ? "all" : "drill";
-    setMode(lsGet(META.lessonId + "-mode", "study"));
+    setMode(fromHash ? fromHash.mode : lsGet(META.lessonId + "-mode", "study"));
+    if (!fromHash){ const m = /^#s(\d+)$/.exec(location.hash); if (m) gotoSentence(+m[1]); }
     loadYT();
   }catch(e){
     setSave("Couldn't load the lesson data", true);
