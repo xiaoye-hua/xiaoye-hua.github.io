@@ -2,19 +2,33 @@
 <html lang="en">
 <head>
 <script>
-/* Read-only public copy: writes never leave this browser tab. */
+/* Read-only public copy: writes never leave this browser tab. Each store starts from the
+   exported JSON, so a POST's reply is the whole object, as the local server's is. */
 (() => {
   const realFetch = window.fetch.bind(window);
   const mem = {};
   const file = { "/marks": "marks.json", "/recite": "recite.json", "/cards": "cards.json" };
+  const reply = obj => new Response(JSON.stringify(obj || {}), { status: 200, headers: { "Content-Type": "application/json" } });
+  const load = async k => {
+    if (!(k in mem)) {
+      try { const r = await realFetch(file[k]); mem[k] = r.ok ? await r.json() : {}; } catch (e) { mem[k] = {}; }
+    }
+    return mem[k];
+  };
   window.fetch = async (url, opts = {}) => {
     const u = String(url), method = (opts.method || "GET").toUpperCase();
     if (method !== "POST") return realFetch(u, opts);
-    const k = Object.keys(file).find(p => u.endsWith(p) || u.endsWith(file[p]));
     let body = {}; try { body = JSON.parse(opts.body || "{}"); } catch (e) {}
+    if (u.endsWith("recite/reset")) {  // "Start again": drop those sentences, this tab only
+      const cur = await load("/recite");
+      (body.ns || []).forEach(n => { delete cur[n]; });
+      return reply(cur);
+    }
+    const k = Object.keys(file).find(p => u.endsWith(p) || u.endsWith(file[p]));
+    if (!k) return reply({});
     if (k === "/marks") mem[k] = body;
-    else if (k) mem[k] = Object.assign(mem[k] || {}, body);
-    return new Response(JSON.stringify(mem[k] || {}), { status: 200, headers: { "Content-Type": "application/json" } });
+    else Object.assign(await load(k), body);
+    return reply(mem[k]);
   };
 })();
 </script>
@@ -352,6 +366,7 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
     <div class="seg" id="rPartSeg"></div>
     <span class="dkey"><span class="mk">+</span> missing · <span class="mk">✕</span> extra · <span class="mk">~</span> misspelled</span>
     <span class="rc-prog" id="rProg"></span>
+    <button type="button" id="rClear" class="btn"></button>
   </div>
   <ol class="rc-list" id="rList"></ol>
 </section>
@@ -902,6 +917,32 @@ function renderRecite(){
     b.onclick = () => { RPART = b.dataset.rpart; renderRecite(); });
   $("#rList").innerHTML = set.map(reciteItem).join("");
   $("#rProg").textContent = `${set.filter(s => answered(RECITE[s.n])).length} of ${set.length} answered`;
+  renderClear(set);
+}
+
+/* Start this set again from scratch: drops the answers AND their grading for the shown
+   sentences, after one rolling backup on the server. Two clicks, never a native dialog. */
+let clearArmed = false;
+function renderClear(set){
+  const done = set.filter(s => answered(RECITE[s.n]));
+  const b = $("#rClear");
+  if (!b) return;
+  b.hidden = !done.length;
+  b.textContent = clearArmed ? `Yes, clear ${done.length} — I'll recite again` : `Start again (clear ${done.length})`;
+  b.setAttribute("aria-pressed", clearArmed);
+  b.onclick = async () => {
+    if (!clearArmed){ clearArmed = true; renderClear(set); return; }
+    const ns = done.map(s => s.n);
+    try{
+      const r = await fetch("recite/reset", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ ns }) });
+      if (!r.ok) throw new Error(r.status);
+      RECITE = await r.json();
+      ns.forEach(n => { retry.delete(n); delete drafts[n]; });
+      clearArmed = false;
+      renderRecite();
+      const first = document.getElementById("r" + ns[0]); first && first.focus();
+    }catch(e){ clearArmed = false; $("#rProg").textContent = "Not cleared — is the worksheet server still running?"; }
+  };
 }
 async function postRecite(n, body){
   const r = await fetch("recite.json", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ [n]: body }) });
