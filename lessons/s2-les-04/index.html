@@ -2,26 +2,40 @@
 <html lang="en">
 <head>
 <script>
-/* Read-only public copy: writes never leave this browser tab. */
+/* Read-only public copy: writes never leave this browser tab. Each store starts from the
+   exported JSON, so a POST's reply is the whole object, as the local server's is. */
 (() => {
   const realFetch = window.fetch.bind(window);
   const mem = {};
   const file = { "/marks": "marks.json", "/recite": "recite.json", "/cards": "cards.json" };
+  const reply = obj => new Response(JSON.stringify(obj || {}), { status: 200, headers: { "Content-Type": "application/json" } });
+  const load = async k => {
+    if (!(k in mem)) {
+      try { const r = await realFetch(file[k]); mem[k] = r.ok ? await r.json() : {}; } catch (e) { mem[k] = {}; }
+    }
+    return mem[k];
+  };
   window.fetch = async (url, opts = {}) => {
     const u = String(url), method = (opts.method || "GET").toUpperCase();
     if (method !== "POST") return realFetch(u, opts);
-    const k = Object.keys(file).find(p => u.endsWith(p) || u.endsWith(file[p]));
     let body = {}; try { body = JSON.parse(opts.body || "{}"); } catch (e) {}
+    if (u.endsWith("recite/reset")) {  // "Start again": drop those sentences, this tab only
+      const cur = await load("/recite");
+      (body.ns || []).forEach(n => { delete cur[n]; });
+      return reply(cur);
+    }
+    const k = Object.keys(file).find(p => u.endsWith(p) || u.endsWith(file[p]));
+    if (!k) return reply({});
     if (k === "/marks") mem[k] = body;
-    else if (k) mem[k] = Object.assign(mem[k] || {}, body);
-    return new Response(JSON.stringify(mem[k] || {}), { status: 200, headers: { "Content-Type": "application/json" } });
+    else Object.assign(await load(k), body);
+    return reply(mem[k]);
   };
 })();
 </script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Les 4 Werkblad</title>
+<title>Lesson worksheet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -159,10 +173,45 @@ ol.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:co
 .rc-study{list-style:none;margin:12px 0 0;padding:0}
 .rc-study .row{box-shadow:none;border-style:dashed}
 
+/* Frequency category (news notes only). Which of the six lists the lemma belongs to.
+   Encoded as a 3px underline so it never fights the existing background states
+   (blue = new word, yellow = you marked it, green = this lesson's grammar). */
+.tok{border-bottom:3px solid transparent}
+.tok.f-core{border-bottom-color:#2B4C9B}
+.tok.f-general{border-bottom-color:#B26A00}
+.tok.f-spoken{border-bottom-color:#1F7A4D}
+.tok.f-fiction{border-bottom-color:#B03030}
+.tok.f-newspapers{border-bottom-color:#7A2E8E}
+.tok.f-web{border-bottom-color:#00727E}
+@media (prefers-color-scheme:dark){
+.tok.f-core{border-bottom-color:#7FA0E8}.tok.f-general{border-bottom-color:#E0A050}
+.tok.f-spoken{border-bottom-color:#5FC08A}.tok.f-fiction{border-bottom-color:#E07878}
+.tok.f-newspapers{border-bottom-color:#C08BD8}.tok.f-web{border-bottom-color:#4FB3BF}}
+
+/* A news note is extensive reading: listen, read, look a word up, keep a phrase.
+   It is not a text to recite, card, or mark word by word (hua, 2026-09-20). The
+   grammar table stays — for a news note it reports what real Dutch actually used. */
+body.newsnote #mRecite,
+body.newsnote #mCards,
+body.newsnote .flagbtn{display:none}
+body.newsnote .tok{cursor:default}
+
+/* The episode's own audio, for a note whose video cannot be embedded. Two tracks:
+   the broadcast as aired, and the slow-Dutch/English study mix. */
+.epwrap{margin:12px 0 0}
+.epwrap .eplabel{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:6px}
+.epwrap audio{width:100%;margin-top:8px}
+.epwrap .seg button{font-size:13px;padding:5px 11px}
+
+/* A note that plays its own audio has no use for an embed that the publisher blocks. */
+body.audioonly .ytbox,
+body.audioonly .pctl{display:none}
+body.audioonly .epwrap{margin-top:0}
+.epwrap .chk{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-top:8px}
 .chunks,.mine{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600}
 .chunk{font-family:var(--serif);font-size:14px;background:var(--ground);border:1px solid var(--rule);border-radius:4px;padding:0 6px}
-a.chunk.ref{color:var(--delft);text-decoration:none;border-color:var(--delft)}
+a.chunk.ref{color:inherit;text-decoration:none;border-color:var(--delft);border-bottom-width:2px}
 a.chunk.ref:hover{background:var(--delft);color:#fff}
 nav.modes .lib{margin:8px 0 0;font-size:13px;color:var(--muted)}
 nav.modes .lib a{color:inherit}
@@ -201,6 +250,13 @@ textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--ground);b
 [hidden]{display:none!important}
 .modes{display:flex;align-items:center;gap:12px;margin:0 0 18px}
 .modes .seg button{font-weight:500;padding:7px 16px}
+/* Part tabs (D003 §6b): the page's main tabs, shared by Study and Recite; the URL hash
+   #part-<P> / #part-<P>/recite says which one is open. Cards lists every part, so no tabs there. */
+.ptabs{margin:0 0 18px}
+.ptabs .seg{display:flex;flex-wrap:wrap}
+.ptabs .seg button{font-weight:500;padding:7px 16px;text-align:left}
+.ptabs .pdates{display:block;font-size:12px;font-weight:400;opacity:.8}
+body.mode-cards .ptabs{display:none}
 body.mode-recite .shell,body.mode-cards .shell{grid-template-columns:minmax(0,1fr)}
 body.mode-recite .player,body.mode-cards .player{display:none}
 body.mode-recite .shell .wrap,body.mode-cards .shell .wrap{max-width:860px;margin:0 auto}
@@ -263,6 +319,12 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
     <label class="chk"><input type="checkbox" id="keepPlaying"> Keep playing after the sentence</label>
     <button type="button" class="btn" id="hideVideo">Hide video</button>
   </div>
+  <div class="epwrap" id="epWrap" hidden>
+    <div class="eplabel">Episode audio</div>
+    <div class="seg" id="epPick"></div>
+    <audio id="epAudio" controls preload="none"></audio>
+    <label class="chk" id="epKeepWrap"><input type="checkbox" id="epKeep"> Keep playing after the sentence</label>
+  </div>
   <div class="now" id="nowPlaying" aria-live="polite">Click ▶ next to a sentence to hear it in the episode.</div>
 </aside>
 <div class="wrap">
@@ -275,8 +337,8 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   <p class="lib"><a href="../../">Dutch notes</a> · <a href="../../collocations/">Collocations</a> · <a href="../../grammar/">Grammar</a> · <a href="../../words/">Words</a><span id="audioLinks"></span></p>
 </nav>
 <header>
-  <h1>Heb je zin? S2 · Les 4</h1>
-  <p class="sub studyonly">Speciale vormen van het meervoud — Grammar 1, les 44 + 45. Hover a word for its meaning; click it to hear it (when a recording exists) and to mark it unfamiliar. Click the English line or <em>Explain</em> for the sentence's grammar.</p>
+  <h1 id="lessonTitle">Lesson worksheet</h1>
+  <p class="sub studyonly"><span id="lessonSub"></span> Hover a word for its meaning; click it to hear it (when a recording exists) and to mark it unfamiliar. Click the English line or <em>Explain</em> for the sentence's grammar.</p>
   <div class="legend studyonly">
     <span><span class="sw pipe">woord</span> blue = new word found by the precheck</span>
     <span><span class="sw mark">woord</span> marked by you</span>
@@ -286,14 +348,10 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   </div>
   <section class="gram-sec studyonly" id="gram" aria-labelledby="gramh"></section>
   <section class="ov studyonly" id="ov"></section>
+  <nav class="ptabs" aria-label="Parts"><div class="seg" id="partSeg"></div></nav>
   <div class="stats studyonly" id="stats"></div>
 </header>
 <div class="bar studyonly" role="toolbar" aria-label="Filters">
-  <div class="seg" id="partSeg">
-    <button id="pAll" data-p="all" aria-pressed="false">All</button>
-    <button id="p1" data-p="1" aria-pressed="true">Part 1 · 5–33</button>
-    <button id="p2" data-p="2" aria-pressed="false">Part 2 · 34–54</button>
-  </div>
   <label class="chk"><input type="checkbox" id="showBoiler"> Show intro, outro &amp; filler</label>
   <label class="chk"><input type="checkbox" id="onlyMine"> Only what I marked</label>
   <label class="chk"><input type="checkbox" id="onlyGram"> Grammar sentences</label>
@@ -308,11 +366,11 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   <div class="rc-head">
     <div class="seg" id="rSet">
       <button type="button" id="rSetDrill" data-rset="drill" aria-pressed="true">Drilled sentences</button>
-      <button type="button" id="rSetAll" data-rset="all" aria-pressed="false">All part 1 sentences</button>
+      <button type="button" id="rSetAll" data-rset="all" aria-pressed="false">All sentences in this part</button>
     </div>
-    <div class="seg" id="rPartSeg"></div>
     <span class="dkey"><span class="mk">+</span> missing · <span class="mk">✕</span> extra · <span class="mk">~</span> misspelled</span>
     <span class="rc-prog" id="rProg"></span>
+    <button type="button" id="rClear" class="btn"></button>
   </div>
   <ol class="rc-list" id="rList"></ol>
 </section>
@@ -348,6 +406,10 @@ async function renderAudioLinks(id){
   }catch(e){ /* offline or not published: leave the row as it is */ }
 }
 
+let META = { lessonId:"lesson", title:"Lesson worksheet", subtitle:"", parts:[], marksFile:"marks.json", recitePart:"1" };
+const firstPart = () => (META.parts[0] || {id:"1"}).id, lastPart = () => (META.parts[META.parts.length-1] || {id:"1"}).id;
+const partOfRow = s => s.part || (s.type==="intro" ? firstPart() : s.type==="outro" ? lastPart() : "");
+const partInfo = id => META.parts.find(p => p.id === id) || {id, label:"Part " + id, range:""};
 const state = { part:"1", showBoiler:false, onlyMine:false, onlyGram:false, marks:{}, open:new Set() };
 let RULES = {};
 const BOILER = new Set(["intro","outro","filler"]);
@@ -413,6 +475,11 @@ function tokens(s){
     if (pipe.includes(k)) cls.push("pipe");
     if (gram.includes(k)) cls.push("gram");
     if (m.words.includes(k)) cls.push("mark");
+    // Frequency-category colouring is a NEWS-NOTE feature only (hua, 2026-09-20):
+    // a news text is unfiltered real Dutch, so knowing which frequency list a word sits
+    // on tells you what to bother with. A graded lesson is already pitched at hua's level.
+    const fc = D && D.news && s.freqCats && s.freqCats[k];
+    if (fc) cls.push("f-" + fc);
     return `<button type="button" class="${cls.join(" ")}" data-n="${s.n}" data-k="${esc(k)}">${esc(raw)}</button>`;
   }).join("");
 }
@@ -462,17 +529,17 @@ function rowHTML(s){
 
 function visible(s){
   if (BOILER.has(s.type) && !state.showBoiler) return false;
-  const part = s.part || (s.type==="intro" ? "1" : s.type==="outro" ? "2" : "");
-  if (state.part!=="all" && part!==state.part) return false;
+  const part = partOfRow(s);
+  if (part!==state.part) return false;
   if (state.onlyMine && !hasMine(markOf(s.n))) return false;
   if (state.onlyGram && !(s.grammarHits && s.grammarHits.length)) return false;
   return true;
 }
 function renderStats(){
-  $("#stats").innerHTML = ["1","2"].map(p => {
+  $("#stats").innerHTML = META.parts.map(pp => pp.id).map(p => {
     let words=0, flagged=0, comments=0;
     SENT.filter(s=>s.part===p).forEach(s => { const m=markOf(s.n); words+=m.words.length; if(m.treatAsNew) flagged++; if((m.comment||"").trim()) comments++; });
-    return `<div class="stat"><b>Part ${p} · sentences ${p==="1"?"5–33":"34–54"}</b>
+    return `<div class="stat"><b>${esc(partInfo(p).label)}${partInfo(p).range?` · sentences ${esc(partInfo(p).range)}`:""}</b>
       <span><span class="k">${words}</span><span class="l">words marked</span></span>
       <span><span class="k">${flagged}</span><span class="l">flagged as new</span></span>
       <span><span class="k">${comments}</span><span class="l">comments</span></span></div>`;
@@ -603,8 +670,8 @@ document.addEventListener("click", e => {
   if (go){
     e.preventDefault();
     const s = SENT.find(x=>x.n===+go.dataset.goto); if (!s) return;
-    const part = s.part || (s.type==="outro" ? "2" : "1");
-    if (state.part!=="all" && state.part!==part){ state.part = part; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p===part)); }
+    const part = partOfRow(s) || firstPart();
+    if (state.part!==part){ setPart(part, true); if (!/^#s\d+$/.test(location.hash)) syncHash(); }  // a #s<N> link in the address bar is left alone
     if (BOILER.has(s.type)){ state.showBoiler = true; $("#showBoiler").checked = true; }
     state.onlyMine = false; $("#onlyMine").checked = false;
     render();
@@ -613,7 +680,7 @@ document.addEventListener("click", e => {
     return;
   }
   const pb = e.target.closest("#partSeg button");
-  if (pb){ state.part = pb.dataset.p; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b===pb)); render(); }
+  if (pb){ setPart(pb.dataset.p); syncHash(); }
 });
 document.addEventListener("input", e => {
   const t = e.target.closest("textarea[data-c]"); if (!t) return;
@@ -627,6 +694,7 @@ document.addEventListener("change", e => {
 });
 
 /* ---------- YouTube player ---------- */
+let epStopAt = null;
 let TIMINGS = {}, VIDEO = null, player = null, playerReady = false, pending = null, stopAt = null, playingN = null, poll = null;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 function setNow(html, err){ const el = $("#nowPlaying"); el.innerHTML = html; el.classList.toggle("err", !!err); }
@@ -643,7 +711,7 @@ function loadYT(){
     player = new YT.Player("yt", { videoId: VIDEO, playerVars: { rel: 0, playsinline: 1, modestbranding: 1 },
       events: {
         onReady: () => { playerReady = true; if (pending != null){ const n = pending; pending = null; playSentence(n); } },
-        onError: () => setNow("YouTube couldn't play this video here.", true)
+        onError: () => { ytBlocked = true; setNow("This channel doesn't allow playing its videos on other sites. The ▶ buttons open YouTube at that sentence instead.", true); }
       } });
   };
   const s = document.createElement("script");
@@ -673,8 +741,23 @@ function startPoll(){
     if ($("#keepPlaying").checked){ const n = sentenceAt(ct); if (n && n !== playingN) setPlaying(n, true); }
   }, 100);
 }
+let ytBlocked = false;  /* the channel disabled embedding (NOS does) */
 function playSentence(n){
   const t = TIMINGS[n]; if (!t) return;
+  // The episode's own audio wins when we have it: it plays in the page, needs no
+  // embed permission, and the same timings drive it. YouTube stays the fallback.
+  const ep = document.getElementById("epAudio");
+  if (ep && ep.src){
+    setPlaying(n);
+    ep.currentTime = Math.max(0, t.start - 0.2);
+    ep.play().catch(() => {});
+    epStopAt = $("#epKeep").checked ? null : Math.min(t.end + 0.25, t.start + 15);
+    return;
+  }
+  if (ytBlocked){
+    window.open(`https://www.youtube.com/watch?v=${encodeURIComponent(VIDEO)}&t=${Math.max(0, Math.floor(t.start - 1))}s`, "yt-sentence", "noopener");
+    return;
+  }
   if ($("#shell").classList.contains("novideo")) toggleVideo(true);
   setPlaying(n);
   if (!playerReady){ pending = n; setNow("Loading the video…"); return; }
@@ -683,6 +766,31 @@ function playSentence(n){
   stopAt = $("#keepPlaying").checked ? null : Math.min(t.end + 0.25, t.start + 15);
   startPoll();
 }
+document.addEventListener("timeupdate", e => {
+  const ep = e.target;
+  if (ep.id !== "epAudio" || epStopAt == null) return;
+  if (ep.currentTime >= epStopAt){ ep.pause(); epStopAt = null; setPlaying(null); }
+}, true);
+
+
+function setupEpisodeAudio(tracks){
+  /* Present only when the episode's audio has actually been published. No tracks →
+     the panel stays hidden and playSentence falls back to opening YouTube. */
+  if (!tracks || !tracks.length) return;
+  const wrap = $("#epWrap"), pick = $("#epPick"), au = $("#epAudio");
+  wrap.hidden = false;
+  const choose = i => {
+    au.src = tracks[i].url;
+    pick.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-pressed", i === j));
+  };
+  pick.innerHTML = tracks.map((t, i) =>
+    `<button type="button" data-ep="${i}" aria-pressed="${i === 0}">${esc(t.label)}</button>`).join("");
+  pick.addEventListener("click", e => { const b = e.target.closest("[data-ep]"); if (b) choose(+b.dataset.ep); });
+  choose(0);
+  $("#shell").classList.remove("novideo");
+  document.body.classList.add("audioonly");
+}
+
 function toggleVideo(show){
   $("#shell").classList.toggle("novideo", !show);
   $("#showVideo").hidden = show;
@@ -703,12 +811,12 @@ function lsGet(k, d){ try{ const v = localStorage.getItem(k); return v == null ?
 function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
 function inline(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>"); }
 
-let RPART = "1";   // default from D.meta.recitePart; hua can switch, both parts stay available
+/* Study and Recite share one part (state.part), picked in the part tabs or by the URL hash. */
 function drillSet(){
-  return SENT.filter(s => s.part === RPART && !BOILER.has(s.type) && (
+  return SENT.filter(s => s.part === state.part && !BOILER.has(s.type) && (
     (s.newWords && s.newWords.length) || markOf(s.n).treatAsNew || markOf(s.n).words.length));
 }
-function allSet(){ return SENT.filter(s => s.part === RPART && ["story","new","focus"].includes(s.type)); }
+function allSet(){ return SENT.filter(s => s.part === state.part && ["story","new","focus"].includes(s.type)); }
 
 function toks(s){ return String(s||"").toLowerCase().replace(/[—–"“”„'‘’.,!?;:()\[\]…]/g," ").split(/\s+/).filter(Boolean); }
 function lev(a, b){
@@ -800,16 +908,37 @@ function reciteItem(s){
 function renderRecite(){
   const drill = drillSet(), all = allSet(), set = RSET === "all" ? all : drill;
   $("#rSetDrill").textContent = `Drilled sentences (${drill.length})`;
-  $("#rSetAll").textContent = `All part ${RPART} sentences (${all.length})`;
+  $("#rSetAll").textContent = D && D.news ? `All sentences of “${partInfo(state.part).label}” (${all.length})` : `All ${partInfo(state.part).label.toLowerCase()} sentences (${all.length})`;
   $("#rSetDrill").setAttribute("aria-pressed", RSET !== "all");
   $("#rSetAll").setAttribute("aria-pressed", RSET === "all");
-  const parts = (D.meta && D.meta.parts) || [];
-  $("#rPartSeg").innerHTML = parts.map(p =>
-    `<button type="button" data-rpart="${p.id}" aria-pressed="${p.id===RPART}">Part ${p.id}</button>`).join("");
-  $("#rPartSeg").querySelectorAll("button").forEach(b =>
-    b.onclick = () => { RPART = b.dataset.rpart; renderRecite(); });
   $("#rList").innerHTML = set.map(reciteItem).join("");
   $("#rProg").textContent = `${set.filter(s => answered(RECITE[s.n])).length} of ${set.length} answered`;
+  renderClear(set);
+}
+
+/* Start this set again from scratch: drops the answers AND their grading for the shown
+   sentences, after one rolling backup on the server. Two clicks, never a native dialog. */
+let clearArmed = false;
+function renderClear(set){
+  const done = set.filter(s => answered(RECITE[s.n]));
+  const b = $("#rClear");
+  if (!b) return;
+  b.hidden = !done.length;
+  b.textContent = clearArmed ? `Yes, clear ${done.length} — I'll recite again` : `Start again (clear ${done.length})`;
+  b.setAttribute("aria-pressed", clearArmed);
+  b.onclick = async () => {
+    if (!clearArmed){ clearArmed = true; renderClear(set); return; }
+    const ns = done.map(s => s.n);
+    try{
+      const r = await fetch("recite/reset", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ ns }) });
+      if (!r.ok) throw new Error(r.status);
+      RECITE = await r.json();
+      ns.forEach(n => { retry.delete(n); delete drafts[n]; });
+      clearArmed = false;
+      renderRecite();
+      const first = document.getElementById("r" + ns[0]); first && first.focus();
+    }catch(e){ clearArmed = false; $("#rProg").textContent = "Not cleared — is the worksheet server still running?"; }
+  };
 }
 async function postRecite(n, body){
   const r = await fetch("recite.json", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ [n]: body }) });
@@ -869,7 +998,7 @@ async function saveCards(){
 
 function setMode(m){
   if (!["study","recite","cards"].includes(m)) m = "study";
-  MODE = m; lsSet("s2-les-04-mode", m);
+  MODE = m; lsSet(META.lessonId + "-mode", m);
   document.body.classList.toggle("mode-recite", m === "recite");
   document.body.classList.toggle("mode-cards", m === "cards");
   document.querySelectorAll("#modeSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === m));
@@ -883,8 +1012,8 @@ function setMode(m){
   if (m === "cards") renderCards();
 }
 document.addEventListener("click", e => {
-  const mb = e.target.closest("[data-mode]"); if (mb) return setMode(mb.dataset.mode);
-  const rs = e.target.closest("[data-rset]"); if (rs){ RSET = rs.dataset.rset; lsSet("s2-les-04-rset", RSET); return renderRecite(); }
+  const mb = e.target.closest("[data-mode]"); if (mb){ setMode(mb.dataset.mode); return syncHash(); }
+  const rs = e.target.closest("[data-rset]"); if (rs){ RSET = rs.dataset.rset; lsSet(META.lessonId + "-rset", RSET); return renderRecite(); }
   const ck = e.target.closest("[data-rcheck]"); if (ck) return submitRecite(+ck.dataset.rcheck, false);
   const dk = e.target.closest("[data-rdk]"); if (dk) return submitRecite(+dk.dataset.rdk, true);
   const rt = e.target.closest("[data-rretry]");
@@ -893,6 +1022,83 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("input", e => { const ta = e.target.closest("textarea[data-r]"); if (ta){ drafts[+ta.dataset.r] = ta.value; const msg = document.getElementById("rmsg" + ta.dataset.r); if (msg) msg.textContent = ""; } });
 document.addEventListener("change", e => { const cb = e.target.closest("[data-k-card]"); if (cb) cardSel[+cb.dataset.kCard] = cb.checked; });
+
+/* ---------- part tabs + URL hash (D003 §6b) ----------
+   #part-<P>          → that part, Study
+   #part-<P>/recite   → that part, Recite     (#part-<P>/cards → Cards)
+   Anything else (no hash, #s12, a part this lesson doesn't have) leaves the page as it was:
+   META.recitePart and the last mode. Switching writes the hash with replaceState, so the
+   back button isn't filled with tab clicks and a reload stays where you are. */
+function setPart(p, quiet){
+  if (!META.parts.some(x => x.id === p)) return false;
+  state.part = p; clearArmed = false;
+  document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p === p));
+  if (!quiet) render();
+  if (MODE === "recite") renderRecite();
+  return true;
+}
+function parseHash(h){
+  const m = /^#part-([^/]+)(?:\/(study|recite|cards))?$/.exec(h || "");
+  if (!m || !META.parts.some(x => x.id === decodeURIComponent(m[1]))) return null;
+  return { part: decodeURIComponent(m[1]), mode: m[2] || "study" };
+}
+function syncHash(){
+  const h = "#part-" + encodeURIComponent(state.part) + (MODE === "study" ? "" : "/" + MODE);
+  if (location.hash !== h) try{ history.replaceState(history.state, "", h); }catch(e){}
+}
+function applyHash(){
+  const want = parseHash(location.hash);
+  if (!want) return false;
+  if (want.part !== state.part) setPart(want.part);
+  if (want.mode !== MODE) setMode(want.mode);
+  return true;
+}
+window.addEventListener("hashchange", () => {
+  if (applyHash()) return;
+  const m = /^#s(\d+)$/.exec(location.hash);   // a pasted sentence link: go to it like data-goto
+  if (m) gotoSentence(+m[1]);
+});
+function gotoSentence(n){
+  if (MODE !== "study") setMode("study");
+  const a = document.createElement("a"); a.dataset.goto = n; a.hidden = true;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+/* Each tab shows the days that part was studied / recited: /days.json of the site when it
+   can be read (public site; the local mirror of the site), else dates in the lesson's meta
+   (meta.parts[].studied / .recited). Nothing found → the tab just has no dates. */
+const shortDate = d => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d); return m ? new Date(Date.UTC(+m[1], +m[2]-1, +m[3])).toLocaleDateString("en-GB", {day:"numeric", month:"short", timeZone:"UTC"}) : d; };
+function partDatesHTML(p, days){
+  const pick = kind => [...new Set(days.filter(r => r.part === p.id && String(r.kind||"").includes(kind)).map(r => r.date))].sort();
+  let st = pick("study"), rc = pick("recite");
+  if (!st.length && Array.isArray(p.studied)) st = p.studied.slice().sort();
+  if (!rc.length && Array.isArray(p.recited)) rc = p.recited.slice().sort();
+  const bits = [];
+  if (st.length) bits.push("Studied " + st.map(shortDate).join(", "));
+  if (rc.length) bits.push("Recited " + rc.map(shortDate).join(", "));
+  return bits.length ? `<span class="pdates">${esc(bits.join(" · "))}</span>` : "";
+}
+function renderPartTabs(days){
+  $("#partSeg").innerHTML = META.parts.map(p =>
+    `<button type="button" id="p${esc(p.id)}" data-p="${esc(p.id)}" aria-pressed="${p.id === state.part}">${esc(p.label)}${p.range?` · ${esc(p.range)}`:""}${partDatesHTML(p, days)}</button>`).join("");
+}
+async function loadPartDates(id){
+  try{
+    const r = await fetch(`${LIB}days.json`, {cache:"no-store"});
+    if (!r.ok) return;
+    const rows = await r.json();
+    if (!Array.isArray(rows)) return;
+    const mine = rows.filter(x => x && x.lesson === id && !x.historical && x.part && x.date);
+    if (mine.length) renderPartTabs(mine);
+  }catch(e){ /* no days.json here (older mirror, offline): keep the tabs as they are */ }
+}
+
+/* news: clicking a story in the overview selects that part */
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-story]"); if (!a) return;
+  e.preventDefault();
+  const b = document.querySelector(`#partSeg [data-p="${CSS.escape(a.dataset.story)}"]`);
+  if (b){ b.click(); document.getElementById("partSeg").scrollIntoView({block:"start"}); }
+});
 
 /* ---------- boot ---------- */
 (async () => {
@@ -904,42 +1110,68 @@ document.addEventListener("change", e => { const cb = e.target.closest("[data-k-
     RECITE = rc || {}; CARDS = cd || {};
     if (tm){ TIMINGS = tm.sentences || {}; VIDEO = tm.videoId; } else setNow("No sentence timings for this lesson yet.", true);
     D = d; SENT = d.sentences; WORDS = d.words;
-    RPART = String((d.meta && d.meta.recitePart) || "1");
+    if (d.news) document.body.classList.add("newsnote");
+    setupEpisodeAudio(d.news && d.news.audio);
     renderAudioLinks(d.lesson);
+    META = Object.assign(META, d.meta || {});
+    if (!META.parts.length) META.parts = [...new Set(SENT.map(s => s.part).filter(Boolean))].sort().map(id => ({id, label:"Part " + id, range:""}));
+    if (!META.parts.some(p => p.id === META.recitePart)) META.recitePart = firstPart();
+    state.part = META.recitePart;
+    const fromHash = parseHash(location.hash);
+    if (fromHash) state.part = fromHash.part;
+    document.title = META.title || "Lesson worksheet";
+    $("#lessonTitle").textContent = META.title || "Lesson worksheet";
+    $("#lessonSub").textContent = META.subtitle ? META.subtitle + "." : "";
+    renderPartTabs([]);
+    loadPartDates(META.lessonId || d.lesson);
     Object.entries(mk).forEach(([n, v]) => { if (!/^\d+$/.test(n) || !v) return;
       state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"" }; });
     const G = d.grammar;
     if (G){ G.rules.forEach(r => { RULES[r.id] = r; }); }
     const hitsFor = pred => SENT.filter(s => pred(s) && s.grammarHits && s.grammarHits.length);
-    const partOf = s => s.part || (s.type==="outro" ? "2" : s.type==="intro" ? "1" : "");
+    const partOf = partOfRow;
     const linkList = list => list.length ? list.map(s => `<a href="#s${s.n}" data-goto="${s.n}">s${s.n}</a>`).join(", ") : "—";
-    const gramRow = G ? `<tr><th scope="row"><strong>Grammar sentences</strong></th><td>${hitsFor(s=>partOf(s)==="1").length}: ${linkList(hitsFor(s=>partOf(s)==="1"))}</td><td>${hitsFor(s=>partOf(s)==="2").length}: ${linkList(hitsFor(s=>partOf(s)==="2"))}</td></tr>` : "";
+    const gramRow = G ? `<tr><th scope="row"><strong>Grammar sentences</strong></th>${META.parts.map(p => `<td>${hitsFor(s=>partOf(s)===p.id).length}: ${linkList(hitsFor(s=>partOf(s)===p.id))}</td>`).join("")}</tr>` : "";
     if (G){
       const files = (G.source.files||[]).map(f => `<code>${esc(f.split("/").pop())}</code>`).join(" and ");
       $("#gram").innerHTML = `<h2 id="gramh">Grammar of this lesson</h2>
-        <p class="small">${esc(G.source.title)}. Taken from the slides ${files}${G.source.fromSlides===false?" — <strong>not from the slides</strong>, written by Meester":""}. Every sentence below that uses one of these rules has a green double underline.</p>
-        <div class="tscroll"><table><thead><tr><th scope="col">Rule</th><th scope="col">How it works</th><th scope="col">Slide examples</th><th scope="col">In this episode</th></tr></thead><tbody>
+        <p class="small">${esc(G.source.title)}. ${D.news ? "One point per story, <strong>not from the slides</strong>: generated from the episode's own sentences" : `Taken from the slides ${files}${G.source.fromSlides===false?" — <strong>not from the slides</strong>, written by Meester":""}`}. Every sentence below that uses one of these rules has a green double underline.</p>
+        <div class="tscroll"><table><thead><tr><th scope="col">Rule</th><th scope="col">How it works</th><th scope="col">${D.news ? "Examples" : "Slide examples"}</th><th scope="col">In this episode</th></tr></thead><tbody>
         ${G.rules.map(r => {
           const hs = SENT.flatMap(s => (s.grammarHits||[]).filter(h=>h.rule===r.id).map(h => ({s,h})));
-          return `<tr><th scope="row"><span class="rid">${esc(r.id)}</span>${esc(r.name)}<div class="small" style="margin:2px 0 0">les ${esc(r.lesson)}</div></th>
+          return `<tr><th scope="row"><span class="rid">${esc(r.id)}</span>${esc(r.name)}<div class="small" style="margin:2px 0 0">${D.news ? esc(r.lesson) : "les " + esc(r.lesson)}</div></th>
             <td>${esc(r.how)}</td>
             <td><div class="ex" lang="nl">${r.examples.map(x => `<span>${esc(x[0])}${x[1]?` → ${esc(x[1])}`:""}<span class="h">${esc(x[2]||"")}</span></span>`).join("")}</div></td>
             <td><div class="hits">${hs.length ? hs.map(({s,h}) => `<a href="#s${s.n}" data-goto="${s.n}">s${s.n} · <span lang="nl">${esc(h.token)}</span></a>`).join("") : "—"}</div></td></tr>`;
         }).join("")}</tbody></table></div>`;
     }
-    const o = d.overview;
-    $("#ov").innerHTML = `<h2>The two parts at a glance</h2><p class="small">${o.intro}</p>
-      <div class="tscroll"><table><thead><tr><th></th><th scope="col">Part 1</th><th scope="col">Part 2</th></tr></thead>
+    const o = d.overview || {intro:"", rows:[], totals:""};
+    if (d.news){
+      const N = d.news, mm = t => Math.floor(t/60) + ":" + String(Math.floor(t%60)).padStart(2,"0");
+      const newIn = p => new Set(SENT.filter(s => s.part === p).flatMap(s => s.newWords.map(w => w.toLowerCase()))).size;
+      $("#ov").innerHTML = `<h2>Stories in this episode</h2>
+        <p class="small">${esc(N.source)} · ${esc(N.date)}. Each story is a part: pick it in the bar below to study it, and Recite follows the story you picked. A sentence note names who is speaking when it isn't the presenter; interviews are unscripted, faster Dutch.</p>
+        <div class="tscroll"><table><thead><tr><th scope="col">Story</th><th scope="col">What happens</th><th scope="col">Phrases worth keeping</th><th scope="col">New words</th></tr></thead><tbody>
+        ${N.stories.map(st => `<tr><th scope="row"><a href="#" data-story="${esc(st.part)}" lang="nl">${esc(st.nl)}</a><div class="small" style="margin:2px 0 0">${mm(st.start)} · ${esc(st.en)}</div></th>
+          <td>${esc(st.summary)}</td>
+          <td>${(st.phrases||[]).map(ph => `<div><span lang="nl"><strong>${esc(ph.nl)}</strong></span> <span class="small">${esc(ph.en)}</span></div>`).join("") || "—"}</td>
+          <td>${newIn(st.part)}</td></tr>`).join("")}</tbody></table></div>`;
+      const lg = document.querySelector(".legend .sw.pipe");
+      if (lg && lg.parentElement) lg.parentElement.innerHTML = `<span class="sw pipe">woord</span> blue = not in your known words`;
+    } else
+    $("#ov").innerHTML = (o.rows.length || gramRow) ? `<h2>The two parts at a glance</h2><p class="small">${o.intro}</p>
+      <div class="tscroll"><table><thead><tr><th></th>${META.parts.map(p => `<th scope="col">${esc(p.label)}</th>`).join("")}</tr></thead>
       <tbody>${o.rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}${gramRow}</tbody></table></div>
       <p class="small">${o.totals}</p>
-      <p class="small">Σ beside a sentence number is the running total of new words. To stop the analysis after a sentence, set <code>--max_unknown_words</code> to its Σ − 1.</p>`;
+      <p class="small">Σ beside a sentence number is the running total of new words. To stop the analysis after a sentence, set <code>--max_unknown_words</code> to its Σ − 1.</p>` : "";
     const found = Object.values(WORDS).filter(w=>w.found).length, total = Object.keys(WORDS).length;
     const withEx = SENT.filter(s=>s.explanation).length;
     $("#notice").innerHTML = `<div class="notice">First version: ${found} of ${total} words have a meaning and ${withEx} sentences have a grammar explanation so far. The rest show as “not generated yet”.</div>`;
     render();
     setSave(Object.keys(state.marks).length ? "Marks loaded" : "No marks yet");
-    RSET = lsGet("s2-les-04-rset", "drill") === "all" ? "all" : "drill";
-    setMode(lsGet("s2-les-04-mode", "study"));
+    RSET = lsGet(META.lessonId + "-rset", "drill") === "all" ? "all" : "drill";
+    setMode(fromHash ? fromHash.mode : lsGet(META.lessonId + "-mode", "study"));
+    if (!fromHash){ const m = /^#s(\d+)$/.exec(location.hash); if (m) gotoSentence(+m[1]); }
     loadYT();
   }catch(e){
     setSave("Couldn't load the lesson data", true);

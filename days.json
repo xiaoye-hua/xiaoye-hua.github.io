@@ -1,0 +1,1002 @@
+[
+ {
+  "date": "2026-09-28",
+  "lesson": "s2-les-05",
+  "part": "2",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 5,
+  "title": "Adjectives in Dutch (review) - Bijvoeglijk naamwoord (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-27",
+  "lesson": "s2-les-05",
+  "part": "2",
+  "kind": "recite1",
+  "historical": false,
+  "season": 2,
+  "number": 5,
+  "title": "Adjectives in Dutch (review) - Bijvoeglijk naamwoord (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-25",
+  "lesson": "s2-les-05",
+  "part": "2",
+  "kind": "study",
+  "historical": false,
+  "season": 2,
+  "number": 5,
+  "title": "Adjectives in Dutch (review) - Bijvoeglijk naamwoord (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-24",
+  "lesson": "s2-les-05",
+  "part": "1",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 5,
+  "title": "Adjectives in Dutch (review) - Bijvoeglijk naamwoord (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-21",
+  "lesson": "s2-les-05",
+  "part": "1",
+  "kind": "study",
+  "historical": false,
+  "season": 2,
+  "number": 5,
+  "title": "Adjectives in Dutch (review) - Bijvoeglijk naamwoord (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-19",
+  "lesson": "s2-les-04",
+  "part": "2",
+  "kind": "recite1",
+  "historical": false,
+  "season": 2,
+  "number": 4,
+  "title": "Plural nouns in Dutch (special cases) - Meervoud (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-18",
+  "lesson": "s2-les-04",
+  "part": "2",
+  "kind": "study",
+  "historical": false,
+  "season": 2,
+  "number": 4,
+  "title": "Plural nouns in Dutch (special cases) - Meervoud (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-17",
+  "lesson": "s2-les-04",
+  "part": "1",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 4,
+  "title": "Plural nouns in Dutch (special cases) - Meervoud (uitzonderingen)"
+ },
+ {
+  "date": "2026-09-13",
+  "lesson": "s2-les-04",
+  "part": "1",
+  "kind": "study+recite1",
+  "historical": false,
+  "season": 2,
+  "number": 4,
+  "title": "Plural nouns in Dutch (special cases) - Meervoud (uitzonderingen)"
+ },
+ {
+  "date": "2026-07-30",
+  "lesson": "s2-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 2,
+  "number": 3,
+  "title": "Heb je zin? S2 · Les 3"
+ },
+ {
+  "date": "2026-07-27",
+  "lesson": "s2-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 2,
+  "number": 3,
+  "title": "Heb je zin? S2 · Les 3"
+ },
+ {
+  "date": "2026-07-19",
+  "lesson": "s1-les-53",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 53,
+  "title": "Lesson 53 – Last lesson! (review)"
+ },
+ {
+  "date": "2026-06-15",
+  "lesson": "s2-les-02",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 2,
+  "number": 2,
+  "title": "Lesson 02 – Imperative"
+ },
+ {
+  "date": "2026-05-11",
+  "lesson": "s2-les-01",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 2,
+  "number": 1,
+  "title": "Lesson 01 – Imperative"
+ },
+ {
+  "date": "2025-12-27",
+  "lesson": "s1-les-52",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 52,
+  "title": "Lesson 52 – ‘Hebben’ or ‘zijn’ in the present perfect – 2"
+ },
+ {
+  "date": "2025-12-05",
+  "lesson": "s1-les-51",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 51,
+  "title": "Lesson 51 – ‘Hebben’ or ‘zijn’ in the present perfect"
+ },
+ {
+  "date": "2025-11-15",
+  "lesson": "s1-les-50",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 50,
+  "title": "Lesson 50 – Review lesson"
+ },
+ {
+  "date": "2025-11-13",
+  "lesson": "s1-les-49",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 49,
+  "title": "Lesson 49 – Review subclause"
+ },
+ {
+  "date": "2025-11-10",
+  "lesson": "s1-les-48",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 48,
+  "title": "Lesson 48 – Starting with a subclause"
+ },
+ {
+  "date": "2025-11-07",
+  "lesson": "s1-les-47",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 47,
+  "title": "Lesson 47 – Subclauses with questions words"
+ },
+ {
+  "date": "2025-11-05",
+  "lesson": "s1-les-46",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 46,
+  "title": "Lesson 46 – Indirect speech"
+ },
+ {
+  "date": "2025-10-30",
+  "lesson": "s1-les-44",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 44,
+  "title": "Lesson 44 – Irregular verbs"
+ },
+ {
+  "date": "2025-10-28",
+  "lesson": "s1-les-43",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 43,
+  "title": "Lesson 43 – Subclause: time and condition"
+ },
+ {
+  "date": "2025-10-24",
+  "lesson": "s1-les-42",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 42,
+  "title": "Lesson 42 – Conjunctions of consequence and contrast"
+ },
+ {
+  "date": "2025-10-22",
+  "lesson": "s1-les-41",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 41,
+  "title": "Lesson 41 – The conjunction ‘omdat’"
+ },
+ {
+  "date": "2025-10-20",
+  "lesson": "s1-les-40",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 40,
+  "title": "Lesson 40 – Coordinating conjunctions"
+ },
+ {
+  "date": "2025-10-17",
+  "lesson": "s1-les-39",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 39,
+  "title": "Lesson 39 – Review lesson"
+ },
+ {
+  "date": "2025-10-15",
+  "lesson": "s1-les-38",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 38,
+  "title": "Lesson 38 – Indirect object"
+ },
+ {
+  "date": "2025-10-13",
+  "lesson": "s1-les-37",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 37,
+  "title": "Lesson 37 – Future tense"
+ },
+ {
+  "date": "2025-10-08",
+  "lesson": "s1-les-35",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 35,
+  "title": "Lesson 35 – Imperfectum (simple past tense)"
+ },
+ {
+  "date": "2025-10-07",
+  "lesson": "s1-les-34",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 34,
+  "title": "Lesson 34 – Questions with prepositions"
+ },
+ {
+  "date": "2025-09-10",
+  "lesson": "s1-les-33",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 33,
+  "title": "Lesson 33 – verb + preposition combinations"
+ },
+ {
+  "date": "2025-09-05",
+  "lesson": "s1-les-33",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 33,
+  "title": "Lesson 33 – verb + preposition combinations"
+ },
+ {
+  "date": "2025-09-03",
+  "lesson": "s1-les-32",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 32,
+  "title": "Lesson 32 – ‘Om te’ and ‘aan het’ + infinitive"
+ },
+ {
+  "date": "2025-09-01",
+  "lesson": "s1-les-32",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 32,
+  "title": "Lesson 32 – ‘Om te’ and ‘aan het’ + infinitive"
+ },
+ {
+  "date": "2025-08-25",
+  "lesson": "s1-les-31",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 31,
+  "title": "Lesson 31 – Verb + te + infinitive"
+ },
+ {
+  "date": "2025-08-23",
+  "lesson": "s1-les-29",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 29,
+  "title": "Lesson 29 – Reflexive verbs"
+ },
+ {
+  "date": "2025-08-21",
+  "lesson": "s1-les-29",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 29,
+  "title": "Lesson 29 – Reflexive verbs"
+ },
+ {
+  "date": "2025-08-19",
+  "lesson": "s1-les-28",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 28,
+  "title": "Lesson 28 – Separable verbs"
+ },
+ {
+  "date": "2025-08-17",
+  "lesson": "s1-les-28",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 28,
+  "title": "Lesson 28 – Separable verbs"
+ },
+ {
+  "date": "2025-08-14",
+  "lesson": "s1-les-27",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 27,
+  "title": "Lesson 27 – Perfectum"
+ },
+ {
+  "date": "2025-08-12",
+  "lesson": "s1-les-27",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 27,
+  "title": "Lesson 27 – Perfectum"
+ },
+ {
+  "date": "2025-08-10",
+  "lesson": "s1-les-26",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 26,
+  "title": "Lesson 26 – Perfectum"
+ },
+ {
+  "date": "2025-07-23",
+  "lesson": "s1-les-26",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 26,
+  "title": "Lesson 26 – Perfectum"
+ },
+ {
+  "date": "2025-07-20",
+  "lesson": "s1-les-25",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 25,
+  "title": "Lesson 25 – Gaan, laten, blijven"
+ },
+ {
+  "date": "2025-07-18",
+  "lesson": "s1-les-24",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 24,
+  "title": "Lesson 24 – Review: modal verbs"
+ },
+ {
+  "date": "2025-07-17",
+  "lesson": "s1-les-24",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 24,
+  "title": "Lesson 24 – Review: modal verbs"
+ },
+ {
+  "date": "2025-07-12",
+  "lesson": "s1-les-23",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 23,
+  "title": "Lesson 23 – The auxiliary verb ‘zullen’"
+ },
+ {
+  "date": "2025-07-11",
+  "lesson": "s1-les-23",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 23,
+  "title": "Lesson 23 – The auxiliary verb ‘zullen’"
+ },
+ {
+  "date": "2025-07-10",
+  "lesson": "s1-les-22",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 22,
+  "title": "Lesson 22 – Modal verbs"
+ },
+ {
+  "date": "2025-07-08",
+  "lesson": "s1-les-22",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 22,
+  "title": "Lesson 22 – Modal verbs"
+ },
+ {
+  "date": "2025-07-07",
+  "lesson": "s1-les-21",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 21,
+  "title": "Lesson 21 – Interrogative words with ‘hoe’"
+ },
+ {
+  "date": "2025-07-06",
+  "lesson": "s1-les-21",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 21,
+  "title": "Lesson 21 – Interrogative words with ‘hoe’"
+ },
+ {
+  "date": "2025-07-05",
+  "lesson": "s1-les-20",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 20,
+  "title": "Lesson 20 – Degrees of comparison"
+ },
+ {
+  "date": "2025-07-04",
+  "lesson": "s1-les-20",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 20,
+  "title": "Lesson 20 – Degrees of comparison"
+ },
+ {
+  "date": "2025-07-03",
+  "lesson": "s1-les-19",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 19,
+  "title": "Lesson 19 – Negation"
+ },
+ {
+  "date": "2025-07-02",
+  "lesson": "s1-les-19",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 19,
+  "title": "Lesson 19 – Negation"
+ },
+ {
+  "date": "2025-07-01",
+  "lesson": "s1-les-18",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 18,
+  "title": "Lesson 18 – Word order: time and place"
+ },
+ {
+  "date": "2025-06-30",
+  "lesson": "s1-les-18",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 18,
+  "title": "Lesson 18 – Word order: time and place"
+ },
+ {
+  "date": "2025-06-29",
+  "lesson": "s1-les-18",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 18,
+  "title": "Lesson 18 – Word order: time and place"
+ },
+ {
+  "date": "2025-06-28",
+  "lesson": "s1-les-17",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 17,
+  "title": "Lesson 17 – Indefinite pronouns"
+ },
+ {
+  "date": "2025-06-27",
+  "lesson": "s1-les-17",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 17,
+  "title": "Lesson 17 – Indefinite pronouns"
+ },
+ {
+  "date": "2025-06-26",
+  "lesson": "s1-les-16",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 16,
+  "title": "Lesson 16 – Welk, elk, ieder"
+ },
+ {
+  "date": "2025-06-25",
+  "lesson": "s1-les-16",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 16,
+  "title": "Lesson 16 – Welk, elk, ieder"
+ },
+ {
+  "date": "2025-06-24",
+  "lesson": "s1-les-15",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 15,
+  "title": "Lesson 15 – The article"
+ },
+ {
+  "date": "2025-06-23",
+  "lesson": "s1-les-15",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 15,
+  "title": "Lesson 15 – The article"
+ },
+ {
+  "date": "2025-06-22",
+  "lesson": "s1-les-14",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 14,
+  "title": "Lesson 14 – Review lesson"
+ },
+ {
+  "date": "2025-06-21",
+  "lesson": "s1-les-14",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 14,
+  "title": "Lesson 14 – Review lesson"
+ },
+ {
+  "date": "2025-06-20",
+  "lesson": "s1-les-13",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 13,
+  "title": "Lesson 13 – Review lesson"
+ },
+ {
+  "date": "2025-06-19",
+  "lesson": "s1-les-13",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 13,
+  "title": "Lesson 13 – Review lesson"
+ },
+ {
+  "date": "2025-06-18",
+  "lesson": "s1-les-12",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 12,
+  "title": "Lesson 12 – Prepositions + position verbs"
+ },
+ {
+  "date": "2025-06-17",
+  "lesson": "s1-les-12",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 12,
+  "title": "Lesson 12 – Prepositions + position verbs"
+ },
+ {
+  "date": "2025-06-16",
+  "lesson": "s1-les-11",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 11,
+  "title": "Lesson 11 – Possessive adjective + demonstrative pronoun"
+ },
+ {
+  "date": "2025-06-14",
+  "lesson": "s1-les-11",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 11,
+  "title": "Lesson 11 – Possessive adjective + demonstrative pronoun"
+ },
+ {
+  "date": "2025-06-13",
+  "lesson": "s1-les-10",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 10,
+  "title": "Lesson 10 – Personal pronoun as object"
+ },
+ {
+  "date": "2025-06-12",
+  "lesson": "s1-les-10",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 10,
+  "title": "Lesson 10 – Personal pronoun as object"
+ },
+ {
+  "date": "2025-06-11",
+  "lesson": "s1-les-09",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 9,
+  "title": "Lesson 09 – Diminutives + ordinal numbers"
+ },
+ {
+  "date": "2025-06-10",
+  "lesson": "s1-les-09",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 9,
+  "title": "Lesson 09 – Diminutives + ordinal numbers"
+ },
+ {
+  "date": "2025-06-09",
+  "lesson": "s1-les-09",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 9,
+  "title": "Lesson 09 – Diminutives + ordinal numbers"
+ },
+ {
+  "date": "2025-06-08",
+  "lesson": "s1-les-08",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 8,
+  "title": "Lesson 08 – Prepositions"
+ },
+ {
+  "date": "2025-06-07",
+  "lesson": "s1-les-08",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 8,
+  "title": "Lesson 08 – Prepositions"
+ },
+ {
+  "date": "2025-06-06",
+  "lesson": "s1-les-08",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 8,
+  "title": "Lesson 08 – Prepositions"
+ },
+ {
+  "date": "2025-06-05",
+  "lesson": "s1-les-07",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 7,
+  "title": "Lesson 07 – Numbers + plural nouns"
+ },
+ {
+  "date": "2025-05-30",
+  "lesson": "s1-les-07",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 7,
+  "title": "Lesson 07 – Numbers + plural nouns"
+ },
+ {
+  "date": "2025-05-29",
+  "lesson": "s1-les-07",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 7,
+  "title": "Lesson 07 – Numbers + plural nouns"
+ },
+ {
+  "date": "2025-05-28",
+  "lesson": "s1-les-06",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 6,
+  "title": "Lesson 06 – Adjectives"
+ },
+ {
+  "date": "2025-05-27",
+  "lesson": "s1-les-06",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 6,
+  "title": "Lesson 06 – Adjectives"
+ },
+ {
+  "date": "2025-05-26",
+  "lesson": "s1-les-06",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 6,
+  "title": "Lesson 06 – Adjectives"
+ },
+ {
+  "date": "2025-05-25",
+  "lesson": "s1-les-05",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 5,
+  "title": "Lesson 05 – Inversion + question words"
+ },
+ {
+  "date": "2025-05-24",
+  "lesson": "s1-les-05",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 5,
+  "title": "Lesson 05 – Inversion + question words"
+ },
+ {
+  "date": "2025-05-23",
+  "lesson": "s1-les-04",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 4,
+  "title": "Lesson 04 – Boat trip"
+ },
+ {
+  "date": "2025-05-22",
+  "lesson": "s1-les-04",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 4,
+  "title": "Lesson 04 – Boat trip"
+ },
+ {
+  "date": "2025-05-21",
+  "lesson": "s1-les-05",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 5,
+  "title": "Lesson 05 – Inversion + question words"
+ },
+ {
+  "date": "2025-05-21",
+  "lesson": "s1-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 3,
+  "title": "Lesson 03 – Amsterdam"
+ },
+ {
+  "date": "2025-05-20",
+  "lesson": "s1-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 3,
+  "title": "Lesson 03 – Amsterdam"
+ },
+ {
+  "date": "2025-05-19",
+  "lesson": "s1-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 3,
+  "title": "Lesson 03 – Amsterdam"
+ },
+ {
+  "date": "2025-05-18",
+  "lesson": "s1-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 3,
+  "title": "Lesson 03 – Amsterdam"
+ },
+ {
+  "date": "2025-05-17",
+  "lesson": "s1-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 3,
+  "title": "Lesson 03 – Amsterdam"
+ },
+ {
+  "date": "2025-05-16",
+  "lesson": "s1-les-03",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 3,
+  "title": "Lesson 03 – Amsterdam"
+ },
+ {
+  "date": "2025-05-16",
+  "lesson": "s1-les-02",
+  "part": "",
+  "kind": "",
+  "historical": true,
+  "season": 1,
+  "number": 2,
+  "title": "Lesson 02 – Countries & languages"
+ }
+]

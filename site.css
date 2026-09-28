@@ -1,0 +1,143 @@
+/* Dutch notes — shared site style (D003-ui-harness.md A1–A5, decisions U1–U7).
+   Source of truth: _bmad/memory/taal/tools/site.css. export_public_worksheet.write_index()
+   copies it to <site>/site.css, so the public site and the local /site/ mirror serve the
+   same file. Generated copies are never hand-edited.
+   Colours come ONLY from the token block below (harness A0.1). First used by the home page
+   and the day pages (D003 step 4); the other pages migrate after the first version. */
+
+/* ---- A1 tokens ---- */
+:root{
+  --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F1F5F9;
+  --ink:#0F172A; --ink-2:#475569; --muted:#64748B;
+  --border:#E2E8F0; --border-strong:#CBD5E1;
+  --accent:#4F46E5; --accent-hover:#4338CA; --accent-ink:#4F46E5; --accent-soft:#EEF2FF; --on-accent:#FFFFFF;
+  --focus:#0891B2;
+  --ok:#047857; --ok-soft:#ECFDF5; --bad:#B91C1C; --bad-soft:#FEF2F2;
+  --warn:#B45309; --warn-soft:#FFFBEB; --near:#7C3AED; --near-soft:#F5F3FF;
+  --mark-bg:#FEF08A; --mark-ink:#0F172A;
+  --gram:var(--ok); --gram-soft:var(--ok-soft);
+  --chart:#4F46E5; --chart-track:#E2E8F0;
+  --font-sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --font-reading:"Literata",Georgia,"Times New Roman",serif;   /* U1: Dutch sentences keep Literata */
+  --r-sm:4px; --r-md:6px; --r-lg:8px; --r-full:999px;
+  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .05);
+  --shadow-md:0 4px 6px -1px rgb(0 0 0 / .1),0 2px 4px -2px rgb(0 0 0 / .1);
+  --shadow-lg:0 10px 15px -3px rgb(0 0 0 / .1),0 4px 6px -4px rgb(0 0 0 / .1);
+  --w-page:1024px; --w-prose:72ch; --header-h:64px;
+  --dur:150ms;
+  /* migration aliases (harness A1 "旧名 → 新名"): vocab_progress.spark() still draws with
+     the old names. Remove once that file migrates. */
+  --rule:var(--border); --faint:var(--muted);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#020817; --surface:#0F172A; --surface-2:#1E293B;
+  --ink:#F8FAFC; --ink-2:#CBD5E1; --muted:#94A3B8;
+  --border:#1E293B; --border-strong:#334155;
+  --accent:#4F46E5; --accent-hover:#6366F1; --accent-ink:#A5B4FC; --accent-soft:#1E1B4B; --on-accent:#FFFFFF;
+  --focus:#22D3EE;
+  --ok:#34D399; --ok-soft:#022C22; --bad:#F87171; --bad-soft:#450A0A;
+  --warn:#FBBF24; --warn-soft:#451A03; --near:#C4B5FD; --near-soft:#2E1065;
+  --mark-bg:#FDE047; --mark-ink:#0F172A;
+  --chart:#6366F1; --chart-track:#1E293B;
+  --shadow-sm:none; --shadow-md:0 4px 12px rgb(0 0 0 / .4); --shadow-lg:0 10px 28px rgb(0 0 0 / .5);
+}}
+
+/* ---- A2/A3 base ---- */
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font-sans);padding:0 16px}
+a{color:var(--accent-ink)}
+.wrap{max-width:var(--w-page);margin:0 auto;padding-block:32px 64px}
+h1{font-size:clamp(24px,6vw,30px);line-height:1.2;font-weight:700;margin:0 0 16px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---- ① header / nav ---- */
+header.site{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow-sm);margin:0 -16px;padding:0 16px}
+header.site .bar{max-width:var(--w-page);margin:0 auto;min-height:var(--header-h);display:flex;align-items:center;
+  justify-content:space-between;gap:8px 16px;flex-wrap:wrap}
+header.site .logo{font-size:20px;font-weight:600;color:var(--ink);text-decoration:none}
+header.site nav{display:flex;gap:4px;overflow-x:auto}
+header.site nav a{font-size:14px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:8px 12px;
+  border-radius:var(--r-md);white-space:nowrap;transition:background-color var(--dur)}
+header.site nav a:hover{background:var(--surface-2)}
+header.site nav a[aria-current="page"]{color:var(--accent-ink);background:var(--accent-soft)}
+@media (max-width:639px){header.site .bar{padding-block:8px}header.site nav{width:100%;margin-left:-12px}}
+.crumb{font-size:14px;color:var(--muted);margin:0 0 8px}
+.crumb a{color:var(--accent-ink);text-decoration:none}
+
+/* ---- ② section label ---- */
+h2.sec{font-size:12px;line-height:1.5;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);margin:48px 0 12px}
+h2.sec:first-child{margin-top:0}
+
+/* ---- ⑦ card ---- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:16px}
+@media (min-width:768px){.card{padding:24px}}
+
+/* ---- ③ progress block + line chart ---- */
+.vp .hero{display:flex;align-items:baseline;gap:8px 12px;flex-wrap:wrap;margin:0}
+.vp .big{font-size:36px;line-height:1;font-weight:700;font-variant-numeric:tabular-nums}
+.vp .of{font-size:16px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.vp .asof{font-size:14px;color:var(--muted);margin:8px 0 16px}
+.vp figure{margin:0;overflow-x:auto}
+@media (max-width:639px){.vp .plot{min-width:560px}}   /* axis labels stay legible; the chart scrolls in its own box */
+.vp .plot{position:relative}
+.vp svg{display:block;width:100%;height:auto;overflow:visible}
+.vp svg text{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.vp .hit{cursor:crosshair}
+.vp .tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-md);box-shadow:var(--shadow-md);padding:4px 8px;font-size:13px;color:var(--ink);
+  white-space:nowrap;opacity:0;transition:opacity var(--dur)}
+.vp .more{margin:12px 0 0;font-size:14px}
+.linkbtn{color:var(--accent-ink);text-decoration:none}
+.linkbtn:hover{text-decoration:underline}
+
+/* ---- ⑫ study flow (home ②) ---- */
+.flow p{margin:0 0 8px;color:var(--ink-2)}
+.flow dl{display:grid;grid-template-columns:4.5em 1fr;gap:12px 16px;margin:16px 0 0}
+.flow dt{font-weight:600}
+.flow dd{margin:0}
+.flow dd span{display:block}
+.flow dd b{font-weight:500;color:var(--muted);font-size:14px;margin-right:4px}
+
+/* ---- ④ study log + More ---- */
+ol.log{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.log-row{display:grid;grid-template-columns:7.5em 1fr auto;gap:12px;align-items:baseline;padding:12px 16px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);color:var(--ink);
+  text-decoration:none;transition:border-color var(--dur),box-shadow var(--dur)}
+.log-row:hover{border-color:var(--accent);box-shadow:var(--shadow-sm)}
+.log-row .d{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.log-row .m{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-weight:500}
+.log-row .t{font-family:var(--font-reading);font-weight:400;color:var(--ink-2)}
+.log-row .arr{color:var(--muted)}
+@media (max-width:639px){.log-row{grid-template-columns:1fr auto;gap:4px 12px}.log-row .d{grid-column:1 / -1}}
+details.more{margin-top:12px}
+details.more > summary{list-style:none}
+details.more > summary::-webkit-details-marker{display:none}
+details.more[open] > summary{margin-bottom:8px}
+details.more > summary::before{content:"▸";color:var(--muted)}
+details.more[open] > summary::before{content:"▾"}
+ul.sub{margin:4px 0 8px;padding:0 0 0 24px;font-size:14px;color:var(--ink-2)}
+.daynav{margin:24px 0 0;font-size:14px}
+
+/* ---- ⑥ buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;font:500 14px/1 var(--font-sans);
+  border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface);color:var(--ink);cursor:pointer;
+  transition:background-color var(--dur),border-color var(--dur)}
+.btn:hover{background:var(--surface-2)}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.ghost:hover{background:var(--surface-2)}
+@media (max-width:639px){.btn{min-height:44px}}
+
+/* ---- ⑨ chip ---- */
+.chip{display:inline-block;padding:2px 10px;border-radius:var(--r-full);font:600 12px/1.5 var(--font-sans);
+  border:1px solid var(--border);color:var(--muted)}
+.chip.study{color:var(--accent-ink);background:var(--accent-soft);border-color:transparent}
+
+/* ---- ⑩ footer ---- */
+footer.site{max-width:var(--w-page);margin:64px auto 0;padding:24px 0 32px;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
+footer.site .wrap-f{max-width:var(--w-page);margin:0 auto}
+footer.site a{color:var(--accent-ink)}

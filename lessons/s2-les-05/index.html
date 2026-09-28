@@ -250,6 +250,13 @@ textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--ground);b
 [hidden]{display:none!important}
 .modes{display:flex;align-items:center;gap:12px;margin:0 0 18px}
 .modes .seg button{font-weight:500;padding:7px 16px}
+/* Part tabs (D003 §6b): the page's main tabs, shared by Study and Recite; the URL hash
+   #part-<P> / #part-<P>/recite says which one is open. Cards lists every part, so no tabs there. */
+.ptabs{margin:0 0 18px}
+.ptabs .seg{display:flex;flex-wrap:wrap}
+.ptabs .seg button{font-weight:500;padding:7px 16px;text-align:left}
+.ptabs .pdates{display:block;font-size:12px;font-weight:400;opacity:.8}
+body.mode-cards .ptabs{display:none}
 body.mode-recite .shell,body.mode-cards .shell{grid-template-columns:minmax(0,1fr)}
 body.mode-recite .player,body.mode-cards .player{display:none}
 body.mode-recite .shell .wrap,body.mode-cards .shell .wrap{max-width:860px;margin:0 auto}
@@ -341,12 +348,10 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
   </div>
   <section class="gram-sec studyonly" id="gram" aria-labelledby="gramh"></section>
   <section class="ov studyonly" id="ov"></section>
+  <nav class="ptabs" aria-label="Parts"><div class="seg" id="partSeg"></div></nav>
   <div class="stats studyonly" id="stats"></div>
 </header>
 <div class="bar studyonly" role="toolbar" aria-label="Filters">
-  <div class="seg" id="partSeg">
-    <button id="pAll" data-p="all" aria-pressed="false">All</button>
-  </div>
   <label class="chk"><input type="checkbox" id="showBoiler"> Show intro, outro &amp; filler</label>
   <label class="chk"><input type="checkbox" id="onlyMine"> Only what I marked</label>
   <label class="chk"><input type="checkbox" id="onlyGram"> Grammar sentences</label>
@@ -363,7 +368,6 @@ body.mode-recite .studyonly,body.mode-cards .studyonly{display:none!important}
       <button type="button" id="rSetDrill" data-rset="drill" aria-pressed="true">Drilled sentences</button>
       <button type="button" id="rSetAll" data-rset="all" aria-pressed="false">All sentences in this part</button>
     </div>
-    <div class="seg" id="rPartSeg"></div>
     <span class="dkey"><span class="mk">+</span> missing · <span class="mk">✕</span> extra · <span class="mk">~</span> misspelled</span>
     <span class="rc-prog" id="rProg"></span>
     <button type="button" id="rClear" class="btn"></button>
@@ -526,7 +530,7 @@ function rowHTML(s){
 function visible(s){
   if (BOILER.has(s.type) && !state.showBoiler) return false;
   const part = partOfRow(s);
-  if (state.part!=="all" && part!==state.part) return false;
+  if (part!==state.part) return false;
   if (state.onlyMine && !hasMine(markOf(s.n))) return false;
   if (state.onlyGram && !(s.grammarHits && s.grammarHits.length)) return false;
   return true;
@@ -667,7 +671,7 @@ document.addEventListener("click", e => {
     e.preventDefault();
     const s = SENT.find(x=>x.n===+go.dataset.goto); if (!s) return;
     const part = partOfRow(s) || firstPart();
-    if (state.part!=="all" && state.part!==part){ state.part = part; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p===part)); }
+    if (state.part!==part){ setPart(part, true); if (!/^#s\d+$/.test(location.hash)) syncHash(); }  // a #s<N> link in the address bar is left alone
     if (BOILER.has(s.type)){ state.showBoiler = true; $("#showBoiler").checked = true; }
     state.onlyMine = false; $("#onlyMine").checked = false;
     render();
@@ -676,7 +680,7 @@ document.addEventListener("click", e => {
     return;
   }
   const pb = e.target.closest("#partSeg button");
-  if (pb){ state.part = pb.dataset.p; document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b===pb)); render(); }
+  if (pb){ setPart(pb.dataset.p); syncHash(); }
 });
 document.addEventListener("input", e => {
   const t = e.target.closest("textarea[data-c]"); if (!t) return;
@@ -807,14 +811,12 @@ function lsGet(k, d){ try{ const v = localStorage.getItem(k); return v == null ?
 function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
 function inline(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>"); }
 
-/* News episodes (d.news): every story is a part, and recite follows the story picked in Study. */
-const recitePartNow = () => (D && D.news && state.part !== "all") ? state.part : META.recitePart;
-let RPART = "1";   // default from recitePartNow(); hua can switch, both parts stay available
+/* Study and Recite share one part (state.part), picked in the part tabs or by the URL hash. */
 function drillSet(){
-  return SENT.filter(s => s.part === RPART && !BOILER.has(s.type) && (
+  return SENT.filter(s => s.part === state.part && !BOILER.has(s.type) && (
     (s.newWords && s.newWords.length) || markOf(s.n).treatAsNew || markOf(s.n).words.length));
 }
-function allSet(){ return SENT.filter(s => s.part === RPART && ["story","new","focus"].includes(s.type)); }
+function allSet(){ return SENT.filter(s => s.part === state.part && ["story","new","focus"].includes(s.type)); }
 
 function toks(s){ return String(s||"").toLowerCase().replace(/[—–"“”„'‘’.,!?;:()\[\]…]/g," ").split(/\s+/).filter(Boolean); }
 function lev(a, b){
@@ -906,15 +908,9 @@ function reciteItem(s){
 function renderRecite(){
   const drill = drillSet(), all = allSet(), set = RSET === "all" ? all : drill;
   $("#rSetDrill").textContent = `Drilled sentences (${drill.length})`;
-  if (D && D.news) RPART = recitePartNow();   // a news note follows the story filter
-  $("#rSetAll").textContent = D && D.news ? `All sentences of “${partInfo(recitePartNow()).label}” (${all.length})` : `All ${partInfo(META.recitePart).label.toLowerCase()} sentences (${all.length})`;
+  $("#rSetAll").textContent = D && D.news ? `All sentences of “${partInfo(state.part).label}” (${all.length})` : `All ${partInfo(state.part).label.toLowerCase()} sentences (${all.length})`;
   $("#rSetDrill").setAttribute("aria-pressed", RSET !== "all");
   $("#rSetAll").setAttribute("aria-pressed", RSET === "all");
-  const parts = (D.meta && D.meta.parts) || [];
-  $("#rPartSeg").innerHTML = parts.map(p =>
-    `<button type="button" data-rpart="${p.id}" aria-pressed="${p.id===RPART}">Part ${p.id}</button>`).join("");
-  $("#rPartSeg").querySelectorAll("button").forEach(b =>
-    b.onclick = () => { RPART = b.dataset.rpart; renderRecite(); });
   $("#rList").innerHTML = set.map(reciteItem).join("");
   $("#rProg").textContent = `${set.filter(s => answered(RECITE[s.n])).length} of ${set.length} answered`;
   renderClear(set);
@@ -1016,7 +1012,7 @@ function setMode(m){
   if (m === "cards") renderCards();
 }
 document.addEventListener("click", e => {
-  const mb = e.target.closest("[data-mode]"); if (mb) return setMode(mb.dataset.mode);
+  const mb = e.target.closest("[data-mode]"); if (mb){ setMode(mb.dataset.mode); return syncHash(); }
   const rs = e.target.closest("[data-rset]"); if (rs){ RSET = rs.dataset.rset; lsSet(META.lessonId + "-rset", RSET); return renderRecite(); }
   const ck = e.target.closest("[data-rcheck]"); if (ck) return submitRecite(+ck.dataset.rcheck, false);
   const dk = e.target.closest("[data-rdk]"); if (dk) return submitRecite(+dk.dataset.rdk, true);
@@ -1026,6 +1022,75 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("input", e => { const ta = e.target.closest("textarea[data-r]"); if (ta){ drafts[+ta.dataset.r] = ta.value; const msg = document.getElementById("rmsg" + ta.dataset.r); if (msg) msg.textContent = ""; } });
 document.addEventListener("change", e => { const cb = e.target.closest("[data-k-card]"); if (cb) cardSel[+cb.dataset.kCard] = cb.checked; });
+
+/* ---------- part tabs + URL hash (D003 §6b) ----------
+   #part-<P>          → that part, Study
+   #part-<P>/recite   → that part, Recite     (#part-<P>/cards → Cards)
+   Anything else (no hash, #s12, a part this lesson doesn't have) leaves the page as it was:
+   META.recitePart and the last mode. Switching writes the hash with replaceState, so the
+   back button isn't filled with tab clicks and a reload stays where you are. */
+function setPart(p, quiet){
+  if (!META.parts.some(x => x.id === p)) return false;
+  state.part = p; clearArmed = false;
+  document.querySelectorAll("#partSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p === p));
+  if (!quiet) render();
+  if (MODE === "recite") renderRecite();
+  return true;
+}
+function parseHash(h){
+  const m = /^#part-([^/]+)(?:\/(study|recite|cards))?$/.exec(h || "");
+  if (!m || !META.parts.some(x => x.id === decodeURIComponent(m[1]))) return null;
+  return { part: decodeURIComponent(m[1]), mode: m[2] || "study" };
+}
+function syncHash(){
+  const h = "#part-" + encodeURIComponent(state.part) + (MODE === "study" ? "" : "/" + MODE);
+  if (location.hash !== h) try{ history.replaceState(history.state, "", h); }catch(e){}
+}
+function applyHash(){
+  const want = parseHash(location.hash);
+  if (!want) return false;
+  if (want.part !== state.part) setPart(want.part);
+  if (want.mode !== MODE) setMode(want.mode);
+  return true;
+}
+window.addEventListener("hashchange", () => {
+  if (applyHash()) return;
+  const m = /^#s(\d+)$/.exec(location.hash);   // a pasted sentence link: go to it like data-goto
+  if (m) gotoSentence(+m[1]);
+});
+function gotoSentence(n){
+  if (MODE !== "study") setMode("study");
+  const a = document.createElement("a"); a.dataset.goto = n; a.hidden = true;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+/* Each tab shows the days that part was studied / recited: /days.json of the site when it
+   can be read (public site; the local mirror of the site), else dates in the lesson's meta
+   (meta.parts[].studied / .recited). Nothing found → the tab just has no dates. */
+const shortDate = d => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d); return m ? new Date(Date.UTC(+m[1], +m[2]-1, +m[3])).toLocaleDateString("en-GB", {day:"numeric", month:"short", timeZone:"UTC"}) : d; };
+function partDatesHTML(p, days){
+  const pick = kind => [...new Set(days.filter(r => r.part === p.id && String(r.kind||"").includes(kind)).map(r => r.date))].sort();
+  let st = pick("study"), rc = pick("recite");
+  if (!st.length && Array.isArray(p.studied)) st = p.studied.slice().sort();
+  if (!rc.length && Array.isArray(p.recited)) rc = p.recited.slice().sort();
+  const bits = [];
+  if (st.length) bits.push("Studied " + st.map(shortDate).join(", "));
+  if (rc.length) bits.push("Recited " + rc.map(shortDate).join(", "));
+  return bits.length ? `<span class="pdates">${esc(bits.join(" · "))}</span>` : "";
+}
+function renderPartTabs(days){
+  $("#partSeg").innerHTML = META.parts.map(p =>
+    `<button type="button" id="p${esc(p.id)}" data-p="${esc(p.id)}" aria-pressed="${p.id === state.part}">${esc(p.label)}${p.range?` · ${esc(p.range)}`:""}${partDatesHTML(p, days)}</button>`).join("");
+}
+async function loadPartDates(id){
+  try{
+    const r = await fetch(`${LIB}days.json`, {cache:"no-store"});
+    if (!r.ok) return;
+    const rows = await r.json();
+    if (!Array.isArray(rows)) return;
+    const mine = rows.filter(x => x && x.lesson === id && !x.historical && x.part && x.date);
+    if (mine.length) renderPartTabs(mine);
+  }catch(e){ /* no days.json here (older mirror, offline): keep the tabs as they are */ }
+}
 
 /* news: clicking a story in the overview selects that part */
 document.addEventListener("click", e => {
@@ -1045,7 +1110,6 @@ document.addEventListener("click", e => {
     RECITE = rc || {}; CARDS = cd || {};
     if (tm){ TIMINGS = tm.sentences || {}; VIDEO = tm.videoId; } else setNow("No sentence timings for this lesson yet.", true);
     D = d; SENT = d.sentences; WORDS = d.words;
-    RPART = String(recitePartNow() || "1");
     if (d.news) document.body.classList.add("newsnote");
     setupEpisodeAudio(d.news && d.news.audio);
     renderAudioLinks(d.lesson);
@@ -1053,12 +1117,13 @@ document.addEventListener("click", e => {
     if (!META.parts.length) META.parts = [...new Set(SENT.map(s => s.part).filter(Boolean))].sort().map(id => ({id, label:"Part " + id, range:""}));
     if (!META.parts.some(p => p.id === META.recitePart)) META.recitePart = firstPart();
     state.part = META.recitePart;
+    const fromHash = parseHash(location.hash);
+    if (fromHash) state.part = fromHash.part;
     document.title = META.title || "Lesson worksheet";
     $("#lessonTitle").textContent = META.title || "Lesson worksheet";
     $("#lessonSub").textContent = META.subtitle ? META.subtitle + "." : "";
-    $("#partSeg").insertAdjacentHTML("beforeend", META.parts.map(p =>
-      `<button id="p${esc(p.id)}" data-p="${esc(p.id)}" aria-pressed="${p.id === state.part}">${esc(p.label)}${p.range?` · ${esc(p.range)}`:""}</button>`).join(""));
-    $("#pAll").setAttribute("aria-pressed", "false");
+    renderPartTabs([]);
+    loadPartDates(META.lessonId || d.lesson);
     Object.entries(mk).forEach(([n, v]) => { if (!/^\d+$/.test(n) || !v) return;
       state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"" }; });
     const G = d.grammar;
@@ -1105,7 +1170,8 @@ document.addEventListener("click", e => {
     render();
     setSave(Object.keys(state.marks).length ? "Marks loaded" : "No marks yet");
     RSET = lsGet(META.lessonId + "-rset", "drill") === "all" ? "all" : "drill";
-    setMode(lsGet(META.lessonId + "-mode", "study"));
+    setMode(fromHash ? fromHash.mode : lsGet(META.lessonId + "-mode", "study"));
+    if (!fromHash){ const m = /^#s(\d+)$/.exec(location.hash); if (m) gotoSentence(+m[1]); }
     loadYT();
   }catch(e){
     setSave("Couldn't load the lesson data", true);

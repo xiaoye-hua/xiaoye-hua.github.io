@@ -1,714 +1,193 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dutch notes</title>
-<meta name="description" content="Lesson worksheets from my own Dutch study: sentences, word meanings, pronunciation and grammar, one page per lesson.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style>
-:root{--ground:#F5F7FA;--surface:#FFFFFF;--ink:#1B2233;--muted:#5C6578;--faint:#8A92A3;--rule:#DDE2EA;
-  --delft:#2B4C9B;--delft-soft:#E6ECF8;--gram:#1F7A4D;--shadow:0 1px 2px rgba(27,34,51,.06);--pop:0 8px 28px rgba(27,34,51,.14);
-  --serif:"Literata",Georgia,"Times New Roman",serif;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-@media (prefers-color-scheme: dark){:root{--ground:#12151C;--surface:#1A1F29;--ink:#E6E9EF;--muted:#A3ABBB;--faint:#7C8597;
-  --rule:#2C3342;--delft:#93ABE8;--delft-soft:#1F2A44;--gram:#6FCF97;--shadow:none;--pop:0 8px 28px rgba(0,0,0,.5)}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding:0 16px}
-.wrap{max-width:1040px;margin:0 auto;padding-block:48px 80px}
-header h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0 0 8px}
-header p{color:var(--muted);margin:0;max-width:62ch}
-.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:32px 0 16px;
-  border-top:1px solid var(--rule);padding-top:16px}
-.count{color:var(--faint);font-size:13px}
-.filters{display:flex;gap:6px}
-.filters button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface);color:var(--muted);
-  border-radius:999px;padding:4px 12px;cursor:pointer}
-.filters button[aria-pressed="true"]{background:var(--delft);border-color:var(--delft);color:var(--surface)}
-ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
-.card a{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1px solid var(--rule);border-radius:8px;
-  overflow:hidden;color:inherit;text-decoration:none;box-shadow:var(--shadow);transition:box-shadow .15s,border-color .15s,transform .15s}
-.card a:hover,.card a:focus-visible{border-color:var(--delft);box-shadow:var(--pop);transform:translateY(-2px)}
-.card a:focus-visible{outline:2px solid var(--delft);outline-offset:2px}
-.thumb{aspect-ratio:16/9;background:var(--delft-soft);overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.label{margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--delft)}
-.card h2{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.25;margin:0;text-wrap:balance}
-.gram{margin:0;font-size:14px;color:var(--gram)}
-.stats{margin:auto 0 0;padding-top:6px;font-size:13px;color:var(--muted)}
-.date{margin:0;font-size:12px;color:var(--faint)}
-.card[hidden]{display:none}
-footer{margin-top:48px;color:var(--faint);font-size:13px}
-@media (prefers-reduced-motion: reduce){.card a{transition:none}.card a:hover{transform:none}}
-</style>
-</head><body><div class="wrap">
-  <header>
-    <h1>Dutch notes</h1>
-    <p class="nav" style="margin:0 0 10px;font-size:14px"><a href="collocations/">Collocations</a> · <a href="grammar/">Grammar</a> · <a href="words/">Words</a></p>
-    <p>Worksheets from my own Dutch study, one page per lesson: every sentence with its translation, word meanings and pronunciation, the grammar it practises, and the video to follow along.</p>
-  </header>
-  <div class="bar">
-    <span class="count" id="count">54 lessons</span>
-    <div class="filters" role="group" aria-label="Filter by season"><button type="button" data-f="1" aria-pressed="false">Season 1</button><button type="button" data-f="2" aria-pressed="false">Season 2</button></div>
-  </div>
-  <ul id="lessons">
-    <li class="card" data-season="2">
-      <a href="lessons/s2-les-05/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/Sklc2KugrzY/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S2 · Les 5</p>
-          <h2 lang="nl">Adjectives in Dutch (review) - Bijvoeglijk naamwoord (uitzonderingen)</h2>
-          <p class="gram">Grammar 2 les 17 — adjectives: when there is no extra -e (review of Grammar 1 les 9 + 10)</p>
-          <p class="stats">53 sentences · 2 audio tracks · 18 new words · 5:15 video</p>
-          <p class="date">Published 2026-09-23</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="2">
-      <a href="lessons/s2-les-04/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/qdRawPmlv_U/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S2 · Les 4</p>
-          <h2 lang="nl">Plural nouns in Dutch (special cases) - Meervoud (uitzonderingen)</h2>
-          <p class="gram">Grammar 1, les 44 + 45 — irregular plural nouns (meervoud)</p>
-          <p class="stats">57 sentences · 2 audio tracks · 31 new words · 5:16 video</p>
-          <p class="date">Published 2026-09-13</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="2">
-      <a href="lessons/s2-les-03/">
-        <div class="thumb"><div class="nothumb"></div></div>
-        <div class="body">
-          <p class="label">S2 · Les 3</p>
-          <h2 lang="nl">Heb je zin? S2 · Les 3</h2>
-          
-          <p class="stats">47 sentences · 2 audio tracks</p>
-          <p class="date">Studied 2026-07-27 – 2026-07-30 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="2">
-      <a href="lessons/s2-les-02/">
-        <div class="thumb"><div class="nothumb"></div></div>
-        <div class="body">
-          <p class="label">S2 · Les 2</p>
-          <h2 lang="nl">Lesson 02 – Imperative</h2>
-          
-          <p class="stats">63 sentences</p>
-          <p class="date">Studied 2026-06-15</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="2">
-      <a href="lessons/s2-les-01/">
-        <div class="thumb"><div class="nothumb"></div></div>
-        <div class="body">
-          <p class="label">S2 · Les 1</p>
-          <h2 lang="nl">Lesson 01 – Imperative</h2>
-          
-          <p class="stats">79 sentences</p>
-          <p class="date">Studied 2026-05-11</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-53/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/TEeKxTwFqlQ/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 53</p>
-          <h2 lang="nl">Lesson 53 – Last lesson! (review)</h2>
-          
-          <p class="stats">49 sentences · 1 audio track · 6:24 video</p>
-          <p class="date">Studied 2026-07-19</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-52/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/cK-pzSKGO4Y/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 52</p>
-          <h2 lang="nl">Lesson 52 – ‘Hebben’ or ‘zijn’ in the present perfect – 2</h2>
-          
-          <p class="stats">41 sentences · 4:25 video</p>
-          <p class="date">Studied 2025-12-27</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-51/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/jzrWlX9n1xM/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 51</p>
-          <h2 lang="nl">Lesson 51 – ‘Hebben’ or ‘zijn’ in the present perfect</h2>
-          
-          <p class="stats">42 sentences · 4:37 video</p>
-          <p class="date">Studied 2025-12-05</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-50/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/0cFuNZ_niHc/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 50</p>
-          <h2 lang="nl">Lesson 50 – Review lesson</h2>
-          
-          <p class="stats">44 sentences · 4:16 video</p>
-          <p class="date">Studied 2025-11-15</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-49/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/2eJSk3jXIpE/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 49</p>
-          <h2 lang="nl">Lesson 49 – Review subclause</h2>
-          
-          <p class="stats">45 sentences · 4:41 video</p>
-          <p class="date">Studied 2025-11-13</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-48/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/d1eRGAksIvw/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 48</p>
-          <h2 lang="nl">Lesson 48 – Starting with a subclause</h2>
-          
-          <p class="stats">47 sentences · 4:49 video</p>
-          <p class="date">Studied 2025-11-10</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-47/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/JO9zFzUHqo8/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 47</p>
-          <h2 lang="nl">Lesson 47 – Subclauses with questions words</h2>
-          
-          <p class="stats">38 sentences · 3:36 video</p>
-          <p class="date">Studied 2025-11-07</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-46/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/qQhfwns40to/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 46</p>
-          <h2 lang="nl">Lesson 46 – Indirect speech</h2>
-          
-          <p class="stats">38 sentences · 4:19 video</p>
-          <p class="date">Studied 2025-11-05</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-44/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/2pTWG3OGnBA/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 44</p>
-          <h2 lang="nl">Lesson 44 – Irregular verbs</h2>
-          
-          <p class="stats">31 sentences · 3:58 video</p>
-          <p class="date">Studied 2025-10-30</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-43/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/nTB6J5cChsE/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 43</p>
-          <h2 lang="nl">Lesson 43 – Subclause: time and condition</h2>
-          
-          <p class="stats">32 sentences · 3:42 video</p>
-          <p class="date">Studied 2025-10-28</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-42/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/-ts1Eh0F084/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 42</p>
-          <h2 lang="nl">Lesson 42 – Conjunctions of consequence and contrast</h2>
-          
-          <p class="stats">40 sentences · 4:50 video</p>
-          <p class="date">Studied 2025-10-24</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-41/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/UADuvpA2Aco/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 41</p>
-          <h2 lang="nl">Lesson 41 – The conjunction ‘omdat’</h2>
-          
-          <p class="stats">48 sentences · 6:08 video</p>
-          <p class="date">Studied 2025-10-22</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-40/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/4xOwMq39h-A/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 40</p>
-          <h2 lang="nl">Lesson 40 – Coordinating conjunctions</h2>
-          
-          <p class="stats">51 sentences · 5:17 video</p>
-          <p class="date">Studied 2025-10-20</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-39/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/6N91xH5GhxM/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 39</p>
-          <h2 lang="nl">Lesson 39 – Review lesson</h2>
-          
-          <p class="stats">36 sentences · 3:49 video</p>
-          <p class="date">Studied 2025-10-17</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-38/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/CdDVGN2uXXM/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 38</p>
-          <h2 lang="nl">Lesson 38 – Indirect object</h2>
-          
-          <p class="stats">51 sentences · 6:11 video</p>
-          <p class="date">Studied 2025-10-15</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-37/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/UjI-5Qdcigk/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 37</p>
-          <h2 lang="nl">Lesson 37 – Future tense</h2>
-          
-          <p class="stats">53 sentences · 5:24 video</p>
-          <p class="date">Studied 2025-10-13</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-35/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/Ol2x2xY55eg/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 35</p>
-          <h2 lang="nl">Lesson 35 – Imperfectum (simple past tense)</h2>
-          
-          <p class="stats">74 sentences · 4:00 video</p>
-          <p class="date">Studied 2025-10-08</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-34/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/blptwGIFnYM/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 34</p>
-          <h2 lang="nl">Lesson 34 – Questions with prepositions</h2>
-          
-          <p class="stats">38 sentences · 4:30 video</p>
-          <p class="date">Studied 2025-10-07</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-33/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/-drOZGe8TWo/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 33</p>
-          <h2 lang="nl">Lesson 33 – verb + preposition combinations</h2>
-          
-          <p class="stats">48 sentences · 4:07 video</p>
-          <p class="date">Studied 2025-09-05 – 2025-09-10 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-32/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/rskGbl_iU08/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 32</p>
-          <h2 lang="nl">Lesson 32 – ‘Om te’ and ‘aan het’ + infinitive</h2>
-          
-          <p class="stats">47 sentences · 4:49 video</p>
-          <p class="date">Studied 2025-09-01 – 2025-09-03 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-31/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/GAIAe1hEF8A/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 31</p>
-          <h2 lang="nl">Lesson 31 – Verb + te + infinitive</h2>
-          
-          <p class="stats">51 sentences · 5:14 video</p>
-          <p class="date">Studied 2025-08-25</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-29/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/TwFXOzIaioQ/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 29</p>
-          <h2 lang="nl">Lesson 29 – Reflexive verbs</h2>
-          
-          <p class="stats">59 sentences · 5:10 video</p>
-          <p class="date">Studied 2025-08-21 – 2025-08-23 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-28/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/UBPbf7Ln8J8/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 28</p>
-          <h2 lang="nl">Lesson 28 – Separable verbs</h2>
-          
-          <p class="stats">53 sentences · 5:10 video</p>
-          <p class="date">Studied 2025-08-17 – 2025-08-19 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-27/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/TzBO3tUU8Kg/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 27</p>
-          <h2 lang="nl">Lesson 27 – Perfectum</h2>
-          
-          <p class="stats">66 sentences · 5:30 video</p>
-          <p class="date">Studied 2025-08-12 – 2025-08-14 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-26/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/sMhv6eBLhYQ/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 26</p>
-          <h2 lang="nl">Lesson 26 – Perfectum</h2>
-          
-          <p class="stats">55 sentences · 5:08 video</p>
-          <p class="date">Studied 2025-07-23 – 2025-08-10 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-25/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/NfOcwb4e2qw/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 25</p>
-          <h2 lang="nl">Lesson 25 – Gaan, laten, blijven</h2>
-          
-          <p class="stats">47 sentences · 4:31 video</p>
-          <p class="date">Studied 2025-07-20</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-24/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/8xNpexmSX6E/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 24</p>
-          <h2 lang="nl">Lesson 24 – Review: modal verbs</h2>
-          
-          <p class="stats">67 sentences · 5:44 video</p>
-          <p class="date">Studied 2025-07-17 – 2025-07-18 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-23/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/bRuc7IxblZQ/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 23</p>
-          <h2 lang="nl">Lesson 23 – The auxiliary verb ‘zullen’</h2>
-          
-          <p class="stats">58 sentences · 5:44 video</p>
-          <p class="date">Studied 2025-07-11 – 2025-07-12 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-22/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/jTCxowT-vt4/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 22</p>
-          <h2 lang="nl">Lesson 22 – Modal verbs</h2>
-          
-          <p class="stats">56 sentences · 5:29 video</p>
-          <p class="date">Studied 2025-07-08 – 2025-07-10 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-21/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/epSzzbhOq2c/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 21</p>
-          <h2 lang="nl">Lesson 21 – Interrogative words with ‘hoe’</h2>
-          
-          <p class="stats">43 sentences · 4:46 video</p>
-          <p class="date">Studied 2025-07-06 – 2025-07-07 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-20/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/c_B3gm_5uQU/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 20</p>
-          <h2 lang="nl">Lesson 20 – Degrees of comparison</h2>
-          
-          <p class="stats">49 sentences · 5:33 video</p>
-          <p class="date">Studied 2025-07-04 – 2025-07-05 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-19/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/PVdcaVhKBj4/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 19</p>
-          <h2 lang="nl">Lesson 19 – Negation</h2>
-          
-          <p class="stats">57 sentences · 5:19 video</p>
-          <p class="date">Studied 2025-07-02 – 2025-07-03 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-18/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/r00iIe_2x_w/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 18</p>
-          <h2 lang="nl">Lesson 18 – Word order: time and place</h2>
-          
-          <p class="stats">42 sentences · 5:16 video</p>
-          <p class="date">Studied 2025-06-29 – 2025-07-01 · 3 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-17/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/9RI-gWTSvLQ/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 17</p>
-          <h2 lang="nl">Lesson 17 – Indefinite pronouns</h2>
-          
-          <p class="stats">46 sentences · 4:31 video</p>
-          <p class="date">Studied 2025-06-27 – 2025-06-28 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-16/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/iE5M6SrXogM/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 16</p>
-          <h2 lang="nl">Lesson 16 – Welk, elk, ieder</h2>
-          
-          <p class="stats">46 sentences · 4:35 video</p>
-          <p class="date">Studied 2025-06-25 – 2025-06-26 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-15/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/SIJDUepPwFE/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 15</p>
-          <h2 lang="nl">Lesson 15 – The article</h2>
-          
-          <p class="stats">48 sentences · 5:04 video</p>
-          <p class="date">Studied 2025-06-23 – 2025-06-24 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-14/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/BPVge62iVt8/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 14</p>
-          <h2 lang="nl">Lesson 14 – Review lesson</h2>
-          
-          <p class="stats">63 sentences · 5:53 video</p>
-          <p class="date">Studied 2025-06-21 – 2025-06-22 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-13/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/SsYLHPxFNXc/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 13</p>
-          <h2 lang="nl">Lesson 13 – Review lesson</h2>
-          
-          <p class="stats">39 sentences · 4:30 video</p>
-          <p class="date">Studied 2025-06-19 – 2025-06-20 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-12/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/bPjYWUBv_QE/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 12</p>
-          <h2 lang="nl">Lesson 12 – Prepositions + position verbs</h2>
-          
-          <p class="stats">48 sentences · 4:36 video</p>
-          <p class="date">Studied 2025-06-17 – 2025-06-18 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-11/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/Ppx5DYLe1aU/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 11</p>
-          <h2 lang="nl">Lesson 11 – Possessive adjective + demonstrative pronoun</h2>
-          
-          <p class="stats">51 sentences · 4:43 video</p>
-          <p class="date">Studied 2025-06-14 – 2025-06-16 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-10/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/F6SHgB7Ya-U/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 10</p>
-          <h2 lang="nl">Lesson 10 – Personal pronoun as object</h2>
-          
-          <p class="stats">57 sentences · 4:15 video</p>
-          <p class="date">Studied 2025-06-12 – 2025-06-13 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-09/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/WBSKudiuG9w/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 9</p>
-          <h2 lang="nl">Lesson 09 – Diminutives + ordinal numbers</h2>
-          
-          <p class="stats">48 sentences · 4:47 video</p>
-          <p class="date">Studied 2025-06-09 – 2025-06-11 · 3 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-08/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/jj7bzM2oac8/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 8</p>
-          <h2 lang="nl">Lesson 08 – Prepositions</h2>
-          
-          <p class="stats">66 sentences · 5:19 video</p>
-          <p class="date">Studied 2025-06-06 – 2025-06-08 · 3 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-07/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/WR03sGxnV-4/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 7</p>
-          <h2 lang="nl">Lesson 07 – Numbers + plural nouns</h2>
-          
-          <p class="stats">50 sentences · 5:01 video</p>
-          <p class="date">Studied 2025-05-29 – 2025-06-05 · 3 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-06/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/xnSsOdm0Kqc/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 6</p>
-          <h2 lang="nl">Lesson 06 – Adjectives</h2>
-          
-          <p class="stats">55 sentences · 4:24 video</p>
-          <p class="date">Studied 2025-05-26 – 2025-05-28 · 3 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-05/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/t3H2SdVHIQ4/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 5</p>
-          <h2 lang="nl">Lesson 05 – Inversion + question words</h2>
-          
-          <p class="stats">46 sentences · 4:00 video</p>
-          <p class="date">Studied 2025-05-21 – 2025-05-25 · 3 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-04/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/dzujjwX8zo8/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 4</p>
-          <h2 lang="nl">Lesson 04 – Boat trip</h2>
-          
-          <p class="stats">48 sentences · 4:16 video</p>
-          <p class="date">Studied 2025-05-22 – 2025-05-23 · 2 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-03/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/l1FZOUcTMyc/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 3</p>
-          <h2 lang="nl">Lesson 03 – Amsterdam</h2>
-          
-          <p class="stats">88 sentences · 6:28 video</p>
-          <p class="date">Studied 2025-05-16 – 2025-05-21 · 6 days</p>
-        </div>
-      </a>
-    </li>
-    <li class="card" data-season="1">
-      <a href="lessons/s1-les-02/">
-        <div class="thumb"><img src="https://i.ytimg.com/vi/Rt_WHDXNATk/hqdefault.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <p class="label">S1 · Les 2</p>
-          <h2 lang="nl">Lesson 02 – Countries &amp; languages</h2>
-          
-          <p class="stats">60 sentences · 3:57 video</p>
-          <p class="date">Studied 2025-05-16</p>
-        </div>
-      </a>
-    </li>
-  </ul>
-  <footer>Read-only. Pages are study notes; nothing you click is saved.</footer>
-</div>
-<script>
-document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
-  const on = b.getAttribute("aria-pressed") !== "true";
-  document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", "false"));
-  b.setAttribute("aria-pressed", String(on));
-  const cards = [...document.querySelectorAll(".card")];
-  cards.forEach(c => c.hidden = on && c.dataset.season !== b.dataset.f);
-  const n = cards.filter(c => !c.hidden).length;
-  document.getElementById("count").textContent = n + (n === 1 ? " lesson" : " lessons");
-}));
+<meta name="description" content="My Dutch study in public: how many words I know, how I study, and what I studied each day.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400&display=swap">
+<link rel="stylesheet" href="site.css">
+</head><body>
+<header class="site"><div class="bar"><a class="logo" href="./">Dutch notes</a><nav aria-label="Library"><a href="words/">Words</a><a href="collocations/">Collocations</a><a href="grammar/">Grammar</a></nav></div></header>
+<main class="wrap">
+<h2 class="sec" id="prog">MY PROGRESS</h2>
+<section class="card vp" aria-labelledby="prog">
+  <p class="hero"><span class="big">951</span>
+     <span class="of">/ 5168 words &middot; 18.4%</span></p>
+  <p class="asof">High-frequency words I know, as of 2026-09-28. One point per day:</p>
+  <figure><div class="plot"><svg viewBox="0 0 860 190" role="img"
+  data-x0="44" data-x1="854" data-days="2025-03-20;23;23|2025-03-21;35;12|2025-03-22;50;15|2025-03-23;54;4|2025-03-24;67;13|2025-03-25;74;7|2025-03-26;78;4|2025-03-27;80;2|2025-03-28;91;11|2025-03-29;94;3|2025-03-30;97;3|2025-03-31;103;6|2025-04-01;120;17|2025-04-02;126;6|2025-04-03;126;0|2025-04-04;126;0|2025-04-05;126;0|2025-04-06;126;0|2025-04-07;126;0|2025-04-08;126;0|2025-04-09;126;0|2025-04-10;126;0|2025-04-11;126;0|2025-04-12;126;0|2025-04-13;131;5|2025-04-14;134;3|2025-04-15;137;3|2025-04-16;145;8|2025-04-17;150;5|2025-04-18;153;3|2025-04-19;153;0|2025-04-20;153;0|2025-04-21;153;0|2025-04-22;153;0|2025-04-23;158;5|2025-04-24;168;10|2025-04-25;168;0|2025-04-26;168;0|2025-04-27;168;0|2025-04-28;168;0|2025-04-29;188;20|2025-04-30;188;0|2025-05-01;188;0|2025-05-02;209;21|2025-05-03;226;17|2025-05-04;226;0|2025-05-05;226;0|2025-05-06;239;13|2025-05-07;239;0|2025-05-08;245;6|2025-05-09;245;0|2025-05-10;245;0|2025-05-11;245;0|2025-05-12;250;5|2025-05-13;250;0|2025-05-14;250;0|2025-05-15;252;2|2025-05-16;264;12|2025-05-17;276;12|2025-05-18;288;12|2025-05-19;288;0|2025-05-20;300;12|2025-05-21;309;9|2025-05-22;320;11|2025-05-23;323;3|2025-05-24;333;10|2025-05-25;338;5|2025-05-26;347;9|2025-05-27;360;13|2025-05-28;363;3|2025-05-29;368;5|2025-05-30;374;6|2025-05-31;374;0|2025-06-01;374;0|2025-06-02;374;0|2025-06-03;374;0|2025-06-04;374;0|2025-06-05;380;6|2025-06-06;387;7|2025-06-07;395;8|2025-06-08;404;9|2025-06-09;412;8|2025-06-10;418;6|2025-06-11;427;9|2025-06-12;440;13|2025-06-13;449;9|2025-06-14;462;13|2025-06-15;462;0|2025-06-16;470;8|2025-06-17;482;12|2025-06-18;486;4|2025-06-19;499;13|2025-06-20;500;1|2025-06-21;511;11|2025-06-22;521;10|2025-06-23;533;12|2025-06-24;538;5|2025-06-25;548;10|2025-06-26;554;6|2025-06-27;565;11|2025-06-28;569;4|2025-06-29;580;11|2025-06-30;588;8|2025-07-01;595;7|2025-07-02;604;9|2025-07-03;612;8|2025-07-04;621;9|2025-07-05;631;10|2025-07-06;639;8|2025-07-07;644;5|2025-07-08;654;10|2025-07-09;654;0|2025-07-10;659;5|2025-07-11;662;3|2025-07-12;669;7|2025-07-13;669;0|2025-07-14;669;0|2025-07-15;669;0|2025-07-16;669;0|2025-07-17;676;7|2025-07-18;682;6|2025-07-19;682;0|2025-07-20;690;8|2025-07-21;690;0|2025-07-22;690;0|2025-07-23;691;1|2025-07-24;691;0|2025-07-25;691;0|2025-07-26;691;0|2025-07-27;691;0|2025-07-28;691;0|2025-07-29;691;0|2025-07-30;691;0|2025-07-31;691;0|2025-08-01;691;0|2025-08-02;691;0|2025-08-03;691;0|2025-08-04;691;0|2025-08-05;691;0|2025-08-06;691;0|2025-08-07;691;0|2025-08-08;691;0|2025-08-09;691;0|2025-08-10;699;8|2025-08-11;699;0|2025-08-12;704;5|2025-08-13;704;0|2025-08-14;710;6|2025-08-15;710;0|2025-08-16;710;0|2025-08-17;717;7|2025-08-18;717;0|2025-08-19;725;8|2025-08-20;725;0|2025-08-21;769;44|2025-08-22;769;0|2025-08-23;773;4|2025-08-24;773;0|2025-08-25;780;7|2025-08-26;780;0|2025-08-27;780;0|2025-08-28;780;0|2025-08-29;780;0|2025-08-30;780;0|2025-08-31;780;0|2025-09-01;786;6|2025-09-02;786;0|2025-09-03;791;5|2025-09-04;791;0|2025-09-05;795;4|2025-09-06;795;0|2025-09-07;795;0|2025-09-08;795;0|2025-09-09;795;0|2025-09-10;795;0|2025-09-11;795;0|2025-09-12;795;0|2025-09-13;795;0|2025-09-14;795;0|2025-09-15;795;0|2025-09-16;795;0|2025-09-17;795;0|2025-09-18;795;0|2025-09-19;795;0|2025-09-20;795;0|2025-09-21;795;0|2025-09-22;795;0|2025-09-23;795;0|2025-09-24;795;0|2025-09-25;795;0|2025-09-26;795;0|2025-09-27;795;0|2025-09-28;795;0|2025-09-29;795;0|2025-09-30;795;0|2025-10-01;795;0|2025-10-02;795;0|2025-10-03;795;0|2025-10-04;795;0|2025-10-05;795;0|2025-10-06;795;0|2025-10-07;811;16|2025-10-08;824;13|2025-10-09;824;0|2025-10-10;824;0|2025-10-11;824;0|2025-10-12;824;0|2025-10-13;833;9|2025-10-14;833;0|2025-10-15;845;12|2025-10-16;845;0|2025-10-17;845;0|2025-10-18;845;0|2025-10-19;845;0|2025-10-20;851;6|2025-10-21;851;0|2025-10-22;864;13|2025-10-23;864;0|2025-10-24;878;14|2025-10-25;878;0|2025-10-26;878;0|2025-10-27;878;0|2025-10-28;890;12|2025-10-29;890;0|2025-10-30;890;0|2025-10-31;890;0|2025-11-01;891;1|2025-11-02;891;0|2025-11-03;891;0|2025-11-04;891;0|2025-11-05;899;8|2025-11-06;899;0|2025-11-07;904;5|2025-11-08;904;0|2025-11-09;904;0|2025-11-10;916;12|2025-11-11;916;0|2025-11-12;916;0|2025-11-13;919;3|2025-11-14;919;0|2025-11-15;919;0|2025-11-16;919;0|2025-11-17;919;0|2025-11-18;919;0|2025-11-19;919;0|2025-11-20;919;0|2025-11-21;919;0|2025-11-22;919;0|2025-11-23;919;0|2025-11-24;919;0|2025-11-25;919;0|2025-11-26;919;0|2025-11-27;919;0|2025-11-28;919;0|2025-11-29;919;0|2025-11-30;919;0|2025-12-01;919;0|2025-12-02;919;0|2025-12-03;919;0|2025-12-04;919;0|2025-12-05;919;0|2025-12-06;919;0|2025-12-07;919;0|2025-12-08;919;0|2025-12-09;919;0|2025-12-10;919;0|2025-12-11;919;0|2025-12-12;919;0|2025-12-13;919;0|2025-12-14;919;0|2025-12-15;919;0|2025-12-16;919;0|2025-12-17;919;0|2025-12-18;919;0|2025-12-19;919;0|2025-12-20;919;0|2025-12-21;919;0|2025-12-22;919;0|2025-12-23;919;0|2025-12-24;919;0|2025-12-25;919;0|2025-12-26;919;0|2025-12-27;919;0|2025-12-28;919;0|2025-12-29;919;0|2025-12-30;919;0|2025-12-31;919;0|2026-01-01;919;0|2026-01-02;919;0|2026-01-03;919;0|2026-01-04;919;0|2026-01-05;919;0|2026-01-06;919;0|2026-01-07;919;0|2026-01-08;919;0|2026-01-09;919;0|2026-01-10;919;0|2026-01-11;919;0|2026-01-12;919;0|2026-01-13;919;0|2026-01-14;919;0|2026-01-15;919;0|2026-01-16;919;0|2026-01-17;919;0|2026-01-18;919;0|2026-01-19;919;0|2026-01-20;919;0|2026-01-21;919;0|2026-01-22;919;0|2026-01-23;919;0|2026-01-24;919;0|2026-01-25;919;0|2026-01-26;919;0|2026-01-27;919;0|2026-01-28;919;0|2026-01-29;919;0|2026-01-30;919;0|2026-01-31;919;0|2026-02-01;919;0|2026-02-02;919;0|2026-02-03;919;0|2026-02-04;919;0|2026-02-05;919;0|2026-02-06;919;0|2026-02-07;919;0|2026-02-08;919;0|2026-02-09;919;0|2026-02-10;919;0|2026-02-11;919;0|2026-02-12;919;0|2026-02-13;919;0|2026-02-14;919;0|2026-02-15;919;0|2026-02-16;919;0|2026-02-17;919;0|2026-02-18;919;0|2026-02-19;919;0|2026-02-20;919;0|2026-02-21;919;0|2026-02-22;919;0|2026-02-23;919;0|2026-02-24;919;0|2026-02-25;919;0|2026-02-26;919;0|2026-02-27;919;0|2026-02-28;919;0|2026-03-01;919;0|2026-03-02;919;0|2026-03-03;919;0|2026-03-04;919;0|2026-03-05;919;0|2026-03-06;919;0|2026-03-07;919;0|2026-03-08;919;0|2026-03-09;919;0|2026-03-10;919;0|2026-03-11;919;0|2026-03-12;919;0|2026-03-13;919;0|2026-03-14;919;0|2026-03-15;919;0|2026-03-16;919;0|2026-03-17;919;0|2026-03-18;919;0|2026-03-19;919;0|2026-03-20;919;0|2026-03-21;919;0|2026-03-22;919;0|2026-03-23;919;0|2026-03-24;919;0|2026-03-25;919;0|2026-03-26;919;0|2026-03-27;919;0|2026-03-28;919;0|2026-03-29;919;0|2026-03-30;919;0|2026-03-31;919;0|2026-04-01;919;0|2026-04-02;919;0|2026-04-03;919;0|2026-04-04;919;0|2026-04-05;919;0|2026-04-06;919;0|2026-04-07;919;0|2026-04-08;919;0|2026-04-09;919;0|2026-04-10;919;0|2026-04-11;919;0|2026-04-12;919;0|2026-04-13;919;0|2026-04-14;919;0|2026-04-15;919;0|2026-04-16;919;0|2026-04-17;919;0|2026-04-18;919;0|2026-04-19;919;0|2026-04-20;919;0|2026-04-21;919;0|2026-04-22;919;0|2026-04-23;919;0|2026-04-24;919;0|2026-04-25;919;0|2026-04-26;919;0|2026-04-27;919;0|2026-04-28;919;0|2026-04-29;919;0|2026-04-30;919;0|2026-05-01;919;0|2026-05-02;919;0|2026-05-03;919;0|2026-05-04;919;0|2026-05-05;919;0|2026-05-06;919;0|2026-05-07;919;0|2026-05-08;919;0|2026-05-09;919;0|2026-05-10;919;0|2026-05-11;919;0|2026-05-12;919;0|2026-05-13;919;0|2026-05-14;919;0|2026-05-15;919;0|2026-05-16;919;0|2026-05-17;919;0|2026-05-18;919;0|2026-05-19;919;0|2026-05-20;919;0|2026-05-21;919;0|2026-05-22;919;0|2026-05-23;919;0|2026-05-24;919;0|2026-05-25;919;0|2026-05-26;919;0|2026-05-27;919;0|2026-05-28;919;0|2026-05-29;919;0|2026-05-30;919;0|2026-05-31;919;0|2026-06-01;919;0|2026-06-02;919;0|2026-06-03;919;0|2026-06-04;919;0|2026-06-05;919;0|2026-06-06;919;0|2026-06-07;919;0|2026-06-08;919;0|2026-06-09;919;0|2026-06-10;919;0|2026-06-11;919;0|2026-06-12;919;0|2026-06-13;919;0|2026-06-14;919;0|2026-06-15;920;1|2026-06-16;920;0|2026-06-17;920;0|2026-06-18;920;0|2026-06-19;920;0|2026-06-20;920;0|2026-06-21;920;0|2026-06-22;920;0|2026-06-23;920;0|2026-06-24;920;0|2026-06-25;920;0|2026-06-26;920;0|2026-06-27;920;0|2026-06-28;920;0|2026-06-29;920;0|2026-06-30;920;0|2026-07-01;920;0|2026-07-02;920;0|2026-07-03;920;0|2026-07-04;920;0|2026-07-05;920;0|2026-07-06;920;0|2026-07-07;920;0|2026-07-08;920;0|2026-07-09;920;0|2026-07-10;920;0|2026-07-11;920;0|2026-07-12;920;0|2026-07-13;920;0|2026-07-14;920;0|2026-07-15;920;0|2026-07-16;920;0|2026-07-17;920;0|2026-07-18;920;0|2026-07-19;920;0|2026-07-20;920;0|2026-07-21;920;0|2026-07-22;920;0|2026-07-23;920;0|2026-07-24;921;1|2026-07-25;921;0|2026-07-26;921;0|2026-07-27;928;7|2026-07-28;928;0|2026-07-29;928;0|2026-07-30;929;1|2026-07-31;929;0|2026-08-01;929;0|2026-08-02;929;0|2026-08-03;929;0|2026-08-04;929;0|2026-08-05;929;0|2026-08-06;929;0|2026-08-07;929;0|2026-08-08;929;0|2026-08-09;929;0|2026-08-10;929;0|2026-08-11;929;0|2026-08-12;929;0|2026-08-13;929;0|2026-08-14;929;0|2026-08-15;929;0|2026-08-16;929;0|2026-08-17;929;0|2026-08-18;929;0|2026-08-19;929;0|2026-08-20;929;0|2026-08-21;929;0|2026-08-22;929;0|2026-08-23;929;0|2026-08-24;929;0|2026-08-25;929;0|2026-08-26;929;0|2026-08-27;929;0|2026-08-28;929;0|2026-08-29;929;0|2026-08-30;929;0|2026-08-31;929;0|2026-09-01;929;0|2026-09-02;929;0|2026-09-03;929;0|2026-09-04;929;0|2026-09-05;929;0|2026-09-06;929;0|2026-09-07;929;0|2026-09-08;929;0|2026-09-09;929;0|2026-09-10;929;0|2026-09-11;929;0|2026-09-12;929;0|2026-09-13;934;5|2026-09-14;934;0|2026-09-15;934;0|2026-09-16;934;0|2026-09-17;934;0|2026-09-18;940;6|2026-09-19;940;0|2026-09-20;940;0|2026-09-21;944;4|2026-09-22;944;0|2026-09-23;944;0|2026-09-24;944;0|2026-09-25;951;7"
+  aria-label="Cumulative high-frequency words known, one point per day from 2025-03-20 to 2026-09-25, ending at 951">
+  <line x1="44" y1="162.0" x2="854" y2="162.0" stroke="var(--rule)" stroke-width="1"/><line x1="44" y1="124.0" x2="854" y2="124.0" stroke="var(--rule)" stroke-width="1"/><line x1="44" y1="86.0" x2="854" y2="86.0" stroke="var(--rule)" stroke-width="1"/><line x1="44" y1="48.0" x2="854" y2="48.0" stroke="var(--rule)" stroke-width="1"/><line x1="44" y1="10.0" x2="854" y2="10.0" stroke="var(--rule)" stroke-width="1"/>
+  <path d="M 44,162.0 L 44.0,158.5 L 45.5,156.7 L 46.9,154.4 L 48.4,153.8 L 49.8,151.8 L 51.3,150.8 L 52.8,150.1 L 54.2,149.8 L 55.7,148.2 L 57.2,147.7 L 58.6,147.3 L 60.1,146.3 L 61.5,143.8 L 63.0,142.8 L 64.5,142.8 L 65.9,142.8 L 67.4,142.8 L 68.9,142.8 L 70.3,142.8 L 71.8,142.8 L 73.2,142.8 L 74.7,142.8 L 76.2,142.8 L 77.6,142.8 L 79.1,142.1 L 80.6,141.6 L 82.0,141.2 L 83.5,140.0 L 84.9,139.2 L 86.4,138.7 L 87.9,138.7 L 89.3,138.7 L 90.8,138.7 L 92.2,138.7 L 93.7,138.0 L 95.2,136.5 L 96.6,136.5 L 98.1,136.5 L 99.6,136.5 L 101.0,136.5 L 102.5,133.4 L 103.9,133.4 L 105.4,133.4 L 106.9,130.2 L 108.3,127.6 L 109.8,127.6 L 111.3,127.6 L 112.7,125.7 L 114.2,125.7 L 115.6,124.8 L 117.1,124.8 L 118.6,124.8 L 120.0,124.8 L 121.5,124.0 L 123.0,124.0 L 124.4,124.0 L 125.9,123.7 L 127.3,121.9 L 128.8,120.0 L 130.3,118.2 L 131.7,118.2 L 133.2,116.4 L 134.6,115.0 L 136.1,113.4 L 137.6,112.9 L 139.0,111.4 L 140.5,110.6 L 142.0,109.3 L 143.4,107.3 L 144.9,106.8 L 146.3,106.1 L 147.8,105.2 L 149.3,105.2 L 150.7,105.2 L 152.2,105.2 L 153.7,105.2 L 155.1,105.2 L 156.6,104.2 L 158.0,103.2 L 159.5,102.0 L 161.0,100.6 L 162.4,99.4 L 163.9,98.5 L 165.4,97.1 L 166.8,95.1 L 168.3,93.8 L 169.7,91.8 L 171.2,91.8 L 172.7,90.6 L 174.1,88.7 L 175.6,88.1 L 177.1,86.2 L 178.5,86.0 L 180.0,84.3 L 181.4,82.8 L 182.9,81.0 L 184.4,80.2 L 185.8,78.7 L 187.3,77.8 L 188.7,76.1 L 190.2,75.5 L 191.7,73.8 L 193.1,72.6 L 194.6,71.6 L 196.1,70.2 L 197.5,69.0 L 199.0,67.6 L 200.4,66.1 L 201.9,64.9 L 203.4,64.1 L 204.8,62.6 L 206.3,62.6 L 207.8,61.8 L 209.2,61.4 L 210.7,60.3 L 212.1,60.3 L 213.6,60.3 L 215.1,60.3 L 216.5,60.3 L 218.0,59.2 L 219.5,58.3 L 220.9,58.3 L 222.4,57.1 L 223.8,57.1 L 225.3,57.1 L 226.8,57.0 L 228.2,57.0 L 229.7,57.0 L 231.1,57.0 L 232.6,57.0 L 234.1,57.0 L 235.5,57.0 L 237.0,57.0 L 238.5,57.0 L 239.9,57.0 L 241.4,57.0 L 242.8,57.0 L 244.3,57.0 L 245.8,57.0 L 247.2,57.0 L 248.7,57.0 L 250.2,57.0 L 251.6,57.0 L 253.1,55.8 L 254.5,55.8 L 256.0,55.0 L 257.5,55.0 L 258.9,54.1 L 260.4,54.1 L 261.9,54.1 L 263.3,53.0 L 264.8,53.0 L 266.2,51.8 L 267.7,51.8 L 269.2,45.1 L 270.6,45.1 L 272.1,44.5 L 273.5,44.5 L 275.0,43.4 L 276.5,43.4 L 277.9,43.4 L 279.4,43.4 L 280.9,43.4 L 282.3,43.4 L 283.8,43.4 L 285.2,42.5 L 286.7,42.5 L 288.2,41.8 L 289.6,41.8 L 291.1,41.2 L 292.6,41.2 L 294.0,41.2 L 295.5,41.2 L 296.9,41.2 L 298.4,41.2 L 299.9,41.2 L 301.3,41.2 L 302.8,41.2 L 304.3,41.2 L 305.7,41.2 L 307.2,41.2 L 308.6,41.2 L 310.1,41.2 L 311.6,41.2 L 313.0,41.2 L 314.5,41.2 L 315.9,41.2 L 317.4,41.2 L 318.9,41.2 L 320.3,41.2 L 321.8,41.2 L 323.3,41.2 L 324.7,41.2 L 326.2,41.2 L 327.6,41.2 L 329.1,41.2 L 330.6,41.2 L 332.0,41.2 L 333.5,41.2 L 335.0,41.2 L 336.4,41.2 L 337.9,38.7 L 339.3,36.8 L 340.8,36.8 L 342.3,36.8 L 343.7,36.8 L 345.2,36.8 L 346.7,35.4 L 348.1,35.4 L 349.6,33.6 L 351.0,33.6 L 352.5,33.6 L 354.0,33.6 L 355.4,33.6 L 356.9,32.6 L 358.4,32.6 L 359.8,30.7 L 361.3,30.7 L 362.7,28.5 L 364.2,28.5 L 365.7,28.5 L 367.1,28.5 L 368.6,26.7 L 370.0,26.7 L 371.5,26.7 L 373.0,26.7 L 374.4,26.6 L 375.9,26.6 L 377.4,26.6 L 378.8,26.6 L 380.3,25.4 L 381.7,25.4 L 383.2,24.6 L 384.7,24.6 L 386.1,24.6 L 387.6,22.8 L 389.1,22.8 L 390.5,22.8 L 392.0,22.3 L 393.4,22.3 L 394.9,22.3 L 396.4,22.3 L 397.8,22.3 L 399.3,22.3 L 400.8,22.3 L 402.2,22.3 L 403.7,22.3 L 405.1,22.3 L 406.6,22.3 L 408.1,22.3 L 409.5,22.3 L 411.0,22.3 L 412.4,22.3 L 413.9,22.3 L 415.4,22.3 L 416.8,22.3 L 418.3,22.3 L 419.8,22.3 L 421.2,22.3 L 422.7,22.3 L 424.1,22.3 L 425.6,22.3 L 427.1,22.3 L 428.5,22.3 L 430.0,22.3 L 431.5,22.3 L 432.9,22.3 L 434.4,22.3 L 435.8,22.3 L 437.3,22.3 L 438.8,22.3 L 440.2,22.3 L 441.7,22.3 L 443.2,22.3 L 444.6,22.3 L 446.1,22.3 L 447.5,22.3 L 449.0,22.3 L 450.5,22.3 L 451.9,22.3 L 453.4,22.3 L 454.8,22.3 L 456.3,22.3 L 457.8,22.3 L 459.2,22.3 L 460.7,22.3 L 462.2,22.3 L 463.6,22.3 L 465.1,22.3 L 466.5,22.3 L 468.0,22.3 L 469.5,22.3 L 470.9,22.3 L 472.4,22.3 L 473.9,22.3 L 475.3,22.3 L 476.8,22.3 L 478.2,22.3 L 479.7,22.3 L 481.2,22.3 L 482.6,22.3 L 484.1,22.3 L 485.6,22.3 L 487.0,22.3 L 488.5,22.3 L 489.9,22.3 L 491.4,22.3 L 492.9,22.3 L 494.3,22.3 L 495.8,22.3 L 497.2,22.3 L 498.7,22.3 L 500.2,22.3 L 501.6,22.3 L 503.1,22.3 L 504.6,22.3 L 506.0,22.3 L 507.5,22.3 L 508.9,22.3 L 510.4,22.3 L 511.9,22.3 L 513.3,22.3 L 514.8,22.3 L 516.3,22.3 L 517.7,22.3 L 519.2,22.3 L 520.6,22.3 L 522.1,22.3 L 523.6,22.3 L 525.0,22.3 L 526.5,22.3 L 528.0,22.3 L 529.4,22.3 L 530.9,22.3 L 532.3,22.3 L 533.8,22.3 L 535.3,22.3 L 536.7,22.3 L 538.2,22.3 L 539.6,22.3 L 541.1,22.3 L 542.6,22.3 L 544.0,22.3 L 545.5,22.3 L 547.0,22.3 L 548.4,22.3 L 549.9,22.3 L 551.3,22.3 L 552.8,22.3 L 554.3,22.3 L 555.7,22.3 L 557.2,22.3 L 558.7,22.3 L 560.1,22.3 L 561.6,22.3 L 563.0,22.3 L 564.5,22.3 L 566.0,22.3 L 567.4,22.3 L 568.9,22.3 L 570.4,22.3 L 571.8,22.3 L 573.3,22.3 L 574.7,22.3 L 576.2,22.3 L 577.7,22.3 L 579.1,22.3 L 580.6,22.3 L 582.1,22.3 L 583.5,22.3 L 585.0,22.3 L 586.4,22.3 L 587.9,22.3 L 589.4,22.3 L 590.8,22.3 L 592.3,22.3 L 593.7,22.3 L 595.2,22.3 L 596.7,22.3 L 598.1,22.3 L 599.6,22.3 L 601.1,22.3 L 602.5,22.3 L 604.0,22.3 L 605.4,22.3 L 606.9,22.3 L 608.4,22.3 L 609.8,22.3 L 611.3,22.3 L 612.8,22.3 L 614.2,22.3 L 615.7,22.3 L 617.1,22.3 L 618.6,22.3 L 620.1,22.3 L 621.5,22.3 L 623.0,22.3 L 624.5,22.3 L 625.9,22.3 L 627.4,22.3 L 628.8,22.3 L 630.3,22.3 L 631.8,22.3 L 633.2,22.3 L 634.7,22.3 L 636.1,22.3 L 637.6,22.3 L 639.1,22.3 L 640.5,22.3 L 642.0,22.3 L 643.5,22.3 L 644.9,22.3 L 646.4,22.3 L 647.8,22.3 L 649.3,22.3 L 650.8,22.3 L 652.2,22.3 L 653.7,22.3 L 655.2,22.3 L 656.6,22.3 L 658.1,22.3 L 659.5,22.3 L 661.0,22.3 L 662.5,22.3 L 663.9,22.3 L 665.4,22.3 L 666.9,22.3 L 668.3,22.3 L 669.8,22.3 L 671.2,22.3 L 672.7,22.3 L 674.2,22.3 L 675.6,22.3 L 677.1,22.3 L 678.5,22.3 L 680.0,22.3 L 681.5,22.3 L 682.9,22.3 L 684.4,22.3 L 685.9,22.3 L 687.3,22.3 L 688.8,22.3 L 690.2,22.3 L 691.7,22.3 L 693.2,22.3 L 694.6,22.3 L 696.1,22.3 L 697.6,22.3 L 699.0,22.3 L 700.5,22.3 L 701.9,22.3 L 703.4,22.3 L 704.9,22.2 L 706.3,22.2 L 707.8,22.2 L 709.3,22.2 L 710.7,22.2 L 712.2,22.2 L 713.6,22.2 L 715.1,22.2 L 716.6,22.2 L 718.0,22.2 L 719.5,22.2 L 720.9,22.2 L 722.4,22.2 L 723.9,22.2 L 725.3,22.2 L 726.8,22.2 L 728.3,22.2 L 729.7,22.2 L 731.2,22.2 L 732.6,22.2 L 734.1,22.2 L 735.6,22.2 L 737.0,22.2 L 738.5,22.2 L 740.0,22.2 L 741.4,22.2 L 742.9,22.2 L 744.3,22.2 L 745.8,22.2 L 747.3,22.2 L 748.7,22.2 L 750.2,22.2 L 751.7,22.2 L 753.1,22.2 L 754.6,22.2 L 756.0,22.2 L 757.5,22.2 L 759.0,22.2 L 760.4,22.2 L 761.9,22.0 L 763.4,22.0 L 764.8,22.0 L 766.3,20.9 L 767.7,20.9 L 769.2,20.9 L 770.7,20.8 L 772.1,20.8 L 773.6,20.8 L 775.0,20.8 L 776.5,20.8 L 778.0,20.8 L 779.4,20.8 L 780.9,20.8 L 782.4,20.8 L 783.8,20.8 L 785.3,20.8 L 786.7,20.8 L 788.2,20.8 L 789.7,20.8 L 791.1,20.8 L 792.6,20.8 L 794.1,20.8 L 795.5,20.8 L 797.0,20.8 L 798.4,20.8 L 799.9,20.8 L 801.4,20.8 L 802.8,20.8 L 804.3,20.8 L 805.8,20.8 L 807.2,20.8 L 808.7,20.8 L 810.1,20.8 L 811.6,20.8 L 813.1,20.8 L 814.5,20.8 L 816.0,20.8 L 817.4,20.8 L 818.9,20.8 L 820.4,20.8 L 821.8,20.8 L 823.3,20.8 L 824.8,20.8 L 826.2,20.8 L 827.7,20.8 L 829.1,20.8 L 830.6,20.8 L 832.1,20.8 L 833.5,20.8 L 835.0,20.8 L 836.5,20.0 L 837.9,20.0 L 839.4,20.0 L 840.8,20.0 L 842.3,20.0 L 843.8,19.1 L 845.2,19.1 L 846.7,19.1 L 848.2,18.5 L 849.6,18.5 L 851.1,18.5 L 852.5,18.5 L 854.0,17.4 L 854.0,162.0 Z" fill="var(--chart)" opacity=".10"/>
+  <polyline points="44.0,158.5 45.5,156.7 46.9,154.4 48.4,153.8 49.8,151.8 51.3,150.8 52.8,150.1 54.2,149.8 55.7,148.2 57.2,147.7 58.6,147.3 60.1,146.3 61.5,143.8 63.0,142.8 64.5,142.8 65.9,142.8 67.4,142.8 68.9,142.8 70.3,142.8 71.8,142.8 73.2,142.8 74.7,142.8 76.2,142.8 77.6,142.8 79.1,142.1 80.6,141.6 82.0,141.2 83.5,140.0 84.9,139.2 86.4,138.7 87.9,138.7 89.3,138.7 90.8,138.7 92.2,138.7 93.7,138.0 95.2,136.5 96.6,136.5 98.1,136.5 99.6,136.5 101.0,136.5 102.5,133.4 103.9,133.4 105.4,133.4 106.9,130.2 108.3,127.6 109.8,127.6 111.3,127.6 112.7,125.7 114.2,125.7 115.6,124.8 117.1,124.8 118.6,124.8 120.0,124.8 121.5,124.0 123.0,124.0 124.4,124.0 125.9,123.7 127.3,121.9 128.8,120.0 130.3,118.2 131.7,118.2 133.2,116.4 134.6,115.0 136.1,113.4 137.6,112.9 139.0,111.4 140.5,110.6 142.0,109.3 143.4,107.3 144.9,106.8 146.3,106.1 147.8,105.2 149.3,105.2 150.7,105.2 152.2,105.2 153.7,105.2 155.1,105.2 156.6,104.2 158.0,103.2 159.5,102.0 161.0,100.6 162.4,99.4 163.9,98.5 165.4,97.1 166.8,95.1 168.3,93.8 169.7,91.8 171.2,91.8 172.7,90.6 174.1,88.7 175.6,88.1 177.1,86.2 178.5,86.0 180.0,84.3 181.4,82.8 182.9,81.0 184.4,80.2 185.8,78.7 187.3,77.8 188.7,76.1 190.2,75.5 191.7,73.8 193.1,72.6 194.6,71.6 196.1,70.2 197.5,69.0 199.0,67.6 200.4,66.1 201.9,64.9 203.4,64.1 204.8,62.6 206.3,62.6 207.8,61.8 209.2,61.4 210.7,60.3 212.1,60.3 213.6,60.3 215.1,60.3 216.5,60.3 218.0,59.2 219.5,58.3 220.9,58.3 222.4,57.1 223.8,57.1 225.3,57.1 226.8,57.0 228.2,57.0 229.7,57.0 231.1,57.0 232.6,57.0 234.1,57.0 235.5,57.0 237.0,57.0 238.5,57.0 239.9,57.0 241.4,57.0 242.8,57.0 244.3,57.0 245.8,57.0 247.2,57.0 248.7,57.0 250.2,57.0 251.6,57.0 253.1,55.8 254.5,55.8 256.0,55.0 257.5,55.0 258.9,54.1 260.4,54.1 261.9,54.1 263.3,53.0 264.8,53.0 266.2,51.8 267.7,51.8 269.2,45.1 270.6,45.1 272.1,44.5 273.5,44.5 275.0,43.4 276.5,43.4 277.9,43.4 279.4,43.4 280.9,43.4 282.3,43.4 283.8,43.4 285.2,42.5 286.7,42.5 288.2,41.8 289.6,41.8 291.1,41.2 292.6,41.2 294.0,41.2 295.5,41.2 296.9,41.2 298.4,41.2 299.9,41.2 301.3,41.2 302.8,41.2 304.3,41.2 305.7,41.2 307.2,41.2 308.6,41.2 310.1,41.2 311.6,41.2 313.0,41.2 314.5,41.2 315.9,41.2 317.4,41.2 318.9,41.2 320.3,41.2 321.8,41.2 323.3,41.2 324.7,41.2 326.2,41.2 327.6,41.2 329.1,41.2 330.6,41.2 332.0,41.2 333.5,41.2 335.0,41.2 336.4,41.2 337.9,38.7 339.3,36.8 340.8,36.8 342.3,36.8 343.7,36.8 345.2,36.8 346.7,35.4 348.1,35.4 349.6,33.6 351.0,33.6 352.5,33.6 354.0,33.6 355.4,33.6 356.9,32.6 358.4,32.6 359.8,30.7 361.3,30.7 362.7,28.5 364.2,28.5 365.7,28.5 367.1,28.5 368.6,26.7 370.0,26.7 371.5,26.7 373.0,26.7 374.4,26.6 375.9,26.6 377.4,26.6 378.8,26.6 380.3,25.4 381.7,25.4 383.2,24.6 384.7,24.6 386.1,24.6 387.6,22.8 389.1,22.8 390.5,22.8 392.0,22.3 393.4,22.3 394.9,22.3 396.4,22.3 397.8,22.3 399.3,22.3 400.8,22.3 402.2,22.3 403.7,22.3 405.1,22.3 406.6,22.3 408.1,22.3 409.5,22.3 411.0,22.3 412.4,22.3 413.9,22.3 415.4,22.3 416.8,22.3 418.3,22.3 419.8,22.3 421.2,22.3 422.7,22.3 424.1,22.3 425.6,22.3 427.1,22.3 428.5,22.3 430.0,22.3 431.5,22.3 432.9,22.3 434.4,22.3 435.8,22.3 437.3,22.3 438.8,22.3 440.2,22.3 441.7,22.3 443.2,22.3 444.6,22.3 446.1,22.3 447.5,22.3 449.0,22.3 450.5,22.3 451.9,22.3 453.4,22.3 454.8,22.3 456.3,22.3 457.8,22.3 459.2,22.3 460.7,22.3 462.2,22.3 463.6,22.3 465.1,22.3 466.5,22.3 468.0,22.3 469.5,22.3 470.9,22.3 472.4,22.3 473.9,22.3 475.3,22.3 476.8,22.3 478.2,22.3 479.7,22.3 481.2,22.3 482.6,22.3 484.1,22.3 485.6,22.3 487.0,22.3 488.5,22.3 489.9,22.3 491.4,22.3 492.9,22.3 494.3,22.3 495.8,22.3 497.2,22.3 498.7,22.3 500.2,22.3 501.6,22.3 503.1,22.3 504.6,22.3 506.0,22.3 507.5,22.3 508.9,22.3 510.4,22.3 511.9,22.3 513.3,22.3 514.8,22.3 516.3,22.3 517.7,22.3 519.2,22.3 520.6,22.3 522.1,22.3 523.6,22.3 525.0,22.3 526.5,22.3 528.0,22.3 529.4,22.3 530.9,22.3 532.3,22.3 533.8,22.3 535.3,22.3 536.7,22.3 538.2,22.3 539.6,22.3 541.1,22.3 542.6,22.3 544.0,22.3 545.5,22.3 547.0,22.3 548.4,22.3 549.9,22.3 551.3,22.3 552.8,22.3 554.3,22.3 555.7,22.3 557.2,22.3 558.7,22.3 560.1,22.3 561.6,22.3 563.0,22.3 564.5,22.3 566.0,22.3 567.4,22.3 568.9,22.3 570.4,22.3 571.8,22.3 573.3,22.3 574.7,22.3 576.2,22.3 577.7,22.3 579.1,22.3 580.6,22.3 582.1,22.3 583.5,22.3 585.0,22.3 586.4,22.3 587.9,22.3 589.4,22.3 590.8,22.3 592.3,22.3 593.7,22.3 595.2,22.3 596.7,22.3 598.1,22.3 599.6,22.3 601.1,22.3 602.5,22.3 604.0,22.3 605.4,22.3 606.9,22.3 608.4,22.3 609.8,22.3 611.3,22.3 612.8,22.3 614.2,22.3 615.7,22.3 617.1,22.3 618.6,22.3 620.1,22.3 621.5,22.3 623.0,22.3 624.5,22.3 625.9,22.3 627.4,22.3 628.8,22.3 630.3,22.3 631.8,22.3 633.2,22.3 634.7,22.3 636.1,22.3 637.6,22.3 639.1,22.3 640.5,22.3 642.0,22.3 643.5,22.3 644.9,22.3 646.4,22.3 647.8,22.3 649.3,22.3 650.8,22.3 652.2,22.3 653.7,22.3 655.2,22.3 656.6,22.3 658.1,22.3 659.5,22.3 661.0,22.3 662.5,22.3 663.9,22.3 665.4,22.3 666.9,22.3 668.3,22.3 669.8,22.3 671.2,22.3 672.7,22.3 674.2,22.3 675.6,22.3 677.1,22.3 678.5,22.3 680.0,22.3 681.5,22.3 682.9,22.3 684.4,22.3 685.9,22.3 687.3,22.3 688.8,22.3 690.2,22.3 691.7,22.3 693.2,22.3 694.6,22.3 696.1,22.3 697.6,22.3 699.0,22.3 700.5,22.3 701.9,22.3 703.4,22.3 704.9,22.2 706.3,22.2 707.8,22.2 709.3,22.2 710.7,22.2 712.2,22.2 713.6,22.2 715.1,22.2 716.6,22.2 718.0,22.2 719.5,22.2 720.9,22.2 722.4,22.2 723.9,22.2 725.3,22.2 726.8,22.2 728.3,22.2 729.7,22.2 731.2,22.2 732.6,22.2 734.1,22.2 735.6,22.2 737.0,22.2 738.5,22.2 740.0,22.2 741.4,22.2 742.9,22.2 744.3,22.2 745.8,22.2 747.3,22.2 748.7,22.2 750.2,22.2 751.7,22.2 753.1,22.2 754.6,22.2 756.0,22.2 757.5,22.2 759.0,22.2 760.4,22.2 761.9,22.0 763.4,22.0 764.8,22.0 766.3,20.9 767.7,20.9 769.2,20.9 770.7,20.8 772.1,20.8 773.6,20.8 775.0,20.8 776.5,20.8 778.0,20.8 779.4,20.8 780.9,20.8 782.4,20.8 783.8,20.8 785.3,20.8 786.7,20.8 788.2,20.8 789.7,20.8 791.1,20.8 792.6,20.8 794.1,20.8 795.5,20.8 797.0,20.8 798.4,20.8 799.9,20.8 801.4,20.8 802.8,20.8 804.3,20.8 805.8,20.8 807.2,20.8 808.7,20.8 810.1,20.8 811.6,20.8 813.1,20.8 814.5,20.8 816.0,20.8 817.4,20.8 818.9,20.8 820.4,20.8 821.8,20.8 823.3,20.8 824.8,20.8 826.2,20.8 827.7,20.8 829.1,20.8 830.6,20.8 832.1,20.8 833.5,20.8 835.0,20.8 836.5,20.0 837.9,20.0 839.4,20.0 840.8,20.0 842.3,20.0 843.8,19.1 845.2,19.1 846.7,19.1 848.2,18.5 849.6,18.5 851.1,18.5 852.5,18.5 854.0,17.4" fill="none" stroke="var(--chart)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="854.0" cy="17.4" r="4" fill="var(--chart)" stroke="var(--surface)" stroke-width="2"/>
+  <text x="846.0" y="7.4" text-anchor="end" font-size="13" font-weight="600"
+        fill="var(--chart)">951</text>
+  <line class="cross" x1="0" y1="10" x2="0" y2="162.0" stroke="var(--chart)" stroke-width="1" opacity="0"/>
+  <circle class="dot" r="4.5" fill="var(--chart)" stroke="var(--surface)" stroke-width="2" opacity="0"/>
+  <text x="36" y="166.0" text-anchor="end" font-size="11" fill="var(--faint)">0</text><text x="36" y="128.0" text-anchor="end" font-size="11" fill="var(--faint)">250</text><text x="36" y="90.0" text-anchor="end" font-size="11" fill="var(--faint)">500</text><text x="36" y="52.0" text-anchor="end" font-size="11" fill="var(--faint)">750</text><text x="36" y="14.0" text-anchor="end" font-size="11" fill="var(--faint)">1000</text><text x="44.0" y="182" text-anchor="start" font-size="11" fill="var(--faint)">Mar 2025</text><text x="854.0" y="182" text-anchor="end" font-size="11" fill="var(--faint)">Sep 2026</text><text x="194.6" y="182" text-anchor="middle" font-size="11" fill="var(--faint)">Jul 2025</text><text x="329.1" y="182" text-anchor="middle" font-size="11" fill="var(--faint)">Oct 2025</text><text x="463.6" y="182" text-anchor="middle" font-size="11" fill="var(--faint)">Jan 2026</text><text x="595.2" y="182" text-anchor="middle" font-size="11" fill="var(--faint)">Apr 2026</text><text x="728.3" y="182" text-anchor="middle" font-size="11" fill="var(--faint)">Jul 2026</text>
+  <rect class="hit" x="44" y="10" width="810" height="152.0" fill="transparent"/>
+</svg><div class="tip" id="vptip"></div></div></figure>
+  <p class="more"><a class="linkbtn" href="words/">All categories &rarr;</a></p>
+</section><script>
+(() => {
+  const plot = document.querySelector(".vp .plot"); if (!plot) return;
+  const svg = plot.querySelector("svg"), tip = document.getElementById("vptip");
+  const cross = svg.querySelector(".cross"), dot = svg.querySelector(".dot"), hit = svg.querySelector(".hit");
+  const days = svg.dataset.days.split("|").map(s => { const [d, v, c] = s.split(";"); return {d, v: +v, c: +c}; });
+  const x0 = +svg.dataset.x0, x1 = +svg.dataset.x1, n = days.length;
+  const vb = svg.viewBox.baseVal;
+  // The polyline's own geometry, recomputed: y for a value, x for an index.
+  const grid = [...svg.querySelectorAll("line")].filter(l => l !== cross);
+  const yTop = +grid[grid.length - 1].getAttribute("y1"), yBot = +grid[0].getAttribute("y1");
+  const top = Math.max(...days.map(p => p.v));
+  const topAxis = Math.ceil(top / Math.pow(10, String(top).length - 1) + 1e-9) * Math.pow(10, String(top).length - 1);
+  const Y = v => yBot - (yBot - yTop) * (v / topAxis);
+  const fmt = d => new Date(d + "T00:00:00").toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"});
+
+  const move = ev => {
+    const box = svg.getBoundingClientRect();
+    const ux = (ev.clientX - box.left) * vb.width / box.width;
+    let i = Math.round((ux - x0) / (x1 - x0) * (n - 1));
+    i = Math.max(0, Math.min(n - 1, i));
+    const p = days[i], px = x0 + (x1 - x0) * i / (n - 1), py = Y(p.v);
+    cross.setAttribute("x1", px); cross.setAttribute("x2", px); cross.setAttribute("opacity", ".35");
+    dot.setAttribute("cx", px); dot.setAttribute("cy", py); dot.setAttribute("opacity", "1");
+    tip.textContent = `${fmt(p.d)}: ${p.v} known` + (p.c ? ` (+${p.c})` : "");
+    tip.style.opacity = 1;
+    const sx = box.width / vb.width, sy = box.height / vb.height;
+    tip.style.left = Math.min(box.width - tip.offsetWidth - 4, Math.max(0, px * sx - tip.offsetWidth / 2)) + "px";
+    tip.style.top = (py * sy - tip.offsetHeight - 10) + "px";
+  };
+  hit.addEventListener("mousemove", move);
+  hit.addEventListener("touchmove", e => { move(e.touches[0]); e.preventDefault(); }, {passive: false});
+  plot.addEventListener("mouseleave", () => {
+    tip.style.opacity = 0; cross.setAttribute("opacity", 0); dot.setAttribute("opacity", 0);
+  });
+})();
 </script>
+<h2 class="sec" id="how">HOW I STUDY</h2>
+<section class="card flow" aria-labelledby="how">
+  <p>Material: the &ldquo;Heb je zin?&rdquo; video lessons from learndutch.org.</p>
+  <p>1 lesson = 2 parts &middot; 1 part = 2 days</p>
+  <dl>
+    <dt>Day 1</dt>
+    <dd><span><b>Morning</b> Go through every sentence of the part and mark the words and sentences I don't know. A Pimsleur audio is made from my marks.</span>
+        <span><b>Daytime</b> Listen to the Pimsleur audio.</span>
+        <span><b>Evening</b> Recite #1: write the Dutch from the English, and note the problems.</span></dd>
+    <dt>Day 2</dt>
+    <dd><span><b>Morning</b> Recite #2 and note the problems. The sentences I still don't know become Anki cards.</span>
+        <span><b>Daytime</b> Listen to the Pimsleur audio again.</span></dd>
+    <dt>Day 3</dt>
+    <dd>The next part.</dd>
+    <dt>Every day</dt>
+    <dd>Anki review.</dd>
+  </dl>
+</section>
+<h2 class="sec" id="log">STUDY LOG</h2>
+<ol class="log" aria-labelledby="log">
+<li><a class="log-row" href="lessons/s2-les-05/#part-2/recite"><span class="d">2026-09-28</span><span class="m">S2 · Lesson 5 · Part 2 <span class="chip">recite #2</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-05/#part-2/recite"><span class="d">2026-09-27</span><span class="m">S2 · Lesson 5 · Part 2 <span class="chip">recite #1</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-05/#part-2"><span class="d">2026-09-25</span><span class="m">S2 · Lesson 5 · Part 2 <span class="chip study">study</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-05/#part-1/recite"><span class="d">2026-09-24</span><span class="m">S2 · Lesson 5 · Part 1 <span class="chip">recite #2</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-05/#part-1"><span class="d">2026-09-21</span><span class="m">S2 · Lesson 5 · Part 1 <span class="chip study">study</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-04/#part-2/recite"><span class="d">2026-09-19</span><span class="m">S2 · Lesson 4 · Part 2 <span class="chip">recite #1</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-04/#part-2"><span class="d">2026-09-18</span><span class="m">S2 · Lesson 4 · Part 2 <span class="chip study">study</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-04/#part-1/recite"><span class="d">2026-09-17</span><span class="m">S2 · Lesson 4 · Part 1 <span class="chip">recite #2</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-04/#part-1"><span class="d">2026-09-13</span><span class="m">S2 · Lesson 4 · Part 1 <span class="chip study">study, recite #1</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+</ol>
+<details class="more"><summary class="btn ghost">More (52 earlier lessons)</summary>
+<ol class="log">
+<li><a class="log-row" href="lessons/s2-les-03/"><span class="d">2026-07-30</span><span class="m">S2 · Lesson 3 <span class="t" lang="nl">Heb je zin? S2 · Les 3</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-03/"><span class="d">2026-07-27</span><span class="m">S2 · Lesson 3 <span class="t" lang="nl">Heb je zin? S2 · Les 3</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-53/"><span class="d">2026-07-19</span><span class="m">S1 · Lesson 53 <span class="t" lang="nl">Lesson 53 – Last lesson! (review)</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-02/"><span class="d">2026-06-15</span><span class="m">S2 · Lesson 2 <span class="t" lang="nl">Lesson 02 – Imperative</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s2-les-01/"><span class="d">2026-05-11</span><span class="m">S2 · Lesson 1 <span class="t" lang="nl">Lesson 01 – Imperative</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-52/"><span class="d">2025-12-27</span><span class="m">S1 · Lesson 52 <span class="t" lang="nl">Lesson 52 – ‘Hebben’ or ‘zijn’ in the present perfect – 2</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-51/"><span class="d">2025-12-05</span><span class="m">S1 · Lesson 51 <span class="t" lang="nl">Lesson 51 – ‘Hebben’ or ‘zijn’ in the present perfect</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-50/"><span class="d">2025-11-15</span><span class="m">S1 · Lesson 50 <span class="t" lang="nl">Lesson 50 – Review lesson</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-49/"><span class="d">2025-11-13</span><span class="m">S1 · Lesson 49 <span class="t" lang="nl">Lesson 49 – Review subclause</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-48/"><span class="d">2025-11-10</span><span class="m">S1 · Lesson 48 <span class="t" lang="nl">Lesson 48 – Starting with a subclause</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-47/"><span class="d">2025-11-07</span><span class="m">S1 · Lesson 47 <span class="t" lang="nl">Lesson 47 – Subclauses with questions words</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-46/"><span class="d">2025-11-05</span><span class="m">S1 · Lesson 46 <span class="t" lang="nl">Lesson 46 – Indirect speech</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-44/"><span class="d">2025-10-30</span><span class="m">S1 · Lesson 44 <span class="t" lang="nl">Lesson 44 – Irregular verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-43/"><span class="d">2025-10-28</span><span class="m">S1 · Lesson 43 <span class="t" lang="nl">Lesson 43 – Subclause: time and condition</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-42/"><span class="d">2025-10-24</span><span class="m">S1 · Lesson 42 <span class="t" lang="nl">Lesson 42 – Conjunctions of consequence and contrast</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-41/"><span class="d">2025-10-22</span><span class="m">S1 · Lesson 41 <span class="t" lang="nl">Lesson 41 – The conjunction ‘omdat’</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-40/"><span class="d">2025-10-20</span><span class="m">S1 · Lesson 40 <span class="t" lang="nl">Lesson 40 – Coordinating conjunctions</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-39/"><span class="d">2025-10-17</span><span class="m">S1 · Lesson 39 <span class="t" lang="nl">Lesson 39 – Review lesson</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-38/"><span class="d">2025-10-15</span><span class="m">S1 · Lesson 38 <span class="t" lang="nl">Lesson 38 – Indirect object</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-37/"><span class="d">2025-10-13</span><span class="m">S1 · Lesson 37 <span class="t" lang="nl">Lesson 37 – Future tense</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-35/"><span class="d">2025-10-08</span><span class="m">S1 · Lesson 35 <span class="t" lang="nl">Lesson 35 – Imperfectum (simple past tense)</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-34/"><span class="d">2025-10-07</span><span class="m">S1 · Lesson 34 <span class="t" lang="nl">Lesson 34 – Questions with prepositions</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-33/"><span class="d">2025-09-10</span><span class="m">S1 · Lesson 33 <span class="t" lang="nl">Lesson 33 – verb + preposition combinations</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-33/"><span class="d">2025-09-05</span><span class="m">S1 · Lesson 33 <span class="t" lang="nl">Lesson 33 – verb + preposition combinations</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-32/"><span class="d">2025-09-03</span><span class="m">S1 · Lesson 32 <span class="t" lang="nl">Lesson 32 – ‘Om te’ and ‘aan het’ + infinitive</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-32/"><span class="d">2025-09-01</span><span class="m">S1 · Lesson 32 <span class="t" lang="nl">Lesson 32 – ‘Om te’ and ‘aan het’ + infinitive</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-31/"><span class="d">2025-08-25</span><span class="m">S1 · Lesson 31 <span class="t" lang="nl">Lesson 31 – Verb + te + infinitive</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-29/"><span class="d">2025-08-23</span><span class="m">S1 · Lesson 29 <span class="t" lang="nl">Lesson 29 – Reflexive verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-29/"><span class="d">2025-08-21</span><span class="m">S1 · Lesson 29 <span class="t" lang="nl">Lesson 29 – Reflexive verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-28/"><span class="d">2025-08-19</span><span class="m">S1 · Lesson 28 <span class="t" lang="nl">Lesson 28 – Separable verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-28/"><span class="d">2025-08-17</span><span class="m">S1 · Lesson 28 <span class="t" lang="nl">Lesson 28 – Separable verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-27/"><span class="d">2025-08-14</span><span class="m">S1 · Lesson 27 <span class="t" lang="nl">Lesson 27 – Perfectum</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-27/"><span class="d">2025-08-12</span><span class="m">S1 · Lesson 27 <span class="t" lang="nl">Lesson 27 – Perfectum</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-26/"><span class="d">2025-08-10</span><span class="m">S1 · Lesson 26 <span class="t" lang="nl">Lesson 26 – Perfectum</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-26/"><span class="d">2025-07-23</span><span class="m">S1 · Lesson 26 <span class="t" lang="nl">Lesson 26 – Perfectum</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-25/"><span class="d">2025-07-20</span><span class="m">S1 · Lesson 25 <span class="t" lang="nl">Lesson 25 – Gaan, laten, blijven</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-24/"><span class="d">2025-07-18</span><span class="m">S1 · Lesson 24 <span class="t" lang="nl">Lesson 24 – Review: modal verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-24/"><span class="d">2025-07-17</span><span class="m">S1 · Lesson 24 <span class="t" lang="nl">Lesson 24 – Review: modal verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-23/"><span class="d">2025-07-12</span><span class="m">S1 · Lesson 23 <span class="t" lang="nl">Lesson 23 – The auxiliary verb ‘zullen’</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-23/"><span class="d">2025-07-11</span><span class="m">S1 · Lesson 23 <span class="t" lang="nl">Lesson 23 – The auxiliary verb ‘zullen’</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-22/"><span class="d">2025-07-10</span><span class="m">S1 · Lesson 22 <span class="t" lang="nl">Lesson 22 – Modal verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-22/"><span class="d">2025-07-08</span><span class="m">S1 · Lesson 22 <span class="t" lang="nl">Lesson 22 – Modal verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-21/"><span class="d">2025-07-07</span><span class="m">S1 · Lesson 21 <span class="t" lang="nl">Lesson 21 – Interrogative words with ‘hoe’</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-21/"><span class="d">2025-07-06</span><span class="m">S1 · Lesson 21 <span class="t" lang="nl">Lesson 21 – Interrogative words with ‘hoe’</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-20/"><span class="d">2025-07-05</span><span class="m">S1 · Lesson 20 <span class="t" lang="nl">Lesson 20 – Degrees of comparison</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-20/"><span class="d">2025-07-04</span><span class="m">S1 · Lesson 20 <span class="t" lang="nl">Lesson 20 – Degrees of comparison</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-19/"><span class="d">2025-07-03</span><span class="m">S1 · Lesson 19 <span class="t" lang="nl">Lesson 19 – Negation</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-19/"><span class="d">2025-07-02</span><span class="m">S1 · Lesson 19 <span class="t" lang="nl">Lesson 19 – Negation</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-18/"><span class="d">2025-07-01</span><span class="m">S1 · Lesson 18 <span class="t" lang="nl">Lesson 18 – Word order: time and place</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-18/"><span class="d">2025-06-30</span><span class="m">S1 · Lesson 18 <span class="t" lang="nl">Lesson 18 – Word order: time and place</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-18/"><span class="d">2025-06-29</span><span class="m">S1 · Lesson 18 <span class="t" lang="nl">Lesson 18 – Word order: time and place</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-17/"><span class="d">2025-06-28</span><span class="m">S1 · Lesson 17 <span class="t" lang="nl">Lesson 17 – Indefinite pronouns</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-17/"><span class="d">2025-06-27</span><span class="m">S1 · Lesson 17 <span class="t" lang="nl">Lesson 17 – Indefinite pronouns</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-16/"><span class="d">2025-06-26</span><span class="m">S1 · Lesson 16 <span class="t" lang="nl">Lesson 16 – Welk, elk, ieder</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-16/"><span class="d">2025-06-25</span><span class="m">S1 · Lesson 16 <span class="t" lang="nl">Lesson 16 – Welk, elk, ieder</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-15/"><span class="d">2025-06-24</span><span class="m">S1 · Lesson 15 <span class="t" lang="nl">Lesson 15 – The article</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-15/"><span class="d">2025-06-23</span><span class="m">S1 · Lesson 15 <span class="t" lang="nl">Lesson 15 – The article</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-14/"><span class="d">2025-06-22</span><span class="m">S1 · Lesson 14 <span class="t" lang="nl">Lesson 14 – Review lesson</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-14/"><span class="d">2025-06-21</span><span class="m">S1 · Lesson 14 <span class="t" lang="nl">Lesson 14 – Review lesson</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-13/"><span class="d">2025-06-20</span><span class="m">S1 · Lesson 13 <span class="t" lang="nl">Lesson 13 – Review lesson</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-13/"><span class="d">2025-06-19</span><span class="m">S1 · Lesson 13 <span class="t" lang="nl">Lesson 13 – Review lesson</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-12/"><span class="d">2025-06-18</span><span class="m">S1 · Lesson 12 <span class="t" lang="nl">Lesson 12 – Prepositions + position verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-12/"><span class="d">2025-06-17</span><span class="m">S1 · Lesson 12 <span class="t" lang="nl">Lesson 12 – Prepositions + position verbs</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-11/"><span class="d">2025-06-16</span><span class="m">S1 · Lesson 11 <span class="t" lang="nl">Lesson 11 – Possessive adjective + demonstrative pronoun</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-11/"><span class="d">2025-06-14</span><span class="m">S1 · Lesson 11 <span class="t" lang="nl">Lesson 11 – Possessive adjective + demonstrative pronoun</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-10/"><span class="d">2025-06-13</span><span class="m">S1 · Lesson 10 <span class="t" lang="nl">Lesson 10 – Personal pronoun as object</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-10/"><span class="d">2025-06-12</span><span class="m">S1 · Lesson 10 <span class="t" lang="nl">Lesson 10 – Personal pronoun as object</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-09/"><span class="d">2025-06-11</span><span class="m">S1 · Lesson 9 <span class="t" lang="nl">Lesson 09 – Diminutives + ordinal numbers</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-09/"><span class="d">2025-06-10</span><span class="m">S1 · Lesson 9 <span class="t" lang="nl">Lesson 09 – Diminutives + ordinal numbers</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-09/"><span class="d">2025-06-09</span><span class="m">S1 · Lesson 9 <span class="t" lang="nl">Lesson 09 – Diminutives + ordinal numbers</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-08/"><span class="d">2025-06-08</span><span class="m">S1 · Lesson 8 <span class="t" lang="nl">Lesson 08 – Prepositions</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-08/"><span class="d">2025-06-07</span><span class="m">S1 · Lesson 8 <span class="t" lang="nl">Lesson 08 – Prepositions</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-08/"><span class="d">2025-06-06</span><span class="m">S1 · Lesson 8 <span class="t" lang="nl">Lesson 08 – Prepositions</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-07/"><span class="d">2025-06-05</span><span class="m">S1 · Lesson 7 <span class="t" lang="nl">Lesson 07 – Numbers + plural nouns</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-07/"><span class="d">2025-05-30</span><span class="m">S1 · Lesson 7 <span class="t" lang="nl">Lesson 07 – Numbers + plural nouns</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-07/"><span class="d">2025-05-29</span><span class="m">S1 · Lesson 7 <span class="t" lang="nl">Lesson 07 – Numbers + plural nouns</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-06/"><span class="d">2025-05-28</span><span class="m">S1 · Lesson 6 <span class="t" lang="nl">Lesson 06 – Adjectives</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-06/"><span class="d">2025-05-27</span><span class="m">S1 · Lesson 6 <span class="t" lang="nl">Lesson 06 – Adjectives</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-06/"><span class="d">2025-05-26</span><span class="m">S1 · Lesson 6 <span class="t" lang="nl">Lesson 06 – Adjectives</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-05/"><span class="d">2025-05-25</span><span class="m">S1 · Lesson 5 <span class="t" lang="nl">Lesson 05 – Inversion + question words</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-05/"><span class="d">2025-05-24</span><span class="m">S1 · Lesson 5 <span class="t" lang="nl">Lesson 05 – Inversion + question words</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-04/"><span class="d">2025-05-23</span><span class="m">S1 · Lesson 4 <span class="t" lang="nl">Lesson 04 – Boat trip</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-04/"><span class="d">2025-05-22</span><span class="m">S1 · Lesson 4 <span class="t" lang="nl">Lesson 04 – Boat trip</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-05/"><span class="d">2025-05-21</span><span class="m">S1 · Lesson 5 <span class="t" lang="nl">Lesson 05 – Inversion + question words</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-03/"><span class="d">2025-05-21</span><span class="m">S1 · Lesson 3 <span class="t" lang="nl">Lesson 03 – Amsterdam</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-03/"><span class="d">2025-05-20</span><span class="m">S1 · Lesson 3 <span class="t" lang="nl">Lesson 03 – Amsterdam</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-03/"><span class="d">2025-05-19</span><span class="m">S1 · Lesson 3 <span class="t" lang="nl">Lesson 03 – Amsterdam</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-03/"><span class="d">2025-05-18</span><span class="m">S1 · Lesson 3 <span class="t" lang="nl">Lesson 03 – Amsterdam</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-03/"><span class="d">2025-05-17</span><span class="m">S1 · Lesson 3 <span class="t" lang="nl">Lesson 03 – Amsterdam</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-03/"><span class="d">2025-05-16</span><span class="m">S1 · Lesson 3 <span class="t" lang="nl">Lesson 03 – Amsterdam</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+<li><a class="log-row" href="lessons/s1-les-02/"><span class="d">2025-05-16</span><span class="m">S1 · Lesson 2 <span class="t" lang="nl">Lesson 02 – Countries &amp; languages</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+</ol></details>
+</main>
+<footer class="site"><div class="wrap-f">Feedback: <a href="mailto:guo-h15@foxmail.com">guo-h15@foxmail.com</a></div></footer>
 </body></html>
