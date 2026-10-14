@@ -1,5 +1,65 @@
 [
  {
+  "date": "2026-10-14",
+  "lesson": "s2-les-08",
+  "part": "2",
+  "kind": "study+recite1",
+  "historical": false,
+  "season": 2,
+  "number": 8,
+  "title": "#8 - Oops... Martin ignores Marieke..."
+ },
+ {
+  "date": "2026-10-12",
+  "lesson": "s2-les-08",
+  "part": "1",
+  "kind": "study+recite1",
+  "historical": false,
+  "season": 2,
+  "number": 8,
+  "title": "#8 - Oops... Martin ignores Marieke..."
+ },
+ {
+  "date": "2026-10-10",
+  "lesson": "s2-les-07",
+  "part": "2",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 7,
+  "title": "Grammatica Nederlands NT2 toegepast: vervoeging modale werkwoorden - mogen, willen, kunnen, moeten"
+ },
+ {
+  "date": "2026-10-09",
+  "lesson": "s2-les-07",
+  "part": "2",
+  "kind": "recite1",
+  "historical": false,
+  "season": 2,
+  "number": 7,
+  "title": "Grammatica Nederlands NT2 toegepast: vervoeging modale werkwoorden - mogen, willen, kunnen, moeten"
+ },
+ {
+  "date": "2026-10-08",
+  "lesson": "s2-les-07",
+  "part": "2",
+  "kind": "study",
+  "historical": false,
+  "season": 2,
+  "number": 7,
+  "title": "Grammatica Nederlands NT2 toegepast: vervoeging modale werkwoorden - mogen, willen, kunnen, moeten"
+ },
+ {
+  "date": "2026-10-06",
+  "lesson": "s2-les-07",
+  "part": "1",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 7,
+  "title": "Grammatica Nederlands NT2 toegepast: vervoeging modale werkwoorden - mogen, willen, kunnen, moeten"
+ },
+ {
   "date": "2026-10-05",
   "lesson": "s2-les-07",
   "part": "1",
