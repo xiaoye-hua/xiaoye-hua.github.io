@@ -1,9 +1,39 @@
 [
  {
+  "date": "2026-10-20",
+  "lesson": "s2-les-09",
+  "part": "1",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 9,
+  "title": "#9 - Oh nee! Marieke en Xing ..."
+ },
+ {
+  "date": "2026-10-19",
+  "lesson": "s2-les-09",
+  "part": "1",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 9,
+  "title": "#9 - Oh nee! Marieke en Xing ..."
+ },
+ {
+  "date": "2026-10-17",
+  "lesson": "s2-les-09",
+  "part": "1",
+  "kind": "recite1",
+  "historical": false,
+  "season": 2,
+  "number": 9,
+  "title": "#9 - Oh nee! Marieke en Xing ..."
+ },
+ {
   "date": "2026-10-16",
   "lesson": "s2-les-09",
   "part": "1",
-  "kind": "study+recite1",
+  "kind": "study",
   "historical": false,
   "season": 2,
   "number": 9,
