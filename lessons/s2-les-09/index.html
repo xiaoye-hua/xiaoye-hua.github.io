@@ -167,11 +167,13 @@ const state = { part:"1", showBoiler:false, onlyMine:false, onlyGram:false, mark
 let RULES = {};
 const BOILER = new Set(["intro","outro","filler"]);
 let D = null, SENT = [], WORDS = {}, MORPH = {}, MORPHEMES = {};
+/* D006: collocs.json = {n: {colloc id: {head, meaning, nl, en}}}; nl/en = what the audio says. */
+let COLLOCS = {};
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const key = w => w.toLowerCase().replace(/^[^\p{L}\d']+|[^\p{L}\d']+$/gu,"");
-const markOf = n => state.marks[n] || { words:[], treatAsNew:false, comment:"" };
-const hasMine = m => m.words.length || m.treatAsNew || (m.comment||"").trim();
+const markOf = n => ({ words:[], treatAsNew:false, comment:"", collocs:[], ...(state.marks[n] || {}) });
+const hasMine = m => m.words.length || m.treatAsNew || (m.collocs||[]).length || (m.comment||"").trim();
 const setSave = (t, err) => { const e=$("#save"); e.textContent=t; e.classList.toggle("err",!!err); };
 
 /* ---------- saving ---------- */
@@ -248,10 +250,22 @@ function rowHTML(s){
   [...new Set(hits.map(h=>h.rule))].forEach(r => chips.push(`<span class="chip gram">grammar: ${esc(RULES[r] ? RULES[r].name : r)}</span>`));
   const gbox = hits.length ? `<div class="grambox">${hits.map(h=>`<div class="g"><span class="rl">Rule ${esc(h.rule)} · ${esc(RULES[h.rule]?RULES[h.rule].name:"")}</span><span class="hl" lang="nl">${h.highlight}</span></div><div>${esc(h.explanation)}</div>`).join("")}</div>` : "";
   const mine = m.words.length ? `<div class="mine"><span class="lbl">You marked</span>${m.words.map(w=>`<span class="w">${esc(w)}</span>`).join("")}</div>` : "";
-  /* Fixed collocations for this sentence, straight from the registry (data.json
-     `collocations`). Only real entries appear, and each opens its own page. The
-     pipeline's raw `chunks` list is candidate material, not page content. */
-  const colls = (s.collocations || []).length
+  /* Collocations (D006, hua 2026-10-20). When the lesson has collocs.json, each one is a
+     chip hua taps when it feels unfamiliar: tapped = it goes into the Pimsleur audio
+     (marks[n].collocs). The chip shows the dictionary form and its meaning; the tooltip and
+     the "In the audio" line show exactly what the audio says. No learned/unlearned state.
+     Older lessons without collocs.json keep the registry links (data.json `collocations`);
+     the pipeline's raw `chunks` list is candidate material, not page content. */
+  const lib = new Set((s.collocations || []).map(c => c.id));
+  const ac = Object.entries(COLLOCS[s.n] || {}).map(([id, v]) => ({ id, ...v, lib: lib.has(id) }));
+  const tapped = ac.filter(c => (m.collocs||[]).includes(c.id));
+  const colls = ac.length
+    ? `<div class="chunks"><span class="lbl">Collocations · tap = into audio</span>${ac.map(c => {
+        const on = (m.collocs||[]).includes(c.id);
+        return `<span class="cgrp"><button type="button" class="chunk tap" data-cn="${s.n}" data-cid="${esc(c.id)}" aria-pressed="${on}" title="Audio: ${esc(c.nl)} = ${esc(c.en)}" lang="nl">${on?"✓ ":""}${esc(c.head)}</button><span class="chunk-en">${esc(c.meaning || c.en)}</span>`
+          + (c.lib ? `<a class="chunk-lib" href="${LIB}collocations/${esc(c.id)}/" aria-label="Library page for ${esc(c.head)}">›</a>` : "") + `</span>`;
+      }).join("")}</div>${tapped.length ? `<div class="audio-preview">${tapped.map(c => `In the audio: <b lang="nl">${esc(c.nl)}</b> = ${esc(c.en)}`).join("<br>")}</div>` : ""}`
+    : (s.collocations || []).length
     ? `<div class="chunks"><span class="lbl">Collocations</span>${s.collocations.map(c =>
         `<a class="chunk ref" href="${LIB}collocations/${c.id}/" title="${esc(c.en)}">${esc(c.head)}</a>`
       ).join("")}</div>`
@@ -290,10 +304,11 @@ function visible(s){
 }
 function renderStats(){
   $("#stats").innerHTML = META.parts.map(pp => pp.id).map(p => {
-    let words=0, flagged=0, comments=0;
-    SENT.filter(s=>s.part===p).forEach(s => { const m=markOf(s.n); words+=m.words.length; if(m.treatAsNew) flagged++; if((m.comment||"").trim()) comments++; });
+    let words=0, flagged=0, comments=0, colls=0;
+    SENT.filter(s=>s.part===p).forEach(s => { const m=markOf(s.n); words+=m.words.length; colls+=(m.collocs||[]).length; if(m.treatAsNew) flagged++; if((m.comment||"").trim()) comments++; });
     return `<div class="stat"><b>${esc(partInfo(p).label)}${partInfo(p).range?` · sentences ${esc(partInfo(p).range)}`:""}</b>
       <span><span class="k">${words}</span><span class="l">words marked</span></span>
+${Object.keys(COLLOCS).length ? `<span><span class="k">${colls}</span><span class="l">collocations for audio</span></span>` : ""}
       <span><span class="k">${flagged}</span><span class="l">flagged as new</span></span>
       <span><span class="k">${comments}</span><span class="l">comments</span></span></div>`;
   }).join("");
@@ -428,6 +443,11 @@ document.addEventListener("click", e => {
 
   const ex = e.target.closest("[data-ex]");
   if (ex){ const n = +ex.dataset.ex; state.open.has(n) ? state.open.delete(n) : state.open.add(n); return rerenderRow(n, `#s${n} .linkbtn`); }
+
+  const cb = e.target.closest("[data-cid]");
+  if (cb){ const n = +cb.dataset.cn, id = cb.dataset.cid, m = markOf(n);
+    m.collocs = m.collocs.includes(id) ? m.collocs.filter(x => x !== id) : [...m.collocs, id];
+    state.marks[n] = m; persist(0); return rerenderRow(n, `[data-cid="${CSS.escape(id)}"][data-cn="${n}"]`); }
 
   const fb = e.target.closest("[data-flag]");
   if (fb){ const n = +fb.dataset.flag; state.marks[n] = { ...markOf(n), treatAsNew: !markOf(n).treatAsNew }; persist(0); return rerenderRow(n, `[data-flag="${n}"]`); }
@@ -894,11 +914,13 @@ document.addEventListener("click", e => {
 /* ---------- boot ---------- */
 (async () => {
   try{
-    const [d, mk, tm, rc, cd] = await Promise.all([fetch(api("data.json")).then(r=>r.json()), fetch(api("marks.json")).then(r => r.ok ? r.json() : {}).catch(() => ({})),
+    const [d, mk, tm, rc, cd, co] = await Promise.all([fetch(api("data.json")).then(r=>r.json()), fetch(api("marks.json")).then(r => r.ok ? r.json() : {}).catch(() => ({})),
       fetch(api("timings.json")).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch(api("recite.json")).then(r => r.ok ? r.json() : {}).catch(() => ({})),
-      fetch(api("cards.json")).then(r => r.ok ? r.json() : {}).catch(() => ({}))]);
+      fetch(api("cards.json")).then(r => r.ok ? r.json() : {}).catch(() => ({})),
+      fetch(api("collocs.json")).then(r => r.ok ? r.json() : {}).catch(() => ({}))]);
     RECITE = rc || {}; CARDS = cd || {};
+    COLLOCS = Object.fromEntries(Object.entries(co || {}).filter(([n]) => /^\d+$/.test(n)));
     if (tm){ TIMINGS = tm.sentences || {}; VIDEO = tm.videoId; } else setNow("No sentence timings for this lesson yet.", true);
     D = d; SENT = d.sentences; WORDS = d.words; MORPH = d.morph || {}; MORPHEMES = d.morphemes || {};
     if (d.news) document.body.classList.add("newsnote");
@@ -917,7 +939,8 @@ document.addEventListener("click", e => {
     if (!d.news && META.parts.length === 2) $("#rhythm").textContent = "1 lesson = 2 parts · 1 part = 2 days.";
     renderPartTabs();
     Object.entries(mk).forEach(([n, v]) => { if (!/^\d+$/.test(n) || !v) return;
-      state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"" }; });
+      state.marks[+n] = { words:Array.isArray(v.words)?v.words:[], treatAsNew:!!v.treatAsNew, comment:typeof v.comment==="string"?v.comment:"",
+        collocs:Array.isArray(v.collocs)?v.collocs:[] }; });   // keep every field the page writes, or the next save erases it
     const G = d.grammar;
     if (G){ G.rules.forEach(r => { RULES[r.id] = r; }); }
     const hitsFor = pred => SENT.filter(s => pred(s) && s.grammarHits && s.grammarHits.length);

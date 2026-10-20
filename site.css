@@ -428,6 +428,15 @@ body.ws.dragging iframe{pointer-events:none}
 .ws .chunk{font-family:var(--font-reading);font-size:14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px}
 .ws a.chunk.ref{color:inherit;text-decoration:none;border-color:var(--accent-ink);border-bottom-width:2px}
 .ws a.chunk.ref:hover{background:var(--accent);color:var(--on-accent)}
+.ws .cgrp{display:inline-flex;align-items:center;gap:8px;flex-wrap:nowrap;max-width:100%}
+.ws button.chunk.tap{cursor:pointer;white-space:nowrap;flex:none;color:inherit;border-style:dashed}
+.ws button.chunk.tap:hover{border-color:var(--accent-ink)}
+.ws button.chunk.tap[aria-pressed="true"]{background:var(--mark-bg);color:var(--mark-ink);border-style:solid;border-color:var(--mark-bg)}
+.ws .chunk-en{font-size:13px;color:var(--ink-2)}
+.ws .chunk-lib{color:var(--accent-ink);text-decoration:none;padding:0 4px}
+.ws .audio-preview{font-size:13px;color:var(--ink-2)}
+.ws .audio-preview b{font-family:var(--font-reading);font-weight:600}
+@media (max-width:639px){.ws button.chunk.tap{min-height:44px}}
 .ws .note{max-width:72ch}
 .ws .mine .w{font-family:var(--font-reading);background:var(--mark-bg);color:var(--mark-ink);border-radius:var(--r-sm);padding:0 8px;font-size:14px}
 .ws .act{margin-top:12px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
