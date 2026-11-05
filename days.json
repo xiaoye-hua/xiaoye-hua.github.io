@@ -1,9 +1,28 @@
 [
  {
+  "date": "2026-11-05",
+  "lesson": "a2-2026-11-05-spreken1",
+  "part": "",
+  "kind": "study",
+  "historical": false,
+  "title": "A2 Spreken · oefenexamen 1",
+  "a2": true
+ },
+ {
+  "date": "2026-10-24",
+  "lesson": "s2-les-11",
+  "part": "1",
+  "kind": "recite2",
+  "historical": false,
+  "season": 2,
+  "number": 11,
+  "title": "Scheidbare werkwoorden (separable verbs) + onscheidbare werkwoorden (inseparable verbs)"
+ },
+ {
   "date": "2026-10-23",
   "lesson": "s2-les-11",
   "part": "1",
-  "kind": "study",
+  "kind": "study+recite1",
   "historical": false,
   "season": 2,
   "number": 11,
